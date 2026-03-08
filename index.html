@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>小小勇者成語傳說：全平台優化版</title>
+    <title>小小勇者成語傳說：手機布局優化版</title>
     <style>
         :root {
             --bg-ui: rgba(0, 0, 0, 0.85);
@@ -24,13 +24,13 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, #2c0000 0%, #000 100%);
             z-index: 9999; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; gap: 15px;
+            justify-content: center; align-items: center; gap: 12px;
             padding: 20px; box-sizing: border-box;
         }
 
         .mode-title { color: var(--gold); font-size: clamp(32px, 8vw, 56px); text-shadow: 0 0 20px var(--primary-red); text-align: center; }
 
-        .setting-group { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
+        .setting-group { display: flex; gap: 10px; margin-bottom: 15px; align-items: center; }
         .num-btn {
             padding: 8px 20px; font-size: 16px; cursor: pointer;
             background: #222; color: #fff; border: 2px solid #555; border-radius: 5px;
@@ -38,80 +38,78 @@
         .num-btn.active { border-color: var(--gold); color: var(--gold); background: #443300; }
 
         .action-btn {
-            padding: 15px; font-size: 20px; font-weight: bold; cursor: pointer;
+            padding: 14px; font-size: 18px; font-weight: bold; cursor: pointer;
             background: var(--primary-red); color: white; border: 3px solid #ff4d4d;
-            border-radius: 50px; width: 260px; max-width: 90%; margin-top: 5px;
+            border-radius: 50px; width: 260px; max-width: 90%;
         }
 
-        /* 遊戲容器 */
+        /* 遊戲主容器 */
         #game-container {
             position: relative; width: 100vw; height: 100vh;
-            /* 修正：放大手機版 Boss 圖片，範圍從 75% 到 電腦版 30% */
             background-size: clamp(280px, 75vw, 350px) auto; 
             background-repeat: no-repeat;
-            background-position: center 10%; 
+            background-position: center 8%; /* 稍微往上一點點 */
             transition: background-image 0.5s;
         }
 
-        /* 特效層 - 同步放大 */
         .boss-effect-layer {
-            position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
-            width: clamp(280px, 80vw, 400px); height: 45%;
+            position: absolute; top: 6%; left: 50%; transform: translateX(-50%);
+            width: clamp(280px, 80vw, 400px); height: 40%;
             background-size: contain; background-repeat: no-repeat; background-position: center;
             pointer-events: none; display: none; z-index: 15;
         }
 
         #status-text {
-            position: absolute; top: 28%; left: 50%; transform: translate(-50%, -50%);
-            font-size: clamp(28px, 8vw, 52px); font-weight: 900; z-index: 20; 
+            position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);
+            font-size: clamp(26px, 8vw, 48px); font-weight: 900; z-index: 20; 
             pointer-events: none; text-shadow: 0 0 15px #000; display: none;
         }
 
-        /* UI 區域 - 確保高度足夠 */
+        /* UI 區域 - 修正高度與對齊 */
         #ui-overlay {
-            position: absolute; bottom: 0; width: 100%; height: 48vh;
-            background: linear-gradient(to top, #000 85%, rgba(0,0,0,0.5));
+            position: absolute; bottom: 0; width: 100%; height: 52vh; /* 調高比例 */
+            background: linear-gradient(to top, #000 88%, rgba(0,0,0,0.4));
             border-top: 3px solid var(--primary-red);
             display: flex; flex-direction: column; align-items: center;
-            padding: 10px; box-sizing: border-box;
+            padding: 10px 10px 30px 10px; /* 增加下方填充，將內容推高 */
+            box-sizing: border-box;
         }
 
         #boss-hp-container {
-            position: absolute; top: -45px; left: 50%; transform: translateX(-50%);
-            width: 80%; max-width: 350px; height: 28px; background: rgba(255, 255, 255, 0.1);
+            position: absolute; top: -42px; left: 50%; transform: translateX(-50%);
+            width: 80%; max-width: 320px; height: 26px; background: rgba(255, 255, 255, 0.1);
             border: 2px solid #ff4d4d; border-radius: 15px; overflow: hidden;
         }
-        #boss-hp-fill { height: 100%; background: linear-gradient(90deg, #ff0000, #800000); width: 100%; transition: width 0.4s; }
-        #hp-text { position: absolute; width: 100%; text-align: center; font-size: 16px; top: 3px; font-weight: bold; }
+        #boss-hp-fill { height: 100%; background: linear-gradient(90deg, #ff0000, #800000); width: 100%; }
+        #hp-text { position: absolute; width: 100%; text-align: center; font-size: 15px; top: 2px; font-weight: bold; }
 
         #question-area { 
-            font-size: clamp(18px, 5vw, 26px); margin: 15px 0; text-align: center; 
-            color: #ffeb3b; min-height: 80px; display: flex; align-items: center; 
-            max-width: 90%; line-height: 1.5; 
+            font-size: clamp(17px, 4.8vw, 24px); margin: 10px 0 5px 0; text-align: center; 
+            color: #ffeb3b; min-height: 70px; display: flex; align-items: center; 
+            max-width: 92%; line-height: 1.4; 
         }
 
-        /* 答案區域 */
         #answer-area { 
-            display: flex; width: 95%; justify-content: center; 
-            gap: 8px; margin-bottom: 15px; 
+            display: flex; width: 96%; justify-content: center; 
+            gap: 6px; margin-bottom: 12px; 
         }
         .answer-target { 
-            flex: 1; height: clamp(55px, 14vw, 75px); 
-            background: rgba(40, 40, 40, 0.9); border: 1.5px solid #555; 
+            flex: 1; height: clamp(52px, 13vw, 70px); 
+            background: rgba(45, 45, 45, 0.95); border: 1.5px solid #666; 
             border-radius: 10px; display: flex; justify-content: center; 
-            align-items: center; font-size: clamp(15px, 4vw, 22px); 
+            align-items: center; font-size: clamp(14px, 3.8vw, 20px); 
             font-weight: bold; text-align: center; padding: 4px;
         }
-        .answer-target.hover { background: rgba(255, 215, 0, 0.2); border-color: var(--gold); }
+        .answer-target.hover { background: rgba(255, 215, 0, 0.25); border-color: var(--gold); }
 
-        /* 神劍 - 手機版適度放大方便觸控 */
+        /* 神劍 - 修正置中位置與垂直高度 */
         #sword-container { flex-grow: 1; width: 100%; position: relative; }
         #sword { 
-            width: clamp(100px, 25vw, 130px); 
-            height: clamp(100px, 25vw, 130px); 
+            width: clamp(100px, 24vw, 120px); 
+            height: clamp(100px, 24vw, 120px); 
             background-image: url('img/attack.png'); background-size: contain; 
             background-repeat: no-repeat; background-position: center;
-            position: absolute; left: 50%; top: 50%;
+            position: absolute; left: 50%; top: 40%; /* 往上移動一點點 */
             transform: translate(-50%, -50%);
             cursor: grab; touch-action: none; z-index: 50;
         }
@@ -165,13 +163,13 @@
 
 <div id="victory-screen">
     <h1 style="font-size: clamp(40px, 10vw, 72px); color: var(--gold); text-align: center; text-shadow: 0 0 20px var(--gold);">恭喜完成！</h1>
-    <h2 style="font-size: 24px; color: #fff; text-align: center; margin-bottom: 30px;">成語王國恢復了和平</h2>
     <button onclick="location.reload()" class="action-btn">回到首頁</button>
 </div>
 
 <script>
     let totalQuestions = 10;
     let gameMode = 1;
+    // ... (idiomDatabase 內容保持不變) ...
     const idiomDatabase = [
   { idiom: '事與願違', qmode1: '事實和願望相違背', qmode2: '我們原本想去野餐，但 _____，出門前突然下起大雨。' },
   { idiom: '暮鼓晨鐘', qmode1: '佛寺中早晚報時的鐘鼓。後也用來指一日的時光，或比喻使人警醒的力量', qmode2: '爺爺的一番話語有如 _____，使我突然領悟與人相處的道理。' },
@@ -214,12 +212,8 @@
   { idiom: '觸類旁通', qmode1: '根據對已知事物的認識與理解，進而通達對其他類似事物', qmode2: '老師不厭其煩的講解例題，就是要讓我們能 _____ ，舉一反三。' },
   { idiom: '大開眼界', qmode1: '明顯的使視野開展，見聞增加', qmode2: '今天到故宮參觀，看見數不清的歷代寶物，真是讓我 _____。' },
   { idiom: '七嘴八舌', qmode1: '形容人多口雜，各說各的樣子', qmode2: '下課後，大家立刻 _____ 的討論運動會的比賽項目。' },
-  { idiom: '千奇百怪', qmode1: '形容事物外觀奇特，種類繁多', qmode2: '弟弟聰明活潑，經常會有 _____ 的點子。' }    ];
-
-    let currentQuestions = [];
-    let currentQuestionIndex = 0;
-    let bossHp = 10;
-    let isGameOver = false;
+  { idiom: '千奇百怪', qmode1: '形容事物外觀奇特，種類繁多', qmode2: '弟弟聰明活潑，經常會有 _____ 的點子。' }
+    ];
 
     const sword = document.getElementById('sword');
     const bgm = document.getElementById('bgm');
@@ -259,7 +253,7 @@
         let options = [currentData.idiom, ...wrongOptions].sort(() => 0.5 - Math.random());
         answerTargets.forEach((target, index) => {
             target.textContent = options[index];
-            target.style.background = "rgba(40, 40, 40, 0.9)";
+            target.style.background = "rgba(45, 45, 45, 0.95)";
             target.classList.remove('hover');
         });
     }
@@ -271,7 +265,7 @@
 
     // Pointer Events 支援
     let isDragging = false;
-    let startX, startY, swordOriginX, swordOriginY;
+    let startX, startY;
 
     sword.addEventListener('pointerdown', (e) => {
         if(isGameOver) return;
@@ -279,8 +273,6 @@
         sword.setPointerCapture(e.pointerId);
         startX = e.clientX;
         startY = e.clientY;
-        swordOriginX = 0; // 基於 CSS translate 中心
-        swordOriginY = 0;
     });
 
     window.addEventListener('pointermove', (e) => {
@@ -312,8 +304,6 @@
         });
 
         if (hitTarget) checkAnswer(hitTarget);
-
-        // 重設位置
         sword.style.transform = `translate(-50%, -50%)`;
     });
 
