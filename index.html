@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>小小成語英雄：特效校準版</title>
+    <title>小小成語英雄：懲罰機制強化版</title>
     <style>
         :root {
             --bg-ui: rgba(0, 0, 0, 0.85);
             --primary-red: #b30000;
             --gold: #ffd700;
-            /* 定義統一的 Boss 寬度，確保底圖與特效一致 */
             --boss-width: clamp(280px, 75vw, 350px);
         }
 
@@ -20,7 +19,6 @@
             user-select: none; touch-action: none; 
         }
 
-        /* 啟動介面 */
         #start-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle, #2c0000 0%, #000 100%);
@@ -36,23 +34,29 @@
             border-radius: 50px; width: 260px; max-width: 90%;
         }
 
-        /* 遊戲主容器 */
+        .setting-group { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
+        .num-btn {
+            padding: 8px 25px; font-size: 18px; cursor: pointer;
+            background: #222; color: #fff; border: 2px solid #555; border-radius: 5px;
+            transition: 0.3s;
+        }
+        .num-btn.active { border-color: var(--gold); color: var(--gold); background: #443300; box-shadow: 0 0 10px var(--gold); }
+
         #game-container {
             position: relative; width: 100vw; height: 100vh;
             background-size: var(--boss-width) auto; 
             background-repeat: no-repeat;
-            background-position: center 10%; /* 統一基準點：10% */
+            background-position: center 10%; 
             transition: background-image 0.5s;
         }
 
-        /* 修正：特效層位置與底圖完全重合 */
         .boss-effect-layer {
             position: absolute; 
-            top: 10%; /* 與底圖 background-position 一致 */
+            top: 10%; 
             left: 50%; 
             transform: translateX(-50%);
-            width: var(--boss-width); /* 使用統一寬度變數 */
-            height: 40vh; /* 設定足夠高度容納 GIF */
+            width: var(--boss-width); 
+            height: 40vh; 
             background-size: contain; 
             background-repeat: no-repeat; 
             background-position: center top; 
@@ -63,18 +67,20 @@
 
         #status-text {
             position: absolute; 
-            top: 25%; /* 疊加在 Boss 身上 */
+            top: 25%; 
             left: 50%; 
             transform: translate(-50%, -50%);
-            font-size: clamp(26px, 8vw, 48px); 
+            font-size: clamp(20px, 6vw, 40px); 
             font-weight: 900; 
             z-index: 20; 
             pointer-events: none; 
-            text-shadow: 0 0 15px #000; 
+            text-shadow: 0 0 15px #000, 0 0 5px #000; 
             display: none;
+            text-align: center;
+            width: 90%;
+            line-height: 1.5;
         }
 
-        /* UI 區域 */
         #ui-overlay {
             position: absolute; bottom: 0; width: 100%; height: 52vh;
             background: linear-gradient(to top, #000 88%, rgba(0,0,0,0.4));
@@ -177,10 +183,9 @@
 </div>
 
 <script>
-    // 資料庫與邏輯保持不變...
     let totalQuestions = 10;
     let gameMode = 1;
-    // ... (idiomDatabase 內容) ...
+    
     const idiomDatabase = [
   { idiom: '事與願違', qmode1: '事實和願望相違背', qmode2: '我們原本想去野餐，但 _____，出門前突然下起大雨。' },
   { idiom: '暮鼓晨鐘', qmode1: '佛寺中早晚報時的鐘鼓。後也用來指一日的時光，或比喻使人警醒的力量', qmode2: '爺爺的一番話語有如 _____，使我突然領悟與人相處的道理。' },
@@ -223,12 +228,14 @@
   { idiom: '觸類旁通', qmode1: '根據對已知事物的認識與理解，進而通達對其他類似事物', qmode2: '老師不厭其煩的講解例題，就是要讓我們能 _____ ，舉一反三。' },
   { idiom: '大開眼界', qmode1: '明顯的使視野開展，見聞增加', qmode2: '今天到故宮參觀，看見數不清的歷代寶物，真是讓我 _____。' },
   { idiom: '七嘴八舌', qmode1: '形容人多口雜，各說各的樣子', qmode2: '下課後，大家立刻 _____ 的討論運動會的比賽項目。' },
-  { idiom: '千奇百怪', qmode1: '形容事物外觀奇特，種類繁多', qmode2: '弟弟聰明活潑，經常會有 _____ 的點子。' }    ];
+  { idiom: '千奇百怪', qmode1: '形容事物外觀奇特，種類繁多', qmode2: '弟弟聰明活潑，經常會有 _____ 的點子。' }
+    ];
 
     let currentQuestions = [];
     let currentQuestionIndex = 0;
     let bossHp = 10;
     let isGameOver = false;
+    let isProcessingAnswer = false; // 防止連續觸發
 
     const sword = document.getElementById('sword');
     const bgm = document.getElementById('bgm');
@@ -239,7 +246,6 @@
         document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
     }
-    // 預設選 10 題
     setNum(10, document.getElementById('n10'));
 
     function handleStart(mode) {
@@ -255,6 +261,7 @@
         bossHp = totalQuestions;
         currentQuestionIndex = 0;
         isGameOver = false;
+        isProcessingAnswer = false;
         const randomBossNum = Math.floor(Math.random() * 5) + 1;
         document.getElementById('game-container').style.backgroundImage = `url('img/boss-${randomBossNum}.png')`;
         currentQuestions = [...idiomDatabase].sort(() => 0.5 - Math.random()).slice(0, totalQuestions);
@@ -264,6 +271,7 @@
 
     function loadQuestion() {
         if (isGameOver || currentQuestionIndex >= currentQuestions.length) return;
+        isProcessingAnswer = false; // 恢復可答題狀態
         const currentData = currentQuestions[currentQuestionIndex];
         document.getElementById('question-area').textContent = (gameMode === 1) ? currentData.qmode1 : currentData.qmode2;
         let wrongOptions = idiomDatabase.filter(item => item.idiom !== currentData.idiom).sort(() => 0.5 - Math.random()).slice(0, 2).map(item => item.idiom);
@@ -276,6 +284,8 @@
     }
 
     function updateHpUI() {
+        // 確保 HP 不會超過總題數（上限）
+        if (bossHp > totalQuestions) bossHp = totalQuestions;
         document.getElementById('boss-hp-fill').style.width = `${(bossHp / totalQuestions) * 100}%`;
         document.getElementById('hp-text').textContent = `HP: ${bossHp} / ${totalQuestions}`;
     }
@@ -285,7 +295,7 @@
     let startX, startY;
 
     sword.addEventListener('pointerdown', (e) => {
-        if(isGameOver) return;
+        if(isGameOver || isProcessingAnswer) return;
         isDragging = true;
         sword.setPointerCapture(e.pointerId);
         startX = e.clientX;
@@ -323,13 +333,19 @@
     });
 
     function checkAnswer(target) {
-        const isCorrect = target.textContent === currentQuestions[currentQuestionIndex].idiom;
+        if (isProcessingAnswer) return;
+        isProcessingAnswer = true; // 進入鎖定狀態
+        
+        const currentData = currentQuestions[currentQuestionIndex];
+        const isCorrect = target.textContent === currentData.idiom;
+        
         if (isCorrect) {
             bossHp--;
             updateHpUI();
-            triggerStatus('success');
+            triggerStatus('success', '');
             document.getElementById('game-container').style.animation = "shake 0.3s";
             setTimeout(() => document.getElementById('game-container').style.animation = "", 300);
+            
             if (bossHp <= 0) {
                 isGameOver = true;
                 document.getElementById('game-container').classList.add('boss-defeated');
@@ -339,32 +355,48 @@
                 setTimeout(loadQuestion, 500);
             }
         } else {
-            triggerStatus('fail');
+            // 答錯：HP + 2
+            bossHp += 2;
+            updateHpUI();
+            // 提示正確答案
+            triggerStatus('fail', currentData.idiom);
             target.style.background = "rgba(244, 67, 54, 0.4)";
+            
+            // 答錯多延遲 1 秒（原本 1.5s 提示，現在改為 2.5s 後換下一題）
+            currentQuestionIndex++;
+            setTimeout(loadQuestion, 2500); 
         }
     }
 
-    function triggerStatus(type) {
+    function triggerStatus(type, correctAnswer) {
         const status = document.getElementById('status-text');
         const attack = document.getElementById('attack-effect');
         const defense = document.getElementById('defense-effect');
+        
+        let displayTime = 1500; // 預設 1.5 秒
+
         if (type === 'success') {
             status.textContent = '命中！HP - 1';
             status.style.color = '#ffd700';
             attack.style.backgroundImage = `url('img/boss-attack.gif?t=${Date.now()}')`;
             attack.style.display = 'block';
+            defense.style.display = 'none';
         } else {
-            status.textContent = '防禦！Miss';
+            // 顯示文字：魔王回血 + 正確答案
+            status.innerHTML = `攻擊失敗！<br><span style="font-size:0.7em; color:white;">魔王恢復 HP+2</span><br><span style="color:#ffeb3b;">正確答案是：${correctAnswer}</span>`;
             status.style.color = '#ff4d4d';
             defense.style.backgroundImage = `url('img/boss-def.gif?t=${Date.now()}')`;
             defense.style.display = 'block';
+            attack.style.display = 'none';
+            displayTime = 2500; // 答錯提示顯示久一點
         }
+        
         status.style.display = 'block';
         setTimeout(() => {
             status.style.display = 'none';
             attack.style.display = 'none';
             defense.style.display = 'none';
-        }, 1500);
+        }, displayTime);
     }
 </script>
 </body>
