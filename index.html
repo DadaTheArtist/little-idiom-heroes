@@ -2,13 +2,21 @@
 <html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小小勇者成語傳說：題數自選版</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>小小勇者成語傳說：全平台支援版</title>
     <style>
+        :root {
+            --bg-ui: rgba(0, 0, 0, 0.85);
+            --primary-red: #b30000;
+            --gold: #ffd700;
+        }
+
         body {
             margin: 0; padding: 0; overflow: hidden;
-            font-family: 'Comic Sans MS', 'Chalkboard SE', 'LiHei Pro', sans-serif;
-            background-color: #000; color: white; user-select: none;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: #000; color: white;
+            user-select: none;
+            touch-action: none; /* 防止手機捲動干擾遊戲 */
         }
 
         /* 啟動介面 */
@@ -17,82 +25,104 @@
             background: radial-gradient(circle, #2c0000 0%, #000 100%);
             z-index: 9999; display: flex; flex-direction: column;
             justify-content: center; align-items: center; gap: 15px;
+            padding: 20px; box-sizing: border-box;
         }
 
-        .mode-title { color: #ffd700; font-size: 56px; text-shadow: 0 0 20px #b30000; margin-bottom: 5px; }
+        .mode-title { color: var(--gold); font-size: clamp(32px, 8vw, 56px); text-shadow: 0 0 20px var(--primary-red); text-align: center; }
 
-        /* 題數選擇樣式 */
         .setting-group { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
-        .setting-label { font-size: 18px; color: #aaa; margin-right: 10px; }
         .num-btn {
-            padding: 8px 25px; font-size: 18px; cursor: pointer;
+            padding: 8px 20px; font-size: 16px; cursor: pointer;
             background: #222; color: #fff; border: 2px solid #555; border-radius: 5px;
-            transition: 0.3s;
         }
-        .num-btn.active { border-color: #ffd700; color: #ffd700; background: #443300; box-shadow: 0 0 10px #ffd700; }
+        .num-btn.active { border-color: var(--gold); color: var(--gold); background: #443300; }
 
         .action-btn {
-            padding: 15px 50px; font-size: 24px; font-weight: bold; cursor: pointer;
-            background: #b30000; color: white; border: 3px solid #ff4d4d;
-            border-radius: 50px; box-shadow: 0 0 20px rgba(255, 0, 0, 0.4); transition: 0.2s;
-            width: 300px; margin-top: 5px;
+            padding: 15px; font-size: 20px; font-weight: bold; cursor: pointer;
+            background: var(--primary-red); color: white; border: 3px solid #ff4d4d;
+            border-radius: 50px; width: 260px; max-width: 90%; margin-top: 5px;
         }
-        .action-btn:hover { transform: scale(1.05); background: #e60000; }
 
-        /* 遊戲主體容器 */
+        /* 遊戲容器 */
         #game-container {
             position: relative; width: 100vw; height: 100vh;
-            background-size: 30% auto; background-repeat: no-repeat;
-            background-position: center 15%; transition: background-image 0.5s;
-            z-index: 10;
+            /* RWD Boss 比例調整 */
+            background-size: clamp(150px, 60vw, 30%) auto; 
+            background-repeat: no-repeat;
+            background-position: center 12%; 
+            transition: background-image 0.5s;
         }
 
+        /* 特效層 */
         .boss-effect-layer {
-            position: absolute; top: 5%; left: 50%; transform: translateX(-50%);
-            width: 35%; height: 45%; background-size: contain; background-repeat: no-repeat;
-            background-position: center; pointer-events: none; display: none; z-index: 15;
+            position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
+            width: clamp(150px, 65vw, 35%); height: 40%;
+            background-size: contain; background-repeat: no-repeat; background-position: center;
+            pointer-events: none; display: none; z-index: 15;
         }
 
         #status-text {
             position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);
-            font-size: 48px; font-weight: 900; z-index: 20; pointer-events: none;
-            text-shadow: 0 0 10px #000, 0 0 20px #000; display: none;
+            font-size: clamp(24px, 6vw, 48px); font-weight: 900; z-index: 20; 
+            pointer-events: none; text-shadow: 0 0 10px #000; display: none;
         }
 
-        .boss-defeated { animation: bossDeath 2s forwards !important; }
-        @keyframes bossDeath {
-            0% { filter: brightness(1); }
-            30% { filter: brightness(5) hue-rotate(90deg); transform: scale(1.1); }
-            100% { filter: brightness(20); opacity: 0; transform: translateY(-150px) scale(0); }
-        }
-
+        /* UI 區域 */
         #ui-overlay {
-            position: absolute; bottom: 0; width: 100%; height: 50%;
-            background: linear-gradient(to top, rgba(0,0,0,1) 85%, rgba(0,0,0,0.5));
-            border-top: 3px solid #b30000; display: flex; flex-direction: column;
-            align-items: center; padding: 20px; box-sizing: border-box;
+            position: absolute; bottom: 0; width: 100%; height: 45vh;
+            background: linear-gradient(to top, #000 80%, rgba(0,0,0,0.5));
+            border-top: 3px solid var(--primary-red);
+            display: flex; flex-direction: column; align-items: center;
+            padding: 10px; box-sizing: border-box;
         }
 
         #boss-hp-container {
-            position: absolute; top: 30px; left: 50%; transform: translateX(-50%);
-            width: 350px; height: 25px; background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #ff4d4d; border-radius: 12px; overflow: hidden;
+            position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
+            width: 280px; height: 20px; background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ff4d4d; border-radius: 10px; overflow: hidden;
         }
-        #boss-hp-fill { height: 100%; background: linear-gradient(90deg, #ff0000, #800000); width: 100%; transition: width 0.4s; }
-        #hp-text { position: absolute; width: 100%; text-align: center; top: 2px; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 2px #000; }
+        #boss-hp-fill { height: 100%; background: linear-gradient(90deg, #ff0000, #800000); width: 100%; }
+        #hp-text { position: absolute; width: 100%; text-align: center; font-size: 14px; top: 1px; }
 
-        #question-area { font-size: 24px; margin: 10px 0; text-align: center; color: #ffeb3b; min-height: 100px; display: flex; align-items: center; max-width: 80%; line-height: 1.5; }
-        #answer-area { display: flex; gap: 15px; margin-bottom: 10px; }
-        .answer-target { width: 180px; height: 65px; background: rgba(40, 40, 40, 0.9); border: 2px solid #555; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 24px; font-weight: bold; transition: 0.2s; box-shadow: 0 4px 0 #222; }
-        .answer-target.hover { background: rgba(255, 215, 0, 0.2); border-color: #ffd700; transform: translateY(-5px); }
+        #question-area { 
+            font-size: clamp(16px, 4.5vw, 24px); margin: 10px 0; text-align: center; 
+            color: #ffeb3b; min-height: 80px; display: flex; align-items: center; 
+            max-width: 95%; line-height: 1.4; 
+        }
 
-        #sword-container { flex-grow: 1; display: flex; justify-content: center; align-items: center; width: 100%; }
-        /* 修正：圖片在 img 目錄下 */
-        #sword { width: 100px; height: 100px; background-image: url('img/attack.png'); background-size: contain; background-repeat: no-repeat; background-position: center; cursor: grab; }
+        /* 答案區域 RWD：永遠保持一橫排 */
+        #answer-area { 
+            display: flex; width: 100%; justify-content: space-evenly; 
+            gap: 5px; margin-bottom: 10px; 
+        }
+        .answer-target { 
+            flex: 1; height: clamp(50px, 12vw, 65px); 
+            background: rgba(40, 40, 40, 0.9); border: 1.5px solid #555; 
+            border-radius: 8px; display: flex; justify-content: center; 
+            align-items: center; font-size: clamp(14px, 3.5vw, 20px); 
+            font-weight: bold; text-align: center; padding: 2px;
+        }
+        .answer-target.hover { background: rgba(255, 215, 0, 0.2); border-color: var(--gold); }
 
-        #victory-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.95); display: none; flex-direction: column; justify-content: center; align-items: center; z-index: 5000; }
+        /* 神劍 */
+        #sword-container { flex-grow: 1; width: 100%; position: relative; }
+        #sword { 
+            width: 80px; height: 80px; 
+            background-image: url('img/attack.png'); background-size: contain; 
+            background-repeat: no-repeat; background-position: center;
+            position: absolute; left: calc(50% - 40px); top: 10px;
+            cursor: grab; touch-action: none; z-index: 50;
+        }
 
-        @keyframes shake { 0%, 100% { transform: translate(0,0); } 20% { transform: translate(-10px, 10px); } 80% { transform: translate(10px, 10px); } }
+        #victory-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0, 0, 0, 0.95); display: none; flex-direction: column; 
+            justify-content: center; align-items: center; z-index: 5000; 
+        }
+
+        @keyframes shake { 0%, 100% { transform: translate(0,0); } 20% { transform: translate(-5px, 5px); } 80% { transform: translate(5px, 5px); } }
+        .boss-defeated { animation: bossDeath 2s forwards !important; }
+        @keyframes bossDeath { 100% { opacity: 0; transform: translateY(-100px) scale(0); } }
     </style>
 </head>
 <body>
@@ -101,15 +131,12 @@
 
 <div id="start-overlay">
     <div class="mode-title">小小勇者成語傳說</div>
-    
     <div class="setting-group">
-        <span class="setting-label">冒險長度：</span>
         <button class="num-btn active" onclick="setNum(10, this)">10 題</button>
         <button class="num-btn" onclick="setNum(20, this)">20 題</button>
     </div>
-
-    <button class="action-btn" onclick="handleStart(1)">成語練習</button>
-    <button class="action-btn" onclick="handleStart(2)">例句練習</button>
+    <button class="action-btn" onclick="handleStart(1)">成語練習模式</button>
+    <button class="action-btn" onclick="handleStart(2)">例句造句模式</button>
 </div>
 
 <div id="game-container">
@@ -117,33 +144,31 @@
     <div id="defense-effect" class="boss-effect-layer"></div>
     <div id="status-text"></div>
 
-    <div id="boss-hp-container">
-        <div id="boss-hp-fill"></div>
-        <div id="hp-text">HP: 10 / 10</div>
-    </div>
-
     <div id="ui-overlay">
+        <div id="boss-hp-container">
+            <div id="boss-hp-fill"></div>
+            <div id="hp-text">HP: 10 / 10</div>
+        </div>
         <div id="question-area">模式載入中...</div>
         <div id="answer-area">
-            <div class="answer-target"></div>
-            <div class="answer-target"></div>
-            <div class="answer-target"></div>
+            <div class="answer-target" id="target-0"></div>
+            <div class="answer-target" id="target-1"></div>
+            <div class="answer-target" id="target-2"></div>
         </div>
         <div id="sword-container">
-            <div id="sword" draggable="true"></div>
+            <div id="sword"></div>
         </div>
     </div>
 </div>
 
 <div id="victory-screen">
-    <h1 style="font-size: 72px; color: #ffd700; text-shadow: 0 0 30px #ffd700; margin-bottom: 20px;">你打敗了魔王，找到了寶藏！</h1>
+    <h1 style="font-size: 48px; color: var(--gold); text-align: center;">勝利！魔王已被擊敗</h1>
     <button onclick="location.reload()" class="action-btn">回到首頁</button>
 </div>
 
 <script>
-    let totalQuestions = 10; 
-    let gameMode = 1; 
-
+    let totalQuestions = 10;
+    let gameMode = 1;
     const idiomDatabase = [
   { idiom: '事與願違', qmode1: '事實和願望相違背', qmode2: '我們原本想去野餐，但 _____，出門前突然下起大雨。' },
   { idiom: '暮鼓晨鐘', qmode1: '佛寺中早晚報時的鐘鼓。後也用來指一日的時光，或比喻使人警醒的力量', qmode2: '爺爺的一番話語有如 _____，使我突然領悟與人相處的道理。' },
@@ -190,19 +215,12 @@
 
     let currentQuestions = [];
     let currentQuestionIndex = 0;
-    let bossHp = 10; 
+    let bossHp = 10;
     let isGameOver = false;
 
-    const gameContainer = document.getElementById('game-container');
-    const attackEffect = document.getElementById('attack-effect');
-    const defenseEffect = document.getElementById('defense-effect');
-    const statusText = document.getElementById('status-text');
-    const questionArea = document.getElementById('question-area');
-    const answerTargets = document.querySelectorAll('.answer-target');
     const sword = document.getElementById('sword');
-    const hpFill = document.getElementById('boss-hp-fill');
     const bgm = document.getElementById('bgm');
-    const victoryScreen = document.getElementById('victory-screen');
+    const answerTargets = document.querySelectorAll('.answer-target');
 
     function setNum(n, btn) {
         totalQuestions = n;
@@ -213,7 +231,6 @@
     function handleStart(mode) {
         gameMode = mode;
         const randomMusicNum = Math.floor(Math.random() * 3) + 1;
-        // 修正：音樂在 audio 目錄下
         bgm.src = `audio/bgm-${randomMusicNum}.mp3`;
         bgm.play().catch(()=>{});
         document.getElementById('start-overlay').style.display = 'none';
@@ -221,17 +238,12 @@
     }
 
     function startGame() {
-        bossHp = totalQuestions; 
+        bossHp = totalQuestions;
         currentQuestionIndex = 0;
         isGameOver = false;
         const randomBossNum = Math.floor(Math.random() * 5) + 1;
-        // 修正：圖片在 img 目錄下
-        gameContainer.style.backgroundImage = `url('img/boss-${randomBossNum}.png')`;
-        gameContainer.classList.remove('boss-defeated');
-        
-        const limit = Math.min(totalQuestions, idiomDatabase.length);
-        currentQuestions = [...idiomDatabase].sort(() => 0.5 - Math.random()).slice(0, limit);
-        bossHp = currentQuestions.length; 
+        document.getElementById('game-container').style.backgroundImage = `url('img/boss-${randomBossNum}.png')`;
+        currentQuestions = [...idiomDatabase].sort(() => 0.5 - Math.random()).slice(0, totalQuestions);
         updateHpUI();
         loadQuestion();
     }
@@ -239,73 +251,118 @@
     function loadQuestion() {
         if (isGameOver || currentQuestionIndex >= currentQuestions.length) return;
         const currentData = currentQuestions[currentQuestionIndex];
-        questionArea.textContent = (gameMode === 1) ? currentData.qmode1 : currentData.qmode2;
+        document.getElementById('question-area').textContent = (gameMode === 1) ? currentData.qmode1 : currentData.qmode2;
         let wrongOptions = idiomDatabase.filter(item => item.idiom !== currentData.idiom).sort(() => 0.5 - Math.random()).slice(0, 2).map(item => item.idiom);
         let options = [currentData.idiom, ...wrongOptions].sort(() => 0.5 - Math.random());
         answerTargets.forEach((target, index) => {
             target.textContent = options[index];
             target.style.background = "rgba(40, 40, 40, 0.9)";
+            target.classList.remove('hover');
         });
     }
 
     function updateHpUI() {
-        const hpTotal = currentQuestions.length > 0 ? currentQuestions.length : totalQuestions;
-        hpFill.style.width = `${(bossHp / hpTotal) * 100}%`;
-        document.getElementById('hp-text').textContent = `HP: ${bossHp} / ${hpTotal}`;
+        document.getElementById('boss-hp-fill').style.width = `${(bossHp / totalQuestions) * 100}%`;
+        document.getElementById('hp-text').textContent = `HP: ${bossHp} / ${totalQuestions}`;
     }
 
-    function triggerStatus(type) {
-        if (type === 'success') {
-            statusText.textContent = '成功 HP - 1';
-            statusText.style.color = '#ffd700';
-            // 修正：GIF 在 img 目錄下
-            attackEffect.style.backgroundImage = `url('img/boss-attack.gif?t=${new Date().getTime()}')`;
-            attackEffect.style.display = 'block';
-        } else {
-            statusText.textContent = '攻擊失敗';
-            statusText.style.color = '#ff4d4d';
-            // 修正：GIF 在 img 目錄下
-            defenseEffect.style.backgroundImage = `url('img/boss-def.gif?t=${new Date().getTime()}')`;
-            defenseEffect.style.display = 'block';
-        }
-        statusText.style.display = 'block';
-        setTimeout(() => {
-            statusText.style.display = 'none';
-            attackEffect.style.display = 'none';
-            defenseEffect.style.display = 'none';
-        }, 2000);
-    }
+    // --- 核心改進：Pointer Events 支援觸控 ---
+    let isDragging = false;
+    let startX, startY;
+    let swordInitialX, swordInitialY;
 
-    sword.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text', ''); });
+    sword.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        sword.setPointerCapture(e.pointerId);
+        startX = e.clientX;
+        startY = e.clientY;
+        swordInitialX = sword.offsetLeft;
+        swordInitialY = sword.offsetTop;
+    });
 
-    answerTargets.forEach(target => {
-        target.addEventListener('dragover', (e) => e.preventDefault());
-        target.addEventListener('drop', (e) => {
-            e.preventDefault();
-            if (isGameOver) return;
+    window.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        sword.style.left = (swordInitialX + dx) + 'px';
+        sword.style.top = (swordInitialY + dy) + 'px';
 
-            const isCorrect = target.textContent === currentQuestions[currentQuestionIndex].idiom;
-            if (isCorrect) {
-                bossHp--;
-                updateHpUI();
-                triggerStatus('success');
-                gameContainer.style.animation = "shake 0.3s";
-                setTimeout(() => gameContainer.style.animation = "", 300);
-
-                if (bossHp <= 0) {
-                    isGameOver = true;
-                    gameContainer.classList.add('boss-defeated');
-                    setTimeout(() => { victoryScreen.style.display = 'flex'; }, 2000);
-                } else {
-                    currentQuestionIndex++;
-                    setTimeout(loadQuestion, 500);
-                }
+        // 碰撞檢測效果 (變色)
+        answerTargets.forEach(target => {
+            const rect = target.getBoundingClientRect();
+            if (e.clientX > rect.left && e.clientX < rect.right && e.clientY > rect.top && e.clientY < rect.bottom) {
+                target.classList.add('hover');
             } else {
-                triggerStatus('fail');
-                target.style.background = "rgba(244, 67, 54, 0.4)";
+                target.classList.remove('hover');
             }
         });
     });
+
+    window.addEventListener('pointerup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        
+        let hitTarget = null;
+        answerTargets.forEach(target => {
+            const rect = target.getBoundingClientRect();
+            if (e.clientX > rect.left && e.clientX < rect.right && e.clientY > rect.top && e.clientY < rect.bottom) {
+                hitTarget = target;
+            }
+        });
+
+        if (hitTarget) {
+            checkAnswer(hitTarget);
+        }
+
+        // 歸位
+        sword.style.left = 'calc(50% - 40px)';
+        sword.style.top = '10px';
+    });
+
+    function checkAnswer(target) {
+        const isCorrect = target.textContent === currentQuestions[currentQuestionIndex].idiom;
+        if (isCorrect) {
+            bossHp--;
+            updateHpUI();
+            triggerStatus('success');
+            document.getElementById('game-container').style.animation = "shake 0.3s";
+            setTimeout(() => document.getElementById('game-container').style.animation = "", 300);
+            if (bossHp <= 0) {
+                isGameOver = true;
+                document.getElementById('game-container').classList.add('boss-defeated');
+                setTimeout(() => document.getElementById('victory-screen').style.display = 'flex', 2000);
+            } else {
+                currentQuestionIndex++;
+                setTimeout(loadQuestion, 500);
+            }
+        } else {
+            triggerStatus('fail');
+            target.style.background = "rgba(244, 67, 54, 0.4)";
+        }
+    }
+
+    function triggerStatus(type) {
+        const status = document.getElementById('status-text');
+        const attack = document.getElementById('attack-effect');
+        const defense = document.getElementById('defense-effect');
+        if (type === 'success') {
+            status.textContent = '成功 HP - 1';
+            status.style.color = '#ffd700';
+            attack.style.backgroundImage = `url('img/boss-attack.gif?t=${Date.now()}')`;
+            attack.style.display = 'block';
+        } else {
+            status.textContent = '攻擊失敗';
+            status.style.color = '#ff4d4d';
+            defense.style.backgroundImage = `url('img/boss-def.gif?t=${Date.now()}')`;
+            defense.style.display = 'block';
+        }
+        status.style.display = 'block';
+        setTimeout(() => {
+            status.style.display = 'none';
+            attack.style.display = 'none';
+            defense.style.display = 'none';
+        }, 1500);
+    }
 </script>
 </body>
 </html>
