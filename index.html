@@ -269,16 +269,23 @@
         loadQuestion();
     }
 
-    function loadQuestion() {
+function loadQuestion() {
         if (isGameOver || currentQuestionIndex >= currentQuestions.length) return;
         isProcessingAnswer = false; // 恢復可答題狀態
+        
         const currentData = currentQuestions[currentQuestionIndex];
         document.getElementById('question-area').textContent = (gameMode === 1) ? currentData.qmode1 : currentData.qmode2;
+        
         let wrongOptions = idiomDatabase.filter(item => item.idiom !== currentData.idiom).sort(() => 0.5 - Math.random()).slice(0, 2).map(item => item.idiom);
         let options = [currentData.idiom, ...wrongOptions].sort(() => 0.5 - Math.random());
+        
         answerTargets.forEach((target, index) => {
             target.textContent = options[index];
-            target.style.background = "rgba(45, 45, 45, 0.95)";
+            
+            // --- 徹底還原按鈕 Style，不殘留顏色 ---
+            target.style.background = "rgba(45, 45, 45, 0.95)"; // 恢復深灰背景
+            target.style.borderColor = "#666";                 // 恢復原色邊框
+            target.style.color = "white";                      // 恢復白色文字
             target.classList.remove('hover');
         });
     }
@@ -332,9 +339,9 @@
         sword.style.transform = `translate(-50%, -50%)`;
     });
 
-    function checkAnswer(target) {
+function checkAnswer(target) {
         if (isProcessingAnswer) return;
-        isProcessingAnswer = true; // 進入鎖定狀態
+        isProcessingAnswer = true; 
         
         const currentData = currentQuestions[currentQuestionIndex];
         const isCorrect = target.textContent === currentData.idiom;
@@ -358,16 +365,27 @@
             // 答錯：HP + 2
             bossHp += 2;
             updateHpUI();
-            // 提示正確答案
-            triggerStatus('fail', currentData.idiom);
-            target.style.background = "rgba(244, 67, 54, 0.4)";
             
-            // 答錯多延遲 1 秒（原本 1.5s 提示，現在改為 2.5s 後換下一題）
+            // --- 修正：標示正確答案與錯誤答案的顏色 ---
+            target.style.background = "rgba(244, 67, 54, 0.6)"; // 選錯的按鈕 (紅色)
+            target.style.borderColor = "#ff4d4d";
+
+            answerTargets.forEach(btn => {
+                if (btn.textContent === currentData.idiom) {
+                    btn.style.background = "rgba(76, 175, 80, 0.7)"; // 正確答案 (綠色)
+                    btn.style.borderColor = "#4CAF50";
+                    btn.style.color = "#fff";
+                }
+            });
+
+            // 提示文字
+            triggerStatus('fail', currentData.idiom);
+            
+            // 延遲 2.5 秒後換下一題
             currentQuestionIndex++;
             setTimeout(loadQuestion, 2500); 
         }
     }
-
     function triggerStatus(type, correctAnswer) {
         const status = document.getElementById('status-text');
         const attack = document.getElementById('attack-effect');
