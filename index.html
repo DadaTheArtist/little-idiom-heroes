@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>小小勇者成語傳說：全平台支援版</title>
+    <title>小小勇者成語傳說：全平台優化版</title>
     <style>
         :root {
             --bg-ui: rgba(0, 0, 0, 0.85);
@@ -16,7 +16,7 @@
             font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
             background-color: #000; color: white;
             user-select: none;
-            touch-action: none; /* 防止手機捲動干擾遊戲 */
+            touch-action: none; 
         }
 
         /* 啟動介面 */
@@ -46,83 +46,85 @@
         /* 遊戲容器 */
         #game-container {
             position: relative; width: 100vw; height: 100vh;
-            /* RWD Boss 比例調整 */
-            background-size: clamp(150px, 60vw, 30%) auto; 
+            /* 修正：放大手機版 Boss 圖片，範圍從 75% 到 電腦版 30% */
+            background-size: clamp(280px, 75vw, 350px) auto; 
             background-repeat: no-repeat;
-            background-position: center 12%; 
+            background-position: center 10%; 
             transition: background-image 0.5s;
         }
 
-        /* 特效層 */
+        /* 特效層 - 同步放大 */
         .boss-effect-layer {
-            position: absolute; top: 10%; left: 50%; transform: translateX(-50%);
-            width: clamp(150px, 65vw, 35%); height: 40%;
+            position: absolute; top: 8%; left: 50%; transform: translateX(-50%);
+            width: clamp(280px, 80vw, 400px); height: 45%;
             background-size: contain; background-repeat: no-repeat; background-position: center;
             pointer-events: none; display: none; z-index: 15;
         }
 
         #status-text {
-            position: absolute; top: 25%; left: 50%; transform: translate(-50%, -50%);
-            font-size: clamp(24px, 6vw, 48px); font-weight: 900; z-index: 20; 
-            pointer-events: none; text-shadow: 0 0 10px #000; display: none;
+            position: absolute; top: 28%; left: 50%; transform: translate(-50%, -50%);
+            font-size: clamp(28px, 8vw, 52px); font-weight: 900; z-index: 20; 
+            pointer-events: none; text-shadow: 0 0 15px #000; display: none;
         }
 
-        /* UI 區域 */
+        /* UI 區域 - 確保高度足夠 */
         #ui-overlay {
-            position: absolute; bottom: 0; width: 100%; height: 45vh;
-            background: linear-gradient(to top, #000 80%, rgba(0,0,0,0.5));
+            position: absolute; bottom: 0; width: 100%; height: 48vh;
+            background: linear-gradient(to top, #000 85%, rgba(0,0,0,0.5));
             border-top: 3px solid var(--primary-red);
             display: flex; flex-direction: column; align-items: center;
             padding: 10px; box-sizing: border-box;
         }
 
         #boss-hp-container {
-            position: absolute; top: -40px; left: 50%; transform: translateX(-50%);
-            width: 280px; height: 20px; background: rgba(255, 255, 255, 0.1);
-            border: 2px solid #ff4d4d; border-radius: 10px; overflow: hidden;
+            position: absolute; top: -45px; left: 50%; transform: translateX(-50%);
+            width: 80%; max-width: 350px; height: 28px; background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ff4d4d; border-radius: 15px; overflow: hidden;
         }
-        #boss-hp-fill { height: 100%; background: linear-gradient(90deg, #ff0000, #800000); width: 100%; }
-        #hp-text { position: absolute; width: 100%; text-align: center; font-size: 14px; top: 1px; }
+        #boss-hp-fill { height: 100%; background: linear-gradient(90deg, #ff0000, #800000); width: 100%; transition: width 0.4s; }
+        #hp-text { position: absolute; width: 100%; text-align: center; font-size: 16px; top: 3px; font-weight: bold; }
 
         #question-area { 
-            font-size: clamp(16px, 4.5vw, 24px); margin: 10px 0; text-align: center; 
+            font-size: clamp(18px, 5vw, 26px); margin: 15px 0; text-align: center; 
             color: #ffeb3b; min-height: 80px; display: flex; align-items: center; 
-            max-width: 95%; line-height: 1.4; 
+            max-width: 90%; line-height: 1.5; 
         }
 
-        /* 答案區域 RWD：永遠保持一橫排 */
+        /* 答案區域 */
         #answer-area { 
-            display: flex; width: 100%; justify-content: space-evenly; 
-            gap: 5px; margin-bottom: 10px; 
+            display: flex; width: 95%; justify-content: center; 
+            gap: 8px; margin-bottom: 15px; 
         }
         .answer-target { 
-            flex: 1; height: clamp(50px, 12vw, 65px); 
+            flex: 1; height: clamp(55px, 14vw, 75px); 
             background: rgba(40, 40, 40, 0.9); border: 1.5px solid #555; 
-            border-radius: 8px; display: flex; justify-content: center; 
-            align-items: center; font-size: clamp(14px, 3.5vw, 20px); 
-            font-weight: bold; text-align: center; padding: 2px;
+            border-radius: 10px; display: flex; justify-content: center; 
+            align-items: center; font-size: clamp(15px, 4vw, 22px); 
+            font-weight: bold; text-align: center; padding: 4px;
         }
         .answer-target.hover { background: rgba(255, 215, 0, 0.2); border-color: var(--gold); }
 
-        /* 神劍 */
+        /* 神劍 - 手機版適度放大方便觸控 */
         #sword-container { flex-grow: 1; width: 100%; position: relative; }
         #sword { 
-            width: 80px; height: 80px; 
+            width: clamp(100px, 25vw, 130px); 
+            height: clamp(100px, 25vw, 130px); 
             background-image: url('img/attack.png'); background-size: contain; 
             background-repeat: no-repeat; background-position: center;
-            position: absolute; left: calc(50% - 40px); top: 10px;
+            position: absolute; left: 50%; top: 50%;
+            transform: translate(-50%, -50%);
             cursor: grab; touch-action: none; z-index: 50;
         }
 
         #victory-screen { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0, 0, 0, 0.95); display: none; flex-direction: column; 
-            justify-content: center; align-items: center; z-index: 5000; 
+            justify-content: center; align-items: center; z-index: 5000; padding: 20px;
         }
 
-        @keyframes shake { 0%, 100% { transform: translate(0,0); } 20% { transform: translate(-5px, 5px); } 80% { transform: translate(5px, 5px); } }
+        @keyframes shake { 0%, 100% { transform: translate(0,0); } 20% { transform: translate(-8px, 8px); } 80% { transform: translate(8px, 8px); } }
         .boss-defeated { animation: bossDeath 2s forwards !important; }
-        @keyframes bossDeath { 100% { opacity: 0; transform: translateY(-100px) scale(0); } }
+        @keyframes bossDeath { 100% { opacity: 0; transform: translateY(-120px) scale(0); filter: brightness(5); } }
     </style>
 </head>
 <body>
@@ -135,7 +137,7 @@
         <button class="num-btn active" onclick="setNum(10, this)">10 題</button>
         <button class="num-btn" onclick="setNum(20, this)">20 題</button>
     </div>
-    <button class="action-btn" onclick="handleStart(1)">成語練習模式</button>
+    <button class="action-btn" onclick="handleStart(1)">成語解釋模式</button>
     <button class="action-btn" onclick="handleStart(2)">例句造句模式</button>
 </div>
 
@@ -162,7 +164,8 @@
 </div>
 
 <div id="victory-screen">
-    <h1 style="font-size: 48px; color: var(--gold); text-align: center;">勝利！魔王已被擊敗</h1>
+    <h1 style="font-size: clamp(40px, 10vw, 72px); color: var(--gold); text-align: center; text-shadow: 0 0 20px var(--gold);">恭喜完成！</h1>
+    <h2 style="font-size: 24px; color: #fff; text-align: center; margin-bottom: 30px;">成語王國恢復了和平</h2>
     <button onclick="location.reload()" class="action-btn">回到首頁</button>
 </div>
 
@@ -266,28 +269,26 @@
         document.getElementById('hp-text').textContent = `HP: ${bossHp} / ${totalQuestions}`;
     }
 
-    // --- 核心改進：Pointer Events 支援觸控 ---
+    // Pointer Events 支援
     let isDragging = false;
-    let startX, startY;
-    let swordInitialX, swordInitialY;
+    let startX, startY, swordOriginX, swordOriginY;
 
     sword.addEventListener('pointerdown', (e) => {
+        if(isGameOver) return;
         isDragging = true;
         sword.setPointerCapture(e.pointerId);
         startX = e.clientX;
         startY = e.clientY;
-        swordInitialX = sword.offsetLeft;
-        swordInitialY = sword.offsetTop;
+        swordOriginX = 0; // 基於 CSS translate 中心
+        swordOriginY = 0;
     });
 
     window.addEventListener('pointermove', (e) => {
         if (!isDragging) return;
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
-        sword.style.left = (swordInitialX + dx) + 'px';
-        sword.style.top = (swordInitialY + dy) + 'px';
+        sword.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
 
-        // 碰撞檢測效果 (變色)
         answerTargets.forEach(target => {
             const rect = target.getBoundingClientRect();
             if (e.clientX > rect.left && e.clientX < rect.right && e.clientY > rect.top && e.clientY < rect.bottom) {
@@ -310,13 +311,10 @@
             }
         });
 
-        if (hitTarget) {
-            checkAnswer(hitTarget);
-        }
+        if (hitTarget) checkAnswer(hitTarget);
 
-        // 歸位
-        sword.style.left = 'calc(50% - 40px)';
-        sword.style.top = '10px';
+        // 重設位置
+        sword.style.transform = `translate(-50%, -50%)`;
     });
 
     function checkAnswer(target) {
@@ -346,12 +344,12 @@
         const attack = document.getElementById('attack-effect');
         const defense = document.getElementById('defense-effect');
         if (type === 'success') {
-            status.textContent = '成功 HP - 1';
+            status.textContent = '命中！HP - 1';
             status.style.color = '#ffd700';
             attack.style.backgroundImage = `url('img/boss-attack.gif?t=${Date.now()}')`;
             attack.style.display = 'block';
         } else {
-            status.textContent = '攻擊失敗';
+            status.textContent = '防禦！Miss';
             status.style.color = '#ff4d4d';
             defense.style.backgroundImage = `url('img/boss-def.gif?t=${Date.now()}')`;
             defense.style.display = 'block';
