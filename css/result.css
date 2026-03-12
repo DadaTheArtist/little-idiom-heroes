@@ -1,0 +1,66 @@
+.result-screen {
+  justify-content: center;
+  gap: 20px;
+  padding: 30px 20px;
+}
+
+.result-screen.win { background: radial-gradient(ellipse at 50% 40%, #1b4332 0%, #1a1a2e 60%); }
+.result-screen.lose { background: radial-gradient(ellipse at 50% 40%, #4a1a2e 0%, #1a1a2e 60%); }
+
+.result-title {
+  font-size: clamp(32px, 8vw, 52px);
+  font-weight: 900;
+  text-align: center;
+  animation: fadeInUp 0.6s ease backwards;
+}
+.result-screen.win .result-title {
+  background: linear-gradient(180deg, #ffe066, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+}
+.result-screen.lose .result-title { color: var(--accent-red); }
+
+.result-stars {
+  display: flex;
+  gap: 12px;
+  animation: fadeIn 0.5s ease 0.3s backwards;
+}
+.result-star {
+  font-size: clamp(40px, 10vw, 60px);
+  opacity: 0;
+  transform: scale(0);
+}
+.result-star.earned {
+  animation: starPop 0.5s ease forwards;
+  filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.7));
+}
+.result-star:nth-child(1).earned { animation-delay: 0.5s; }
+.result-star:nth-child(2).earned { animation-delay: 0.8s; }
+.result-star:nth-child(3).earned { animation-delay: 1.1s; }
+.result-star.empty {
+  animation: fadeIn 0.3s ease 1.4s forwards;
+}
+
+.result-stats {
+  text-align: center;
+  animation: fadeInUp 0.6s ease 0.6s backwards;
+}
+.result-stats p {
+  font-size: clamp(15px, 3.8vw, 20px);
+  color: var(--text-secondary);
+  margin: 6px 0;
+}
+.result-stats .highlight {
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.result-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 10px;
+  animation: fadeInUp 0.6s ease 1s backwards;
+}

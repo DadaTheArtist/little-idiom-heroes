@@ -1,0 +1,44 @@
+{
+  "worlds": [
+    {
+      "id": "world-1",
+      "name": "成語王國",
+      "icon": "📜",
+      "description": "穿越成語的魔法世界，打敗成語魔王！",
+      "theme": "chinese",
+      "levels": [
+        { "id": "1-1", "name": "初遇成語獸", "game": "boss-fight", "content": "chinese/idioms.json", "questionCount": 10, "unlockRequire": null },
+        { "id": "1-2", "name": "成語記憶陣", "game": "connect", "content": "chinese/idioms.json", "questionCount": 6, "unlockRequire": "1-1" },
+        { "id": "1-3", "name": "成語賽車場", "game": "racing", "content": "chinese/idioms.json", "questionCount": 10, "unlockRequire": "1-2" },
+        { "id": "1-4", "name": "成語寶石陣", "game": "match3", "content": "chinese/idioms.json", "questionCount": 12, "unlockRequire": "1-3" },
+        { "id": "1-5", "name": "成語大魔王", "game": "boss-fight", "content": "chinese/idioms.json", "questionCount": 15, "unlockRequire": "1-4" }
+      ]
+    },
+    {
+      "id": "world-2",
+      "name": "科學實驗室",
+      "icon": "🔬",
+      "description": "用科學知識解開實驗室的謎題！",
+      "theme": "science",
+      "levels": [
+        { "id": "2-1", "name": "科學記憶牆", "game": "connect", "content": "science/unit1.json", "questionCount": 6, "unlockRequire": null },
+        { "id": "2-2", "name": "知識賽車道", "game": "racing", "content": "science/unit1.json", "questionCount": 8, "unlockRequire": "2-1" },
+        { "id": "2-3", "name": "元素寶石陣", "game": "match3", "content": "science/unit1.json", "questionCount": 10, "unlockRequire": "2-2" },
+        { "id": "2-4", "name": "瘋狂科學家", "game": "boss-fight", "content": "science/unit1.json", "questionCount": 10, "unlockRequire": "2-3" }
+      ]
+    },
+    {
+      "id": "world-3",
+      "name": "數學樂園",
+      "icon": "🔢",
+      "description": "在數字的國度中挑戰各種謎題！",
+      "theme": "math",
+      "levels": [
+        { "id": "3-1", "name": "算術賽車", "game": "racing", "content": "math/unit1.json", "questionCount": 8, "unlockRequire": null },
+        { "id": "3-2", "name": "數字寶石", "game": "match3", "content": "math/unit1.json", "questionCount": 10, "unlockRequire": "3-1" },
+        { "id": "3-3", "name": "公式配對", "game": "connect", "content": "math/unit1.json", "questionCount": 6, "unlockRequire": "3-2" },
+        { "id": "3-4", "name": "數學魔王", "game": "boss-fight", "content": "math/unit1.json", "questionCount": 10, "unlockRequire": "3-3" }
+      ]
+    }
+  ]
+}

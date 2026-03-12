@@ -1,0 +1,62 @@
+.title-screen {
+  background: radial-gradient(ellipse at 50% 30%, #2c1654 0%, #1a1a2e 50%, #0d0d1a 100%);
+  justify-content: center;
+  gap: 24px;
+  padding: 20px;
+}
+
+.title-bg-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.title-bg-particles span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--accent-gold);
+  border-radius: 50%;
+  animation: floatParticle linear infinite;
+  opacity: 0;
+}
+@keyframes floatParticle {
+  0% { opacity: 0; transform: translateY(100vh) scale(0); }
+  10% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { opacity: 0; transform: translateY(-20vh) scale(1); }
+}
+
+.title-logo {
+  text-align: center;
+  animation: fadeInUp 0.8s ease backwards;
+}
+.title-main {
+  font-size: clamp(36px, 9vw, 64px);
+  font-weight: 900;
+  background: linear-gradient(180deg, #ffe066, #ffd700, #f0a500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.5));
+  line-height: 1.2;
+}
+.title-sub {
+  font-size: clamp(14px, 3.5vw, 20px);
+  color: var(--text-secondary);
+  margin-top: 8px;
+  letter-spacing: 4px;
+}
+
+.title-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeInUp 0.8s ease 0.3s backwards;
+}
+
+.title-stars-info {
+  font-size: clamp(13px, 3.2vw, 16px);
+  color: var(--text-secondary);
+  animation: fadeInUp 0.8s ease 0.5s backwards;
+}
