@@ -6,9 +6,13 @@ export class LevelIntro {
   async enter(container, { challenge, zone }) {
     const previewGame = this.app.peekGameForChallenge(challenge);
     const textbook = this.app.getTextbook(zone.textbookId);
-    const challengeModeText = challenge.selectionMode === 'random' ? '隨機挑戰' : '固定挑戰';
-    const gameTitle = previewGame?.displayName || '冒險挑戰';
-    const gameDesc = previewGame?.description || '準備進入新的勇者試煉。';
+    const isRandomMode = challenge.selectionMode === 'random';
+    const challengeModeText = isRandomMode ? '隨機遊戲' : '固定遊戲';
+    const gameTitle = isRandomMode ? '隨機遊戲' : (previewGame?.displayName || '冒險挑戰');
+    const gameDesc = isRandomMode
+      ? '每次開始都會從可用的小遊戲中隨機挑選一種。'
+      : (previewGame?.description || '準備進入新的勇者試煉。');
+    const gameIcon = isRandomMode ? '🎲' : (previewGame?.icon || '🎮');
     const el = document.createElement('div');
     el.className = 'screen';
     el.style.cssText = `
@@ -19,7 +23,7 @@ export class LevelIntro {
     el.innerHTML = `
       <button class="back-btn" id="btn-back">←</button>
       <div style="font-size:clamp(50px,14vw,80px);animation:fadeInUp 0.5s ease backwards;">
-        ${previewGame?.icon || '🎮'}
+        ${gameIcon}
       </div>
       <div style="text-align:center;animation:fadeInUp 0.5s ease 0.15s backwards;">
         <h2 style="font-size:clamp(24px,6vw,36px);color:var(--accent-gold);">${challenge.name}</h2>

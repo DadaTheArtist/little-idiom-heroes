@@ -38,7 +38,10 @@ export class ContentLoader {
     const allQuestions = content.questions.map((q) => this._normalizeQuestion(q, questionType));
     const candidatePool = allQuestions.filter((q) => q.type === questionType);
     const sourcePool = candidatePool.length ? candidatePool : allQuestions;
-    const selected = this._shuffleArray(sourcePool).slice(0, questionCount);
+    const selectedPool = challenge.answerMode === 'pair-select'
+      ? this._dedupeByAnswer(sourcePool)
+      : sourcePool;
+    const selected = this._shuffleArray(selectedPool).slice(0, questionCount);
 
     const enriched = selected.map((q) => this._ensureOptions(q, allQuestions));
     return {
@@ -59,11 +62,12 @@ export class ContentLoader {
     };
 
     if (type === 'true-false') {
+      const answerRaw = String(q.answer).trim().toLowerCase();
       const boolAnswer = typeof q.answer === 'boolean'
         ? q.answer
-        : ['true', 't', 'yes', 'y', '是', '對', '正確'].includes(String(q.answer).toLowerCase());
-      normalized.answer = boolAnswer ? '是' : '否';
-      normalized.options = ['是', '否'];
+        : ['true', 't', 'yes', 'y', '是', '對', '正確', 'o', '○'].includes(answerRaw);
+      normalized.answer = boolAnswer ? 'O' : 'X';
+      normalized.options = ['O', 'X'];
       return normalized;
     }
 
@@ -101,6 +105,19 @@ export class ContentLoader {
     }
 
     return { ...question, options: this._shuffleArray(options) };
+  }
+
+  _dedupeByAnswer(questions) {
+    const seen = new Set();
+    const unique = [];
+    for (const q of questions) {
+      const answerKey = String(q.answer ?? '').trim();
+      if (!answerKey) continue;
+      if (seen.has(answerKey)) continue;
+      seen.add(answerKey);
+      unique.push(q);
+    }
+    return unique;
   }
 
   _shuffleArray(arr) {

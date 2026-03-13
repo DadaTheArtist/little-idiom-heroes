@@ -2,7 +2,6 @@ import { BaseGame } from './base-game.js';
 
 const GRID_SIZE = 4;
 const TOTAL_CELLS = GRID_SIZE * GRID_SIZE;
-const TIME_LIMIT = 90;
 
 export default class Match3 extends BaseGame {
   constructor(container, questions, config) {
@@ -10,25 +9,33 @@ export default class Match3 extends BaseGame {
     this.currentQIdx = 0;
     this.grid = [];
     this.isProcessing = false;
-    this.timeLeft = TIME_LIMIT;
+    const configuredLimit = Number(config?.challenge?.timeLimitSeconds);
+    this.timeLimitSeconds = Number.isFinite(configuredLimit) && configuredLimit > 0
+      ? Math.floor(configuredLimit)
+      : null;
+    this.timeLeft = this.timeLimitSeconds || 0;
     this.timerInterval = null;
   }
 
   init() {
+    const timeInfoText = this.timeLimitSeconds
+      ? `⏱ <span id="m3-time">${this.timeLimitSeconds}</span>秒`
+      : '⏱ 不限時';
+
     this.container.innerHTML = `
       <div class="match3-game" id="match3-root">
         <div class="match3-header">
           <button class="back-btn" id="m3-back" style="position:static;">←</button>
           <div class="match3-info">
             <div>答對 <span id="m3-correct">0</span>/${this.totalQuestions}</div>
-            <div>⏱ <span id="m3-time">${TIME_LIMIT}</span>秒</div>
+            <div>${timeInfoText}</div>
           </div>
         </div>
         <div class="match3-question-bar" id="m3-question">準備中…</div>
         <div class="match3-grid-wrapper">
           <div class="match3-grid" id="m3-grid" style="grid-template-columns:repeat(${GRID_SIZE},1fr);"></div>
         </div>
-        <div class="match3-timer-bar"><div class="match3-timer-fill" id="m3-timer-fill"></div></div>
+        <div class="match3-timer-bar${this.timeLimitSeconds ? '' : ' hidden'}"><div class="match3-timer-fill" id="m3-timer-fill"></div></div>
       </div>
     `;
 
@@ -54,7 +61,7 @@ export default class Match3 extends BaseGame {
     super.start();
     this._buildGrid();
     this._loadQuestion();
-    this._startTimer();
+    if (this.timeLimitSeconds) this._startTimer();
   }
 
   destroy() {
@@ -154,12 +161,14 @@ export default class Match3 extends BaseGame {
   }
 
   _startTimer() {
+    if (!this.timeLimitSeconds || !this.timeEl || !this.timerFill) return;
+    this.timeLeft = this.timeLimitSeconds;
     this.timerFill.style.width = '100%';
     this.timerInterval = setInterval(() => {
       if (this._destroyed) return;
       this.timeLeft--;
       this.timeEl.textContent = this.timeLeft;
-      this.timerFill.style.width = `${(this.timeLeft / TIME_LIMIT) * 100}%`;
+      this.timerFill.style.width = `${(this.timeLeft / this.timeLimitSeconds) * 100}%`;
 
       if (this.timeLeft <= 0) {
         this._stopTimer();

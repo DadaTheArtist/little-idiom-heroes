@@ -246,15 +246,17 @@ export default class BossFight extends BaseGame {
   }
 
   _buildOptions(baseOptions, answer, size) {
-    const options = [...new Set([answer, ...baseOptions])];
-    if (options.length >= size) return this._shuffleArray(options).slice(0, size);
+    const pool = [...new Set(baseOptions)].filter(o => o !== answer);
+    const selected = [answer, ...this._shuffleArray(pool)].slice(0, size);
 
-    const distractors = this._getDistractors(answer, size);
-    for (const item of distractors) {
-      if (!options.includes(item)) options.push(item);
-      if (options.length >= size) break;
+    if (selected.length < size) {
+      const extras = this._getDistractors(answer, size);
+      for (const item of extras) {
+        if (!selected.includes(item)) selected.push(item);
+        if (selected.length >= size) break;
+      }
     }
-    while (options.length < size) options.push(answer);
-    return this._shuffleArray(options);
+
+    return this._shuffleArray(selected);
   }
 }

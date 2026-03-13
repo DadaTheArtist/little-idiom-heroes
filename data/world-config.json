@@ -35,8 +35,8 @@
         {
           "id": "z1-3",
           "name": "成語疾速道",
-          "selectionMode": "random",
-          "candidateGameIds": ["racing", "match3"],
+          "selectionMode": "fixed",
+          "gameId": "racing",
           "questionType": "choice",
           "answerMode": "tap-select",
           "content": "chinese/idioms.json",

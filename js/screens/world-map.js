@@ -78,7 +78,7 @@ export class WorldMap {
             </div>
             <div class="level-name">${challenge.name}</div>
             <div style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:3px;">
-              ${challenge.questionType} · ${challenge.selectionMode === 'random' ? '隨機' : (gameMeta?.displayName || '固定')}
+              ${challenge.questionType} · ${challenge.selectionMode === 'random' ? '隨機遊戲' : (gameMeta?.displayName || '固定遊戲')}
             </div>
             ${completed ? `<div class="level-stars">${this._starsHTML(stars, 3)}</div>` : ''}
           </button>

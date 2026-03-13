@@ -111,6 +111,9 @@
   border-radius: 3px;
   overflow: hidden;
 }
+.match3-timer-bar.hidden {
+  display: none;
+}
 .match3-timer-fill {
   height: 100%;
   background: linear-gradient(90deg, var(--accent-green), var(--accent-gold));
