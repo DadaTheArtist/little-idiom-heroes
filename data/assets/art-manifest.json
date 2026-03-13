@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "global": {
+    "style": "pixel-art"
+  },
+  "zones": {
+    "zone-fire-mountain": {
+      "bossBackgrounds": [
+        "img/boss-1.png",
+        "img/boss-2.png"
+      ],
+      "effects": {
+        "attack": "img/boss-attack.gif",
+        "defense": "img/boss-def.gif"
+      },
+      "weapons": {
+        "sword": "img/attack.png"
+      },
+      "notes": "像素風，偏暖色火焰主題"
+    },
+    "zone-lightning-tower": {
+      "bossBackgrounds": [
+        "img/boss-3.png",
+        "img/boss-4.png"
+      ],
+      "effects": {
+        "attack": "img/boss-attack.gif",
+        "defense": "img/boss-def.gif"
+      },
+      "weapons": {
+        "sword": "img/attack.png"
+      },
+      "notes": "像素風，偏冷色閃電主題"
+    },
+    "zone-stone-forge": {
+      "bossBackgrounds": [
+        "img/boss-5.png"
+      ],
+      "effects": {
+        "attack": "img/boss-attack.gif",
+        "defense": "img/boss-def.gif"
+      },
+      "weapons": {
+        "sword": "img/attack.png"
+      },
+      "notes": "像素風，土石鍛造主題"
+    }
+  }
+}

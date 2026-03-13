@@ -17,9 +17,16 @@ export default class BossFight extends BaseGame {
   }
 
   init() {
-    const bossNum = Math.floor(Math.random() * 5) + 1;
+    const bossBackgrounds = this.config.art?.bossBackgrounds || [
+      'img/boss-1.png',
+      'img/boss-2.png',
+      'img/boss-3.png',
+      'img/boss-4.png',
+      'img/boss-5.png'
+    ];
+    const bossImage = bossBackgrounds[Math.floor(Math.random() * bossBackgrounds.length)];
     this.container.innerHTML = `
-      <div class="boss-fight" id="boss-arena" style="background-image:url('img/boss-${bossNum}.png')">
+      <div class="boss-fight" id="boss-arena" style="background-image:url('${bossImage}')">
         <div class="boss-effect-layer" id="boss-atk-effect"></div>
         <div class="boss-effect-layer" id="boss-def-effect"></div>
         <div class="boss-status-text" id="boss-status"></div>
@@ -51,6 +58,8 @@ export default class BossFight extends BaseGame {
     this.statusEl = this.container.querySelector('#boss-status');
     this.atkEffect = this.container.querySelector('#boss-atk-effect');
     this.defEffect = this.container.querySelector('#boss-def-effect');
+    const swordAsset = this.config.art?.weapons?.sword;
+    if (swordAsset) this.sword.style.backgroundImage = `url('${swordAsset}')`;
 
     this.container.querySelector('#boss-back').addEventListener('click', () => {
       this.destroy();
@@ -90,8 +99,10 @@ export default class BossFight extends BaseGame {
     const q = this.questions[this.currentIdx];
     this.questionEl.textContent = q.hint || q.stem;
 
-    const distractors = this._getDistractors(q.answer, 2);
-    const options = this._shuffleArray([q.answer, ...distractors]);
+    const baseOptions = Array.isArray(q.options) && q.options.length
+      ? [...q.options]
+      : [q.answer, ...this._getDistractors(q.answer, 2)];
+    const options = this._buildOptions(baseOptions, q.answer, 3);
 
     this.targets.forEach((t, i) => {
       t.textContent = options[i];
@@ -159,13 +170,15 @@ export default class BossFight extends BaseGame {
     if (type === 'success') {
       this.statusEl.textContent = '命中！HP - 1';
       this.statusEl.style.color = '#ffd700';
-      atk.style.backgroundImage = `url('img/boss-attack.gif?t=${Date.now()}')`;
+      const attackFx = this.config.art?.effects?.attack || 'img/boss-attack.gif';
+      atk.style.backgroundImage = `url('${attackFx}?t=${Date.now()}')`;
       atk.style.display = 'block';
       def.style.display = 'none';
     } else {
       this.statusEl.innerHTML = `攻擊失敗！<br><span style="font-size:0.7em;color:white;">魔王恢復 HP+2</span><br><span style="color:#ffeb3b;">正確答案：${correctAnswer}</span>`;
       this.statusEl.style.color = '#ff4d4d';
-      def.style.backgroundImage = `url('img/boss-def.gif?t=${Date.now()}')`;
+      const defenseFx = this.config.art?.effects?.defense || 'img/boss-def.gif';
+      def.style.backgroundImage = `url('${defenseFx}?t=${Date.now()}')`;
       def.style.display = 'block';
       atk.style.display = 'none';
       displayTime = 2500;
@@ -216,5 +229,18 @@ export default class BossFight extends BaseGame {
 
     if (hit) this._checkAnswer(hit);
     this.sword.style.transform = 'translate(-50%, -50%)';
+  }
+
+  _buildOptions(baseOptions, answer, size) {
+    const options = [...new Set([answer, ...baseOptions])];
+    if (options.length >= size) return this._shuffleArray(options).slice(0, size);
+
+    const distractors = this._getDistractors(answer, size);
+    for (const item of distractors) {
+      if (!options.includes(item)) options.push(item);
+      if (options.length >= size) break;
+    }
+    while (options.length < size) options.push(answer);
+    return this._shuffleArray(options);
   }
 }

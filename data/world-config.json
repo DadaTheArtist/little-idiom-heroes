@@ -1,43 +1,111 @@
 {
-  "worlds": [
+  "schemaVersion": 2,
+  "zones": [
     {
-      "id": "world-1",
-      "name": "成語王國",
-      "icon": "📜",
-      "description": "穿越成語的魔法世界，打敗成語魔王！",
-      "theme": "chinese",
-      "levels": [
-        { "id": "1-1", "name": "初遇成語獸", "game": "boss-fight", "content": "chinese/idioms.json", "questionCount": 10, "unlockRequire": null },
-        { "id": "1-2", "name": "成語記憶陣", "game": "connect", "content": "chinese/idioms.json", "questionCount": 6, "unlockRequire": "1-1" },
-        { "id": "1-3", "name": "成語賽車場", "game": "racing", "content": "chinese/idioms.json", "questionCount": 10, "unlockRequire": "1-2" },
-        { "id": "1-4", "name": "成語寶石陣", "game": "match3", "content": "chinese/idioms.json", "questionCount": 12, "unlockRequire": "1-3" },
-        { "id": "1-5", "name": "成語大魔王", "game": "boss-fight", "content": "chinese/idioms.json", "questionCount": 15, "unlockRequire": "1-4" }
+      "id": "zone-fire-mountain",
+      "name": "火焰山冒險",
+      "icon": "🔥",
+      "description": "國文課本試煉，挑戰成語與閱讀理解。",
+      "themeElement": "fire",
+      "textbookId": "tw-g3-s1-chinese",
+      "challenges": [
+        {
+          "id": "z1-1",
+          "name": "成語闖關",
+          "selectionMode": "fixed",
+          "gameId": "boss-fight",
+          "questionType": "choice",
+          "answerMode": "drag-select",
+          "content": "chinese/idioms.json",
+          "questionCount": 10,
+          "unlockRequire": null
+        },
+        {
+          "id": "z1-2",
+          "name": "成語配對陣",
+          "selectionMode": "fixed",
+          "gameId": "connect",
+          "questionType": "choice",
+          "answerMode": "pair-select",
+          "content": "chinese/idioms.json",
+          "questionCount": 8,
+          "unlockRequire": "z1-1"
+        },
+        {
+          "id": "z1-3",
+          "name": "成語疾速道",
+          "selectionMode": "random",
+          "candidateGameIds": ["racing", "match3"],
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/idioms.json",
+          "questionCount": 10,
+          "unlockRequire": "z1-2"
+        }
       ]
     },
     {
-      "id": "world-2",
-      "name": "科學實驗室",
-      "icon": "🔬",
-      "description": "用科學知識解開實驗室的謎題！",
-      "theme": "science",
-      "levels": [
-        { "id": "2-1", "name": "科學記憶牆", "game": "connect", "content": "science/unit1.json", "questionCount": 6, "unlockRequire": null },
-        { "id": "2-2", "name": "知識賽車道", "game": "racing", "content": "science/unit1.json", "questionCount": 8, "unlockRequire": "2-1" },
-        { "id": "2-3", "name": "元素寶石陣", "game": "match3", "content": "science/unit1.json", "questionCount": 10, "unlockRequire": "2-2" },
-        { "id": "2-4", "name": "瘋狂科學家", "game": "boss-fight", "content": "science/unit1.json", "questionCount": 10, "unlockRequire": "2-3" }
+      "id": "zone-lightning-tower",
+      "name": "閃電塔冒險",
+      "icon": "⚡",
+      "description": "英文課本試煉，混合是非題與單字挑戰。",
+      "themeElement": "lightning",
+      "textbookId": "tw-g3-s1-english",
+      "challenges": [
+        {
+          "id": "z2-1",
+          "name": "真假叉路",
+          "selectionMode": "fixed",
+          "gameId": "racing",
+          "questionType": "true-false",
+          "answerMode": "tap-select",
+          "content": "english/unit1.json",
+          "questionCount": 8,
+          "unlockRequire": null
+        },
+        {
+          "id": "z2-2",
+          "name": "單字連連看",
+          "selectionMode": "fixed",
+          "gameId": "connect",
+          "questionType": "choice",
+          "answerMode": "pair-select",
+          "content": "english/unit1.json",
+          "questionCount": 6,
+          "unlockRequire": "z2-1"
+        }
       ]
     },
     {
-      "id": "world-3",
-      "name": "數學樂園",
-      "icon": "🔢",
-      "description": "在數字的國度中挑戰各種謎題！",
-      "theme": "math",
-      "levels": [
-        { "id": "3-1", "name": "算術賽車", "game": "racing", "content": "math/unit1.json", "questionCount": 8, "unlockRequire": null },
-        { "id": "3-2", "name": "數字寶石", "game": "match3", "content": "math/unit1.json", "questionCount": 10, "unlockRequire": "3-1" },
-        { "id": "3-3", "name": "公式配對", "game": "connect", "content": "math/unit1.json", "questionCount": 6, "unlockRequire": "3-2" },
-        { "id": "3-4", "name": "數學魔王", "game": "boss-fight", "content": "math/unit1.json", "questionCount": 10, "unlockRequire": "3-3" }
+      "id": "zone-stone-forge",
+      "name": "岩石鍛造場",
+      "icon": "🪨",
+      "description": "數學課本試煉，訓練計算與判斷。",
+      "themeElement": "earth",
+      "textbookId": "tw-g3-s1-math",
+      "challenges": [
+        {
+          "id": "z3-1",
+          "name": "計算賽道",
+          "selectionMode": "random",
+          "candidateGameIds": ["racing", "boss-fight"],
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "math/unit1.json",
+          "questionCount": 8,
+          "unlockRequire": null
+        },
+        {
+          "id": "z3-2",
+          "name": "真假算式",
+          "selectionMode": "fixed",
+          "gameId": "racing",
+          "questionType": "true-false",
+          "answerMode": "tap-select",
+          "content": "math/unit1.json",
+          "questionCount": 8,
+          "unlockRequire": "z3-1"
+        }
       ]
     }
   ]

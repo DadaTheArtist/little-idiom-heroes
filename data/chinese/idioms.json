@@ -1,6 +1,8 @@
 {
   "subject": "chinese",
+  "textbookId": "tw-g3-s1-chinese",
   "unit": "成語篇",
+  "version": 1,
   "questions": [
     { "id": "idiom-001", "stem": "事實和願望相違背", "answer": "事與願違", "hint": "我們原本想去野餐，但 _____，出門前突然下起大雨。" },
     { "id": "idiom-002", "stem": "佛寺中早晚報時的鐘鼓。後也用來指一日的時光，或比喻使人警醒的力量", "answer": "暮鼓晨鐘", "hint": "爺爺的一番話語有如 _____，使我突然領悟與人相處的道理。" },

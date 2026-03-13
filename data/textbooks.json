@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "textbooks": [
+    {
+      "textbookId": "tw-g3-s1-chinese",
+      "grade": "國小三年級",
+      "term": "上學期",
+      "subject": "國文",
+      "displayName": "國小三上國文",
+      "themeElement": "fire"
+    },
+    {
+      "textbookId": "tw-g3-s1-english",
+      "grade": "國小三年級",
+      "term": "上學期",
+      "subject": "英文",
+      "displayName": "國小三上英文",
+      "themeElement": "lightning"
+    },
+    {
+      "textbookId": "tw-g3-s1-math",
+      "grade": "國小三年級",
+      "term": "上學期",
+      "subject": "數學",
+      "displayName": "國小三上數學",
+      "themeElement": "earth"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "bgm": [
+    { "id": "bgm-main-1", "src": "audio/bgm-1.mp3", "tags": ["default", "fire"] },
+    { "id": "bgm-main-2", "src": "audio/bgm-2.mp3", "tags": ["default", "lightning"] },
+    { "id": "bgm-main-3", "src": "audio/bgm-3.mp3", "tags": ["default", "earth"] }
+  ],
+  "sfx": []
+}

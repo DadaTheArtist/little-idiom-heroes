@@ -78,8 +78,10 @@ export default class Racing extends BaseGame {
     this.questionEl.textContent = q.hint || q.stem;
     this.progressEl.textContent = `第 ${this.currentIdx + 1} / ${this.totalQuestions} 題`;
 
-    const distractors = this._getDistractors(q.answer, 3);
-    const options = this._shuffleArray([q.answer, ...distractors]);
+    const baseOptions = Array.isArray(q.options) && q.options.length
+      ? [...q.options]
+      : [q.answer, ...this._getDistractors(q.answer, 3)];
+    const options = this._buildOptions(baseOptions, q.answer, 4);
 
     this.optionsEl.innerHTML = options.map(opt =>
       `<button class="racing-option" data-answer="${opt}">${opt}</button>`
@@ -147,5 +149,18 @@ export default class Racing extends BaseGame {
     overlay.querySelector('#racing-done').addEventListener('click', () => {
       this._finish();
     });
+  }
+
+  _buildOptions(baseOptions, answer, size) {
+    const options = [...new Set([answer, ...baseOptions])];
+    if (options.length >= size) return this._shuffleArray(options).slice(0, size);
+
+    const distractors = this._getDistractors(answer, size);
+    for (const item of distractors) {
+      if (!options.includes(item)) options.push(item);
+      if (options.length >= size) break;
+    }
+    while (options.length < size) options.push(answer);
+    return this._shuffleArray(options);
   }
 }

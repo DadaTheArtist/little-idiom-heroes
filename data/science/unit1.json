@@ -1,6 +1,8 @@
 {
   "subject": "science",
+  "textbookId": "tw-g3-s1-science",
   "unit": "自然科學篇",
+  "version": 1,
   "questions": [
     { "id": "sci-001", "stem": "水在攝氏幾度會沸騰？", "answer": "100度", "options": ["100度", "50度", "200度", "0度"], "tags": ["三年級"] },
     { "id": "sci-002", "stem": "太陽系中最大的行星是哪一顆？", "answer": "木星", "options": ["木星", "土星", "地球", "火星"], "tags": ["三年級"] },

@@ -4,6 +4,11 @@ export class AudioManager {
     this.bgm.loop = true;
     this.bgmVolume = 0.5;
     this.bgm.volume = this.bgmVolume;
+    this.audioManifest = null;
+  }
+
+  setManifest(manifest) {
+    this.audioManifest = manifest || null;
   }
 
   playBGM(src) {
@@ -13,7 +18,20 @@ export class AudioManager {
     this.bgm.play().catch(() => {});
   }
 
-  playRandomBGM() {
+  playRandomBGM(context = {}) {
+    const list = this.audioManifest?.bgm;
+    if (Array.isArray(list) && list.length) {
+      const tagged = context.themeElement
+        ? list.filter((item) => item.tags?.includes(context.themeElement))
+        : [];
+      const pool = tagged.length ? tagged : list;
+      const choice = pool[Math.floor(Math.random() * pool.length)];
+      if (choice?.src) {
+        this.playBGM(choice.src);
+        return;
+      }
+    }
+
     const num = Math.floor(Math.random() * 3) + 1;
     this.playBGM(`audio/bgm-${num}.mp3`);
   }

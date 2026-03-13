@@ -2,6 +2,8 @@ import { ScreenManager } from './core/screen-manager.js';
 import { AudioManager } from './core/audio-manager.js';
 import { Progress } from './core/progress.js';
 import { ContentLoader } from './core/content-loader.js';
+import { GameRegistry } from './core/game-registry.js';
+import { GameSelector } from './core/game-selector.js';
 import { TitleScreen } from './screens/title-screen.js';
 import { WorldMap } from './screens/world-map.js';
 import { LevelIntro } from './screens/level-intro.js';
@@ -14,12 +16,27 @@ class App {
     this.audioManager = new AudioManager();
     this.progress = new Progress();
     this.contentLoader = new ContentLoader();
+    this.gameRegistry = new GameRegistry();
+    this.gameSelector = new GameSelector(this.gameRegistry);
     this.worldConfig = null;
+    this.textbookMap = new Map();
+    this.artManifest = null;
   }
 
   async init() {
     try {
-      this.worldConfig = await this.contentLoader.loadWorldConfig();
+      const [worldConfig, textbooksData, audioManifest, artManifest] = await Promise.all([
+        this.contentLoader.loadWorldConfig(),
+        this.contentLoader.loadTextbooks(),
+        this.contentLoader.loadAudioManifest(),
+        this.contentLoader.loadArtManifest()
+      ]);
+      this.worldConfig = worldConfig;
+      this.audioManager.setManifest(audioManifest);
+      this.artManifest = artManifest;
+      this.textbookMap = new Map(
+        (textbooksData.textbooks || []).map((t) => [t.textbookId, t])
+      );
     } catch (e) {
       this.container.innerHTML = `<div style="padding:40px;text-align:center;color:#ff6b6b;">
         <h2>載入失敗</h2><p>請使用本地伺服器開啟此頁面</p>
@@ -37,24 +54,34 @@ class App {
     await this.screenManager.switchTo('title');
   }
 
-  async startLevel(levelConfig) {
-    const content = await this.contentLoader.load(levelConfig.content);
-    const questions = this.contentLoader.prepareQuestions(content, levelConfig.questionCount);
+  getTextbook(textbookId) {
+    return this.textbookMap.get(textbookId) || null;
+  }
 
-    const gameModules = {
-      'boss-fight': './games/boss-fight.js',
-      'racing': './games/racing.js',
-      'match3': './games/match3.js',
-      'connect': './games/connect.js'
-    };
+  getGameMeta(gameId) {
+    return this.gameRegistry.get(gameId);
+  }
 
-    const modulePath = gameModules[levelConfig.game];
-    if (!modulePath) {
-      console.error(`Unknown game type: ${levelConfig.game}`);
-      return;
-    }
+  peekGameForChallenge(challenge) {
+    return this.gameSelector.peek(challenge);
+  }
 
-    const module = await import(modulePath);
+  getZoneArt(zoneId) {
+    return this.artManifest?.zones?.[zoneId] || null;
+  }
+
+  async startLevel(runtimeConfig) {
+    const challenge = runtimeConfig.challenge || runtimeConfig.level || runtimeConfig;
+    const zone = runtimeConfig.zone || runtimeConfig.world || null;
+    if (!challenge) return;
+
+    const selectedGame = this.gameSelector.resolve(challenge);
+    const content = await this.contentLoader.load(challenge.content);
+    const prepared = this.contentLoader.prepareQuestions(content, challenge);
+    const questions = prepared.questions;
+    const allQuestions = prepared.allQuestions;
+
+    const module = await import(selectedGame.modulePath);
     const GameClass = module.default;
 
     this.container.innerHTML = '';
@@ -63,19 +90,29 @@ class App {
     this.container.appendChild(gameContainer);
 
     const game = new GameClass(gameContainer, questions, {
-      allQuestions: content.questions,
-      levelConfig
+      allQuestions,
+      challenge,
+      zone,
+      selectedGame,
+      art: zone ? this.getZoneArt(zone.id) : null
     });
 
     game.onComplete((results) => {
       game.destroy();
-      if (results.stars > 0) {
-        this.progress.completeLevel(levelConfig.id, results.stars);
+      if (results.stars > 0 && challenge.id) {
+        this.progress.completeLevel(challenge.id, results.stars);
       }
-      this.screenManager.switchTo('result', { results, levelConfig });
+      this.screenManager.switchTo('result', {
+        results,
+        levelConfig: {
+          challenge,
+          zone,
+          selectedGame
+        }
+      });
     });
 
-    this.audioManager.playRandomBGM();
+    this.audioManager.playRandomBGM({ themeElement: zone?.themeElement });
     game.init();
     game.start();
   }
