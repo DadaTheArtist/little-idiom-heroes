@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>小小成語英雄：懲罰機制強化版</title>
+    <style>
+        :root {
+            --bg-ui: rgba(0, 0, 0, 0.85);
+            --primary-red: #b30000;
+            --gold: #ffd700;
+            --boss-width: clamp(280px, 75vw, 350px);
+        }
+
+        body {
+            margin: 0; padding: 0; overflow: hidden;
+            font-family: 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+            background-color: #000; color: white;
+            user-select: none; touch-action: none; 
+        }
+
+        #start-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, #2c0000 0%, #000 100%);
+            z-index: 9999; display: flex; flex-direction: column;
+            justify-content: center; align-items: center; gap: 12px;
+        }
+
+        .mode-title { color: var(--gold); font-size: clamp(32px, 8vw, 56px); text-shadow: 0 0 20px var(--primary-red); }
+
+        .action-btn {
+            padding: 14px; font-size: 18px; font-weight: bold; cursor: pointer;
+            background: var(--primary-red); color: white; border: 3px solid #ff4d4d;
+            border-radius: 50px; width: 260px; max-width: 90%;
+        }
+
+        .setting-group { display: flex; gap: 10px; margin-bottom: 20px; align-items: center; }
+        .num-btn {
+            padding: 8px 25px; font-size: 18px; cursor: pointer;
+            background: #222; color: #fff; border: 2px solid #555; border-radius: 5px;
+            transition: 0.3s;
+        }
+        .num-btn.active { border-color: var(--gold); color: var(--gold); background: #443300; box-shadow: 0 0 10px var(--gold); }
+
+        #game-container {
+            position: relative; width: 100vw; height: 100vh;
+            background-size: var(--boss-width) auto; 
+            background-repeat: no-repeat;
+            background-position: center 10%; 
+            transition: background-image 0.5s;
+        }
+
+        .boss-effect-layer {
+            position: absolute; 
+            top: 10%; 
+            left: 50%; 
+            transform: translateX(-50%);
+            width: var(--boss-width); 
+            height: 40vh; 
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            background-position: center top; 
+            pointer-events: none; 
+            display: none; 
+            z-index: 15;
+        }
+
+        #status-text {
+            position: absolute; 
+            top: 25%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            font-size: clamp(20px, 6vw, 40px); 
+            font-weight: 900; 
+            z-index: 20; 
+            pointer-events: none; 
+            text-shadow: 0 0 15px #000, 0 0 5px #000; 
+            display: none;
+            text-align: center;
+            width: 90%;
+            line-height: 1.5;
+        }
+
+        #ui-overlay {
+            position: absolute; bottom: 0; width: 100%; height: 52vh;
+            background: linear-gradient(to top, #000 88%, rgba(0,0,0,0.4));
+            border-top: 3px solid var(--primary-red);
+            display: flex; flex-direction: column; align-items: center;
+            padding: 10px 10px 30px 10px;
+            box-sizing: border-box;
+        }
+
+        #boss-hp-container {
+            position: absolute; top: -42px; left: 50%; transform: translateX(-50%);
+            width: 80%; max-width: 320px; height: 26px; background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ff4d4d; border-radius: 15px; overflow: hidden;
+        }
+        #boss-hp-fill { height: 100%; background: linear-gradient(90deg, #ff0000, #800000); width: 100%; transition: width 0.4s; }
+        #hp-text { position: absolute; width: 100%; text-align: center; font-size: 15px; top: 2px; font-weight: bold; }
+
+        #question-area { 
+            font-size: clamp(17px, 4.8vw, 24px); margin: 10px 0 5px 0; text-align: center; 
+            color: #ffeb3b; min-height: 70px; display: flex; align-items: center; 
+            max-width: 92%; line-height: 1.4; 
+        }
+
+        #answer-area { 
+            display: flex; width: 96%; justify-content: center; 
+            gap: 6px; margin-bottom: 12px; 
+        }
+        .answer-target { 
+            flex: 1; height: clamp(52px, 13vw, 70px); 
+            background: rgba(45, 45, 45, 0.95); border: 1.5px solid #666; 
+            border-radius: 10px; display: flex; justify-content: center; 
+            align-items: center; font-size: clamp(14px, 3.8vw, 20px); 
+            font-weight: bold; text-align: center;
+        }
+        .answer-target.hover { background: rgba(255, 215, 0, 0.25); border-color: var(--gold); }
+
+        #sword-container { flex-grow: 1; width: 100%; position: relative; }
+        #sword { 
+            width: clamp(100px, 24vw, 120px); 
+            height: clamp(100px, 24vw, 120px); 
+            background-image: url('img/attack.png'); 
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            background-position: center;
+            position: absolute; left: 50%; top: 40%;
+            transform: translate(-50%, -50%);
+            cursor: grab; touch-action: none; z-index: 50;
+        }
+
+        #victory-screen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0, 0, 0, 0.95); display: none; flex-direction: column; 
+            justify-content: center; align-items: center; z-index: 5000;
+        }
+
+        @keyframes shake { 0%, 100% { transform: translate(0,0); } 20% { transform: translate(-8px, 8px); } 80% { transform: translate(10px, 10px); } }
+        .boss-defeated { animation: bossDeath 2s forwards !important; }
+        @keyframes bossDeath { 100% { opacity: 0; transform: translateY(-120px) scale(0); filter: brightness(5); } }
+    </style>
+</head>
+<body>
+
+<audio id="bgm" loop></audio>
+
+<div id="start-overlay">
+    <div class="mode-title">小小勇者成語傳說</div>
+    <div class="setting-group">
+        <button class="num-btn" id="n10" onclick="setNum(10, this)">10 題</button>
+        <button class="num-btn" id="n20" onclick="setNum(20, this)">20 題</button>
+    </div>
+    <button class="action-btn" onclick="handleStart(1)">成語解釋模式</button>
+    <button class="action-btn" onclick="handleStart(2)">例句造句模式</button>
+</div>
+
+<div id="game-container">
+    <div id="attack-effect" class="boss-effect-layer"></div>
+    <div id="defense-effect" class="boss-effect-layer"></div>
+    <div id="status-text"></div>
+
+    <div id="ui-overlay">
+        <div id="boss-hp-container">
+            <div id="boss-hp-fill"></div>
+            <div id="hp-text">HP: 10 / 10</div>
+        </div>
+        <div id="question-area">模式載入中...</div>
+        <div id="answer-area">
+            <div class="answer-target" id="target-0"></div>
+            <div class="answer-target" id="target-1"></div>
+            <div class="answer-target" id="target-2"></div>
+        </div>
+        <div id="sword-container">
+            <div id="sword"></div>
+        </div>
+    </div>
+</div>
+
+<div id="victory-screen">
+    <h1 style="font-size: clamp(40px, 10vw, 72px); color: var(--gold); text-shadow: 0 0 30px var(--gold);">恭喜你戰勝魔王！拯救了世界！</h1>
+    <button onclick="location.reload()" class="action-btn">回到首頁</button>
+</div>
+
+<script>
+    let totalQuestions = 10;
+    let gameMode = 1;
+    
+    const idiomDatabase = [
+  { idiom: '事與願違', qmode1: '事實和願望相違背', qmode2: '我們原本想去野餐，但 _____，出門前突然下起大雨。' },
+  { idiom: '暮鼓晨鐘', qmode1: '佛寺中早晚報時的鐘鼓。後也用來指一日的時光，或比喻使人警醒的力量', qmode2: '爺爺的一番話語有如 _____，使我突然領悟與人相處的道理。' },
+  { idiom: '揠苗助長', qmode1: '比喻使用不當的手段以求速成，結果不但無益，反而有害', qmode2: '你一下子給花施這麼多肥料，小心 _____，造成反效果。' },
+  { idiom: '開誠布公', qmode1: '比喻誠意待人，坦白無私', qmode2: '班長希望大家 _____ 的談一談，以化解彼此的誤會。' },
+  { idiom: '焦頭爛額', qmode1: '比喻做事陷入十分狼狽窘迫的困境或犧牲慘重', qmode2: '他最近為了畫展的事，忙得 _____，連吃飯的時間都沒有。' },
+  { idiom: '防微杜漸', qmode1: '在錯誤或壞事萌發的時候及時制止，杜絕它發展', qmode2: '小疏忽往往釀成大禍，我們應該 _____，避免日後衍生大問題時。' },
+  { idiom: '披星戴月', qmode1: '形容早出晚歸、連夜趕路或工作非常的勞累', qmode2: '爸爸為了家人，每天 _____ 的工作，好讓我們衣食無缺。' },
+  { idiom: '順水推舟', qmode1: '順著水流推船。比喻順應情勢做事', qmode2: '他的實力本來就不差，我只不過 _____ 拉他一把，讓他有表現的機會。' },
+  { idiom: '功敗垂成', qmode1: '指事情在即將成功時卻失敗了', qmode2: '做任何事若不能堅持到底，就會 _____。' },
+  { idiom: '世態炎涼', qmode1: '比喻世俗情態反覆無常', qmode2: '他在得意時受人景仰，失意時被大家唾棄，這正是 _____ 的最好寫照。' },
+  { idiom: '津津有味', qmode1: '形容興味濃厚的樣子。形容食欲很好或食物的美味', qmode2: '這本小說內容曲折離奇，讓人讀後覺得 _____。' },
+  { idiom: '價值連城', qmode1: '形容物品十分珍貴', qmode2: '這幅水墨畫 _____，是國寶級的寶物。' },
+  { idiom: '各式各樣', qmode1: '形容許多不同樣式、種類的東西', qmode2: '行人撐起了 _____ 的雨傘，路上開滿了一朵朵五顏六色的傘花。' },
+  { idiom: '五顏六色', qmode1: '形容色彩複雜而豐富', qmode2: '今天晚會施放的煙火 _____，光輝燦爛，令人讚嘆不已。' },
+  { idiom: '千鈞一髮', qmode1: '千鈞的重量繫掛在一根頭髮上。比喻情況非常危險、危急', qmode2: '比賽到了 _____ 的時刻，隊長的一記三分球，使我隊終場以一分險勝。' },
+  { idiom: '拾人牙慧', qmode1: '比喻蹈襲他人的言論或主張', qmode2: '這篇論文幾乎沒有自己的認知 and 想法，只不過是 _____ 而已。' },
+  { idiom: '麻木不仁', qmode1: '比喻對事物漠不關心或反應遲鈍', qmode2: '災區死傷情況那麼嚴重，還是有些人 _____，不聞不問。' },
+  { idiom: '風馳電掣', qmode1: '指像風那樣奔跑，像電光那樣急閃而過。形容速度很快', qmode2: '一接到通報，消防車立即 _____ 的趕到失火地點。' },
+  { idiom: '不學無術', qmode1: '指人未經學習而沒有學問才幹', qmode2: '他的心地雖然不壞，卻因 _____ 而無法獲得大家的認同。' },
+  { idiom: '推波助瀾', qmode1: '比喻推動鼓勵；或比喻從旁鼓動，使事態擴大', qmode2: '保存鄉土文化的風潮在政府的 _____ 下，全面展開。' },
+  { idiom: '數典忘祖', qmode1: '比喻人忘本', qmode2: '他只知指責西洋樂，而不知自己國家的音樂，真有點兒 _____！' },
+  { idiom: '惱羞成怒', qmode1: '因羞愧到極點而發生憤怒', qmode2: '面對大家不斷的羞愧，他 _____ 了。' },
+  { idiom: '老嫗能解', qmode1: '形容文字通俗明白，淺顯易懂', qmode2: '這位作家的作品平易近人， _____ ，因此深受讀者歡迎。' },
+  { idiom: '班門弄斧', qmode1: '比喻在行家面前賣弄本事，不自量力', qmode2: '今天我竟然在專家面前大談西洋美術史，真是 _____。' },
+  { idiom: '循循善誘', qmode1: '形容善於循序漸進的誘導別人', qmode2: '在老師的 _____ 之下，他的成績有了很大的進步。' },
+  { idiom: '咫尺天涯', qmode1: '比喻相距雖近，卻如同相隔千里，不能相見', qmode2: '人若有緣，天涯咫尺；人若無緣， _____。' },
+  { idiom: '門庭若市', qmode1: '比喻上門來的人很多', qmode2: '這家餐廳物美價廉，因此每到用餐時間總是 _____。' },
+  { idiom: '猶豫不決', qmode1: '遲疑不定，無法拿定主意', qmode2: '他對出國留學這件事情 _____ ，遲遲無法決定。' },
+  { idiom: '千篇一律', qmode1: '形容事物的形式呆板而毫無變化', qmode2: '外面賣的便當，幾乎天天都是那幾樣菜， _____ ，吃都吃膩了。' },
+  { idiom: '改過自新', qmode1: '改正過失，重新做人', qmode2: '雖然他犯了過錯，但只要他能 _____ ，大家就原諒他吧！' },
+  { idiom: '設身處地', qmode1: '假想自己處在他人地位或情況中', qmode2: '他凡事能 _____ 為別人著想，所以很受歡迎。' },
+  { idiom: '付之一炬', qmode1: '指物品、成果全數被燒毀', qmode2: '他的財產在這場火災中全部 _____。' },
+  { idiom: '一清二楚', qmode1: '十分清楚、明白', qmode2: '奶奶戴上新配好的老花眼鏡，開心的表示可以看得 _____。' },
+  { idiom: '有目共睹', qmode1: '指事實極為明顯，所有人都知道', qmode2: '他在古典音樂的貢獻，世人 _____ ，如今獲頒獎項真是實至名歸。' },
+  { idiom: '鵬程萬里', qmode1: '比喻前程遠大，不可限量', qmode2: '校長在畢業典禮上，祝福畢業生 _____ ，一帆風順。' },
+  { idiom: '張口結舌', qmode1: '形容恐懼慌張，或理虧說不出話的樣子', qmode2: '他在眾人的追問下，一時之間 _____ ，什麼話也說不出來。' },
+  { idiom: '立竿見影', qmode1: '比喻迅速收到成效', qmode2: '新的交通法規才剛實施，就收到 _____ 的成效。' },
+  { idiom: '包羅萬象', qmode1: '形容內容豐富，應有盡有', qmode2: '大賣場的商品 _____ ，幾乎你想得到的東西都可以找到。' },
+  { idiom: '觸類旁通', qmode1: '根據對已知事物的認識與理解，進而通達對其他類似事物', qmode2: '老師不厭其煩的講解例題，就是要讓我們能 _____ ，舉一反三。' },
+  { idiom: '大開眼界', qmode1: '明顯的使視野開展，見聞增加', qmode2: '今天到故宮參觀，看見數不清的歷代寶物，真是讓我 _____。' },
+  { idiom: '七嘴八舌', qmode1: '形容人多口雜，各說各的樣子', qmode2: '下課後，大家立刻 _____ 的討論運動會的比賽項目。' },
+  { idiom: '千奇百怪', qmode1: '形容事物外觀奇特，種類繁多', qmode2: '弟弟聰明活潑，經常會有 _____ 的點子。' },
+  { idiom: '揠苗助長', qmode1: '比喻使用不當的手段以求速成，結果不但無益，反而有害。', qmode2: '練習技藝必須循序漸進，貪求速效，往往 _____ 罷了。' },
+  { idiom: '如願以償', qmode1: '理想得以實現。', qmode2: '他經過不斷的努力，終於 _____ 的進入了大學。' },
+  { idiom: '心悅誠服', qmode1: '指內心喜悅且真誠的服從。', qmode2: '陳董事長能力卓越，員工們莫不 _____ 。' },
+  { idiom: '頭昏腦脹', qmode1: '頭部昏眩，腦部腫脹；多用以形容心思疲憊的狀況。', qmode2: '這個問題困擾了我一整天，弄得我 _____。' },
+  { idiom: '拾金不昧', qmode1: '撿到別人遺失的錢財而不據為己有。', qmode2: '_____ 是值得表揚的行為。' },
+  { idiom: '大顯身手', qmode1: '極力的展現技藝或特長。', qmode2: '這次的兒童繪畫比賽，讓所有愛畫畫的小孩都有 _____ 的機會。' },
+  { idiom: '天倫之樂', qmode1: '家人團聚時的歡樂。', qmode2: '逢年過節他一定回家，和家人共享 _____ 。' },
+  { idiom: '速戰速決', qmode1: '以最快的速度發動攻勢，並儘快達成預期的目的。', qmode2: '今天的會議，最好能 _____ ，儘快做出決議。' },
+  { idiom: '門庭若市', qmode1: '門口和庭院像市場一樣的熱鬧。形容求見的人很多', qmode2: '自從公司準備擴編的消息傳出，董事長辦公室立即 _____。' },
+  { idiom: '一帆風順', qmode1: '指旅途平安無阻或事情進展順利。', qmode2: '先生有貴人相助，事業 _____。' },
+  { idiom: '流連忘返', qmode1: '形容徘徊、留戀而不忍離去。', qmode2: '這裡的風光明媚，使他 _____。' },
+  { idiom: '衝鋒陷陣', qmode1: '深入敵方陣地向敵人攻擊。形容英勇作戰。', qmode2: '身為主帥的他，經常身先士卒， _____ ，以鼓舞士氣。' },
+  { idiom: '百思不解', qmode1: '經過反覆思考，仍然無法了解。', qmode2: '他為什麼會奇蹟式的復活？真是令人 _____。' },
+  { idiom: '大出風頭', qmode1: '因言行突出、特別，而受到大眾的矚目，成為人們所談論的焦點。', qmode2: '他在這屆亞運會上拿下第一面金牌，因而在媒體上 _____。' },
+  { idiom: '多多益善', qmode1: '指愈多愈好。', qmode2: '主辦單位呼籲各界發揮愛心，踴躍捐款， _____。' },
+  { idiom: '一目十行', qmode1: '形容人閱讀的速度很快。', qmode2: '小華學過速讀，所以看書可以 _____。' },
+  { idiom: '紙包不住火', qmode1: '比喻事實真相無法隱瞞，終究會被揭露。', qmode2: '這事 _____ ，他終究會知道真相。' },
+  { idiom: '物以類聚', qmode1: '指具有相同特性或嗜好的物或人聚集在一起。', qmode2: '這些遊手好閒的人，就是喜歡湊在一起，真是 _____。' }
+    ];
+
+    let currentQuestions = [];
+    let currentQuestionIndex = 0;
+    let bossHp = 10;
+    let isGameOver = false;
+    let isProcessingAnswer = false; // 防止連續觸發
+
+    const sword = document.getElementById('sword');
+    const bgm = document.getElementById('bgm');
+    const answerTargets = document.querySelectorAll('.answer-target');
+
+    function setNum(n, btn) {
+        totalQuestions = n;
+        document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+    setNum(10, document.getElementById('n10'));
+
+    function handleStart(mode) {
+        gameMode = mode;
+        const randomMusicNum = Math.floor(Math.random() * 3) + 1;
+        bgm.src = `audio/bgm-${randomMusicNum}.mp3`;
+        bgm.play().catch(()=>{});
+        document.getElementById('start-overlay').style.display = 'none';
+        startGame();
+    }
+
+    function startGame() {
+        bossHp = totalQuestions;
+        currentQuestionIndex = 0;
+        isGameOver = false;
+        isProcessingAnswer = false;
+        const randomBossNum = Math.floor(Math.random() * 5) + 1;
+        document.getElementById('game-container').style.backgroundImage = `url('img/boss-${randomBossNum}.png')`;
+        currentQuestions = [...idiomDatabase].sort(() => 0.5 - Math.random()).slice(0, totalQuestions);
+        updateHpUI();
+        loadQuestion();
+    }
+
+function loadQuestion() {
+        if (isGameOver || currentQuestionIndex >= currentQuestions.length) return;
+        isProcessingAnswer = false; // 恢復可答題狀態
+        
+        const currentData = currentQuestions[currentQuestionIndex];
+        document.getElementById('question-area').textContent = (gameMode === 1) ? currentData.qmode1 : currentData.qmode2;
+        
+        let wrongOptions = idiomDatabase.filter(item => item.idiom !== currentData.idiom).sort(() => 0.5 - Math.random()).slice(0, 2).map(item => item.idiom);
+        let options = [currentData.idiom, ...wrongOptions].sort(() => 0.5 - Math.random());
+        
+        answerTargets.forEach((target, index) => {
+            target.textContent = options[index];
+            
+            // --- 徹底還原按鈕 Style，不殘留顏色 ---
+            target.style.background = "rgba(45, 45, 45, 0.95)"; // 恢復深灰背景
+            target.style.borderColor = "#666";                 // 恢復原色邊框
+            target.style.color = "white";                      // 恢復白色文字
+            target.classList.remove('hover');
+        });
+    }
+
+    function updateHpUI() {
+        // 確保 HP 不會超過總題數（上限）
+        if (bossHp > totalQuestions) bossHp = totalQuestions;
+        document.getElementById('boss-hp-fill').style.width = `${(bossHp / totalQuestions) * 100}%`;
+        document.getElementById('hp-text').textContent = `HP: ${bossHp} / ${totalQuestions}`;
+    }
+
+    // Pointer Events 邏輯
+    let isDragging = false;
+    let startX, startY;
+
+    sword.addEventListener('pointerdown', (e) => {
+        if(isGameOver || isProcessingAnswer) return;
+        isDragging = true;
+        sword.setPointerCapture(e.pointerId);
+        startX = e.clientX;
+        startY = e.clientY;
+    });
+
+    window.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        sword.style.transform = `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))`;
+
+        answerTargets.forEach(target => {
+            const rect = target.getBoundingClientRect();
+            if (e.clientX > rect.left && e.clientX < rect.right && e.clientY > rect.top && e.clientY < rect.bottom) {
+                target.classList.add('hover');
+            } else {
+                target.classList.remove('hover');
+            }
+        });
+    });
+
+    window.addEventListener('pointerup', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        let hitTarget = null;
+        answerTargets.forEach(target => {
+            const rect = target.getBoundingClientRect();
+            if (e.clientX > rect.left && e.clientX < rect.right && e.clientY > rect.top && e.clientY < rect.bottom) {
+                hitTarget = target;
+            }
+        });
+        if (hitTarget) checkAnswer(hitTarget);
+        sword.style.transform = `translate(-50%, -50%)`;
+    });
+
+function checkAnswer(target) {
+        if (isProcessingAnswer) return;
+        isProcessingAnswer = true; 
+        
+        const currentData = currentQuestions[currentQuestionIndex];
+        const isCorrect = target.textContent === currentData.idiom;
+        
+        if (isCorrect) {
+            bossHp--;
+            updateHpUI();
+            triggerStatus('success', '');
+            document.getElementById('game-container').style.animation = "shake 0.3s";
+            setTimeout(() => document.getElementById('game-container').style.animation = "", 300);
+            
+            if (bossHp <= 0) {
+                isGameOver = true;
+                document.getElementById('game-container').classList.add('boss-defeated');
+                setTimeout(() => document.getElementById('victory-screen').style.display = 'flex', 2000);
+            } else {
+                currentQuestionIndex++;
+                setTimeout(loadQuestion, 500);
+            }
+        } else {
+            // 答錯：HP + 2
+            bossHp += 2;
+            updateHpUI();
+            
+            // --- 修正：標示正確答案與錯誤答案的顏色 ---
+            target.style.background = "rgba(244, 67, 54, 0.6)"; // 選錯的按鈕 (紅色)
+            target.style.borderColor = "#ff4d4d";
+
+            answerTargets.forEach(btn => {
+                if (btn.textContent === currentData.idiom) {
+                    btn.style.background = "rgba(76, 175, 80, 0.7)"; // 正確答案 (綠色)
+                    btn.style.borderColor = "#4CAF50";
+                    btn.style.color = "#fff";
+                }
+            });
+
+            // 提示文字
+            triggerStatus('fail', currentData.idiom);
+            
+            // 延遲 2.5 秒後換下一題
+            currentQuestionIndex++;
+            setTimeout(loadQuestion, 2500); 
+        }
+    }
+    function triggerStatus(type, correctAnswer) {
+        const status = document.getElementById('status-text');
+        const attack = document.getElementById('attack-effect');
+        const defense = document.getElementById('defense-effect');
+        
+        let displayTime = 1500; // 預設 1.5 秒
+
+        if (type === 'success') {
+            status.textContent = '命中！HP - 1';
+            status.style.color = '#ffd700';
+            attack.style.backgroundImage = `url('img/boss-attack.gif?t=${Date.now()}')`;
+            attack.style.display = 'block';
+            defense.style.display = 'none';
+        } else {
+            // 顯示文字：魔王回血 + 正確答案
+            status.innerHTML = `攻擊失敗！<br><span style="font-size:0.7em; color:white;">魔王恢復 HP+2</span><br><span style="color:#ffeb3b;">正確答案是：${correctAnswer}</span>`;
+            status.style.color = '#ff4d4d';
+            defense.style.backgroundImage = `url('img/boss-def.gif?t=${Date.now()}')`;
+            defense.style.display = 'block';
+            attack.style.display = 'none';
+            displayTime = 2500; // 答錯提示顯示久一點
+        }
+        
+        status.style.display = 'block';
+        setTimeout(() => {
+            status.style.display = 'none';
+            attack.style.display = 'none';
+            defense.style.display = 'none';
+        }, displayTime);
+    }
+</script>
+</body>
+</html>

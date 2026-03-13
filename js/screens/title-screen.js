@@ -11,7 +11,7 @@ export class TitleScreen {
     el.innerHTML = `
       <div class="title-bg-particles">${this._particles(20)}</div>
       <div class="title-logo">
-        <div class="title-main">小小英雄<br>練習王國</div>
+        <div class="title-main">小小英雄<br>冒險王國</div>
         <div class="title-sub">邊玩邊學的冒險之旅</div>
       </div>
       <div class="title-actions">

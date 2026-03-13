@@ -8,22 +8,28 @@ export class WorldMap {
     if (data.worldIdx !== undefined) this.currentWorldIdx = data.worldIdx;
 
     const zones = this.app.worldConfig.zones;
+
+    if (zones[this.currentWorldIdx]?.enabled === false) {
+      this.currentWorldIdx = zones.findIndex(z => z.enabled !== false);
+      if (this.currentWorldIdx < 0) this.currentWorldIdx = 0;
+    }
     const el = document.createElement('div');
     el.className = 'screen world-map-screen';
 
     el.innerHTML = `
-      <div class="world-tabs">${zones.map((z, i) =>
-        `<button class="world-tab${i === this.currentWorldIdx ? ' active' : ''}" data-idx="${i}">
-          ${z.icon} ${z.name}
-        </button>`
-      ).join('')}</div>
+      <div class="world-tabs">${zones.map((z, i) => {
+        const disabled = z.enabled === false;
+        return `<button class="world-tab${i === this.currentWorldIdx ? ' active' : ''}${disabled ? ' disabled' : ''}" data-idx="${i}" ${disabled ? 'disabled' : ''}>
+          ${z.icon} ${z.name}${disabled ? '<span class="tab-locked-label">(尚未開放)</span>' : ''}
+        </button>`;
+      }).join('')}</div>
       <div class="world-content" id="world-content"></div>
     `;
 
     container.appendChild(el);
     requestAnimationFrame(() => el.classList.add('active'));
 
-    el.querySelectorAll('.world-tab').forEach(tab => {
+    el.querySelectorAll('.world-tab:not([disabled])').forEach(tab => {
       tab.addEventListener('click', () => {
         this.currentWorldIdx = parseInt(tab.dataset.idx);
         el.querySelectorAll('.world-tab').forEach(t => t.classList.remove('active'));

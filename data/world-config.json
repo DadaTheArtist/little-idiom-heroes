@@ -8,6 +8,7 @@
       "description": "國文課本試煉，挑戰成語與閱讀理解。",
       "themeElement": "fire",
       "textbookId": "tw-g3-s1-chinese",
+      "enabled": true,
       "challenges": [
         {
           "id": "z1-1",
@@ -51,6 +52,7 @@
       "description": "英文課本試煉，混合是非題與單字挑戰。",
       "themeElement": "lightning",
       "textbookId": "tw-g3-s1-english",
+      "enabled": false,
       "challenges": [
         {
           "id": "z2-1",
@@ -83,6 +85,7 @@
       "description": "數學課本試煉，訓練計算與判斷。",
       "themeElement": "earth",
       "textbookId": "tw-g3-s1-math",
+      "enabled": false,
       "challenges": [
         {
           "id": "z3-1",

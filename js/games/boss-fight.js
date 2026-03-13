@@ -30,20 +30,29 @@ export default class BossFight extends BaseGame {
         <div class="boss-effect-layer" id="boss-atk-effect"></div>
         <div class="boss-effect-layer" id="boss-def-effect"></div>
         <div class="boss-status-text" id="boss-status"></div>
-        <button class="back-btn" id="boss-back">←</button>
-        <div class="boss-ui-overlay">
-          <div class="boss-hp-container">
-            <div class="boss-hp-fill" id="boss-hp-fill"></div>
-            <div class="boss-hp-text" id="boss-hp-text"></div>
+        <div class="boss-ui-panel">
+          <div class="boss-header">
+            <button class="back-btn boss-back-btn" id="boss-back">←</button>
+            <div class="boss-info">
+              <div>題目 <span id="boss-progress">1 / ${this.totalQuestions}</span></div>
+              <div>命中 <span id="boss-correct">0</span></div>
+            </div>
           </div>
-          <div class="boss-question" id="boss-question">準備中…</div>
+          <div class="boss-hp-wrap">
+            <div class="boss-hp-container">
+              <div class="boss-hp-fill" id="boss-hp-fill"></div>
+              <div class="boss-hp-text" id="boss-hp-text"></div>
+            </div>
+          </div>
+          <div class="boss-question-bar" id="boss-question">準備中…</div>
           <div class="boss-answer-area" id="boss-answers">
             <div class="boss-answer-target" id="bt-0"></div>
             <div class="boss-answer-target" id="bt-1"></div>
             <div class="boss-answer-target" id="bt-2"></div>
           </div>
-          <div class="boss-sword-container">
-            <div class="boss-sword" id="boss-sword"></div>
+          <div class="boss-action-area">
+            <button class="boss-sword-btn" id="boss-sword" aria-label="拖曳寶劍攻擊"></button>
+            <div class="boss-action-hint">拖曳寶劍攻擊正確答案</div>
           </div>
         </div>
       </div>
@@ -54,6 +63,8 @@ export default class BossFight extends BaseGame {
     this.targets = this.container.querySelectorAll('.boss-answer-target');
     this.hpFill = this.container.querySelector('#boss-hp-fill');
     this.hpText = this.container.querySelector('#boss-hp-text');
+    this.progressEl = this.container.querySelector('#boss-progress');
+    this.correctEl = this.container.querySelector('#boss-correct');
     this.questionEl = this.container.querySelector('#boss-question');
     this.statusEl = this.container.querySelector('#boss-status');
     this.atkEffect = this.container.querySelector('#boss-atk-effect');
@@ -98,6 +109,8 @@ export default class BossFight extends BaseGame {
 
     const q = this.questions[this.currentIdx];
     this.questionEl.textContent = q.hint || q.stem;
+    if (this.progressEl) this.progressEl.textContent = `${this.currentIdx + 1} / ${this.totalQuestions}`;
+    if (this.correctEl) this.correctEl.textContent = `${this.correctCount}`;
 
     const baseOptions = Array.isArray(q.options) && q.options.length
       ? [...q.options]
@@ -129,6 +142,7 @@ export default class BossFight extends BaseGame {
 
     if (correct) {
       this.correctCount++;
+      if (this.correctEl) this.correctEl.textContent = `${this.correctCount}`;
       this.bossHp--;
       this._updateHp();
       this._showStatus('success', '');
