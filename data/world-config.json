@@ -46,35 +46,46 @@
       ]
     },
     {
-      "id": "zone-lightning-tower",
-      "name": "閃電塔冒險",
-      "icon": "⚡",
-      "description": "英文課本試煉，混合是非題與單字挑戰。",
-      "themeElement": "lightning",
-      "textbookId": "tw-g3-s1-english",
-      "enabled": false,
+      "id": "zone-water-lab",
+      "name": "水之實驗場",
+      "icon": "💧",
+      "description": "三下自然試煉，挑戰種植觀念與水的形態變化。",
+      "themeElement": "water",
+      "textbookId": "tw-g3-s2-science",
+      "enabled": true,
       "challenges": [
         {
           "id": "z2-1",
-          "name": "真假叉路",
+          "name": "自然賽車暖身",
           "selectionMode": "fixed",
           "gameId": "racing",
-          "questionType": "true-false",
+          "questionType": "choice",
           "answerMode": "tap-select",
-          "content": "english/unit1.json",
+          "content": "science/g3-s2-midterm.json",
           "questionCount": 8,
           "unlockRequire": null
         },
         {
           "id": "z2-2",
-          "name": "單字連連看",
+          "name": "水之真假判斷",
+          "selectionMode": "fixed",
+          "gameId": "racing",
+          "questionType": "true-false",
+          "answerMode": "tap-select",
+          "content": "science/g3-s2-midterm.json",
+          "questionCount": 10,
+          "unlockRequire": "z2-1"
+        },
+        {
+          "id": "z2-3",
+          "name": "自然連連看",
           "selectionMode": "fixed",
           "gameId": "connect",
           "questionType": "choice",
           "answerMode": "pair-select",
-          "content": "english/unit1.json",
+          "content": "science/g3-s2-midterm.json",
           "questionCount": 6,
-          "unlockRequire": "z2-1"
+          "unlockRequire": "z2-2"
         }
       ]
     },

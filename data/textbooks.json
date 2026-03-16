@@ -24,6 +24,14 @@
       "subject": "數學",
       "displayName": "國小三上數學",
       "themeElement": "earth"
+    },
+    {
+      "textbookId": "tw-g3-s2-science",
+      "grade": "國小三年級",
+      "term": "下學期",
+      "subject": "自然",
+      "displayName": "國小三下自然",
+      "themeElement": "water"
     }
   ]
 }
