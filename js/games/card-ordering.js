@@ -1,21 +1,25 @@
 import { BaseGame } from './base-game.js';
 
 /**
- * Ordering question game: arrange cards in the correct sequence.
+ * Ordering question game: tap answer cards to place them into numbered slots.
  *
- * Expected question format:
- *   { prompt, correctOrder: string[] }
+ * Interaction:
+ *   1. Answer cards are shown shuffled in a pool at the top.
+ *   2. Player taps a card to "select" it (highlighted).
+ *   3. Then taps a numbered slot to place it there.
+ *   4. Tapping an occupied slot removes the card back to the pool.
+ *   5. When all slots are filled, submit button activates.
  *
- * After normalization by ContentLoader the question will also have
- *   type: 'ordering'
+ * Expected question format: { prompt, correctOrder: string[] }
  */
 export default class CardOrdering extends BaseGame {
   constructor(container, questions, config) {
     super(container, questions, config);
     this.currentIdx = 0;
     this.isProcessing = false;
-    this.slots = [];
-    this.dragSrcIdx = null;
+    this.slotContents = [];   // what's in each numbered slot (null if empty)
+    this.selectedCard = null; // { val, poolIdx } — the card currently selected from pool
+    this.poolItems = [];      // shuffled items not yet placed
   }
 
   init() {
@@ -31,10 +35,12 @@ export default class CardOrdering extends BaseGame {
 
         <div class="order-question" id="order-question">準備中…</div>
 
-        <div class="order-slots-area">
-          <div class="order-slot-numbers" id="order-numbers"></div>
-          <div class="order-slots" id="order-slots"></div>
+        <div class="order-pool-area">
+          <div class="order-pool-label">答案卡片（點選後放入格子）</div>
+          <div class="order-pool" id="order-pool"></div>
         </div>
+
+        <div class="order-slots-area" id="order-slots-area"></div>
 
         <button class="btn btn-gold order-submit-btn" id="order-submit" disabled>送出</button>
 
@@ -47,8 +53,8 @@ export default class CardOrdering extends BaseGame {
     this.questionEl = this.container.querySelector('#order-question');
     this.progressEl = this.container.querySelector('#order-progress');
     this.correctEl = this.container.querySelector('#order-correct');
-    this.numbersEl = this.container.querySelector('#order-numbers');
-    this.slotsEl = this.container.querySelector('#order-slots');
+    this.poolEl = this.container.querySelector('#order-pool');
+    this.slotsAreaEl = this.container.querySelector('#order-slots-area');
     this.submitBtn = this.container.querySelector('#order-submit');
     this.effectEl = this.container.querySelector('#order-effect');
     this.statusEl = this.container.querySelector('#order-status');
@@ -84,96 +90,100 @@ export default class CardOrdering extends BaseGame {
     }
 
     this.isProcessing = false;
-    this.dragSrcIdx = null;
+    this.selectedCard = null;
     const q = this.questions[this.currentIdx];
     const items = q.correctOrder || [];
-    this.slots = this._shuffleArray([...items]);
+
+    this.slotContents = new Array(items.length).fill(null);
+    this.poolItems = this._shuffleArray([...items]);
 
     this.questionEl.textContent = q.prompt || q.hint || q.stem;
     this.progressEl.textContent = `${this.currentIdx + 1} / ${this.totalQuestions}`;
     this.correctEl.textContent = `${this.correctCount}`;
-    this.submitBtn.disabled = false;
+    this.submitBtn.disabled = true;
     this.effectEl.className = 'order-effect-overlay';
     this.statusEl.style.display = 'none';
 
-    this.numbersEl.innerHTML = items.map((_, i) =>
-      `<div class="order-number">${i + 1}</div>`
-    ).join('');
-
+    this._renderPool();
     this._renderSlots();
   }
 
-  _renderSlots() {
-    this.slotsEl.innerHTML = this.slots.map((val, i) =>
-      `<div class="order-card" data-idx="${i}" draggable="true">${val}</div>`
-    ).join('');
+  _renderPool() {
+    this.poolEl.innerHTML = this.poolItems.map((val, i) => {
+      if (val === null) {
+        return `<div class="order-pool-placeholder" data-pool-idx="${i}"></div>`;
+      }
+      const isSelected = this.selectedCard?.poolIdx === i;
+      return `<button class="order-pool-card${isSelected ? ' selected' : ''}" data-pool-idx="${i}">${val}</button>`;
+    }).join('');
 
-    this.slotsEl.querySelectorAll('.order-card').forEach(card => {
-      card.addEventListener('dragstart', (e) => this._onDragStart(e, card));
-      card.addEventListener('dragover', (e) => e.preventDefault());
-      card.addEventListener('drop', (e) => this._onDrop(e, card));
-      card.addEventListener('dragend', () => this._onDragEnd());
-
-      card.addEventListener('touchstart', (e) => this._onTouchStart(e, card), { passive: true });
-      card.addEventListener('touchmove', (e) => this._onTouchMove(e), { passive: false });
-      card.addEventListener('touchend', (e) => this._onTouchEnd(e));
+    this.poolEl.querySelectorAll('.order-pool-card').forEach(btn => {
+      btn.addEventListener('click', () => this._onPoolCardClick(parseInt(btn.dataset.poolIdx)));
     });
   }
 
-  _onDragStart(e, card) {
-    if (this.isProcessing) return;
-    this.dragSrcIdx = parseInt(card.dataset.idx);
-    card.classList.add('dragging');
-    e.dataTransfer.effectAllowed = 'move';
+  _renderSlots() {
+    const n = this.slotContents.length;
+    this.slotsAreaEl.innerHTML = this.slotContents.map((val, i) => {
+      const filled = val !== null;
+      return `
+        <div class="order-slot-row">
+          <div class="order-slot-number">${i + 1}</div>
+          <button class="order-slot${filled ? ' filled' : ''}${this.selectedCard && !filled ? ' droppable' : ''}" data-slot-idx="${i}">
+            ${filled ? `<span class="order-slot-text">${val}</span><span class="order-slot-remove">✕</span>` : '<span class="order-slot-hint">點此放入</span>'}
+          </button>
+        </div>
+      `;
+    }).join('');
+
+    this.slotsAreaEl.querySelectorAll('.order-slot').forEach(btn => {
+      btn.addEventListener('click', () => this._onSlotClick(parseInt(btn.dataset.slotIdx)));
+    });
   }
 
-  _onDrop(e, card) {
-    e.preventDefault();
-    if (this.isProcessing || this.dragSrcIdx === null) return;
-    const targetIdx = parseInt(card.dataset.idx);
-    if (this.dragSrcIdx !== targetIdx) {
-      const temp = this.slots[this.dragSrcIdx];
-      this.slots[this.dragSrcIdx] = this.slots[targetIdx];
-      this.slots[targetIdx] = temp;
-      this._renderSlots();
+  _onPoolCardClick(poolIdx) {
+    if (this.isProcessing) return;
+    const val = this.poolItems[poolIdx];
+    if (val === null) return;
+
+    if (this.selectedCard?.poolIdx === poolIdx) {
+      this.selectedCard = null;
+    } else {
+      this.selectedCard = { val, poolIdx };
     }
-    this.dragSrcIdx = null;
+
+    this._renderPool();
+    this._renderSlots();
   }
 
-  _onDragEnd() {
-    this.dragSrcIdx = null;
-    this.slotsEl.querySelectorAll('.order-card').forEach(c => c.classList.remove('dragging'));
-  }
-
-  _onTouchStart(e, card) {
+  _onSlotClick(slotIdx) {
     if (this.isProcessing) return;
-    this.dragSrcIdx = parseInt(card.dataset.idx);
-    card.classList.add('dragging');
-  }
+    const currentVal = this.slotContents[slotIdx];
 
-  _onTouchMove(e) {
-    if (this.dragSrcIdx === null) return;
-    e.preventDefault();
-  }
-
-  _onTouchEnd(e) {
-    if (this.isProcessing || this.dragSrcIdx === null) return;
-    const touch = e.changedTouches[0];
-    const targetEl = document.elementFromPoint(touch.clientX, touch.clientY);
-    const targetCard = targetEl?.closest?.('.order-card');
-
-    if (targetCard) {
-      const targetIdx = parseInt(targetCard.dataset.idx);
-      if (this.dragSrcIdx !== targetIdx) {
-        const temp = this.slots[this.dragSrcIdx];
-        this.slots[this.dragSrcIdx] = this.slots[targetIdx];
-        this.slots[targetIdx] = temp;
-        this._renderSlots();
+    if (currentVal !== null) {
+      // Remove from slot back to pool
+      const emptyIdx = this.poolItems.indexOf(null);
+      if (emptyIdx !== -1) {
+        this.poolItems[emptyIdx] = currentVal;
+      } else {
+        this.poolItems.push(currentVal);
       }
+      this.slotContents[slotIdx] = null;
+      if (this.selectedCard === null) {
+        // Just removing; no card selected
+      }
+    } else if (this.selectedCard !== null) {
+      // Place selected card into slot
+      this.slotContents[slotIdx] = this.selectedCard.val;
+      this.poolItems[this.selectedCard.poolIdx] = null;
+      this.selectedCard = null;
+    } else {
+      return;
     }
 
-    this.dragSrcIdx = null;
-    this.slotsEl.querySelectorAll('.order-card').forEach(c => c.classList.remove('dragging'));
+    this.submitBtn.disabled = this.slotContents.some(v => v === null);
+    this._renderPool();
+    this._renderSlots();
   }
 
   _handleSubmit() {
@@ -183,16 +193,21 @@ export default class CardOrdering extends BaseGame {
 
     const q = this.questions[this.currentIdx];
     const correctOrder = q.correctOrder || [];
-    const isCorrect = this.slots.length === correctOrder.length &&
-      this.slots.every((val, i) => val === correctOrder[i]);
+    const isCorrect = this.slotContents.length === correctOrder.length &&
+      this.slotContents.every((val, i) => val === correctOrder[i]);
 
-    this.slotsEl.querySelectorAll('.order-card').forEach((card, i) => {
-      if (this.slots[i] === correctOrder[i]) {
-        card.classList.add('slot-correct');
-      } else {
-        card.classList.add('slot-wrong');
-      }
-    });
+    // Re-render slots with correct/wrong highlights
+    this.slotsAreaEl.innerHTML = this.slotContents.map((val, i) => {
+      const ok = val === correctOrder[i];
+      return `
+        <div class="order-slot-row">
+          <div class="order-slot-number">${i + 1}</div>
+          <div class="order-slot filled ${ok ? 'slot-correct' : 'slot-wrong'}">
+            <span class="order-slot-text">${val ?? ''}</span>
+          </div>
+        </div>
+      `;
+    }).join('');
 
     if (isCorrect) {
       this.correctCount++;

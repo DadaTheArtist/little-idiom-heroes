@@ -97,6 +97,8 @@ export class ContentLoader {
 
   _ensureOptions(question, allQuestions) {
     if (question.type === 'true-false') return question;
+    if (question.type === 'multi-select') return question;
+    if (question.type === 'ordering') return question;
 
     const existing = Array.isArray(question.options) ? [...question.options] : [];
     const options = [...new Set([question.answer, ...existing])];
