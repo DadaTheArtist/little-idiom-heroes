@@ -38,6 +38,36 @@ const GAME_DEFINITIONS = [
     supportsQuestionTypes: ['choice', 'fill-blank'],
     supportsAnswerModes: ['pair-select', 'tap-select'],
     weight: 1
+  },
+  {
+    gameId: 'bomb-defusal',
+    displayName: '拆彈專家',
+    icon: '💣',
+    description: '判斷是非，拆除炸彈！答對警報解除，答錯就爆炸。',
+    modulePath: './games/bomb-defusal.js',
+    supportsQuestionTypes: ['true-false'],
+    supportsAnswerModes: ['tap-select'],
+    weight: 1
+  },
+  {
+    gameId: 'lab-experiment',
+    displayName: '實驗室',
+    icon: '🧪',
+    description: '把正確答案拖進實驗設備，成功製作道具！',
+    modulePath: './games/lab-experiment.js',
+    supportsQuestionTypes: ['multi-select'],
+    supportsAnswerModes: ['multi-select'],
+    weight: 1
+  },
+  {
+    gameId: 'card-ordering',
+    displayName: '排排站',
+    icon: '🃏',
+    description: '把答案排列成正確順序，成功就放煙火！',
+    modulePath: './games/card-ordering.js',
+    supportsQuestionTypes: ['ordering'],
+    supportsAnswerModes: ['ordering'],
+    weight: 1
   }
 ];
 

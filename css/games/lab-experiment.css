@@ -1,0 +1,223 @@
+.lab-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0a1628 0%, #162447 50%, #1f4068 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.lab-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.lab-info {
+  display: flex;
+  gap: 20px;
+  font-size: clamp(13px, 3.5vw, 16px);
+  color: var(--text-secondary);
+}
+
+.lab-question {
+  font-size: clamp(14px, 3.8vw, 18px);
+  font-weight: 600;
+  text-align: center;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.lab-scene {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  padding: 12px;
+}
+
+.lab-equipment {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.lab-beaker {
+  font-size: clamp(56px, 16vw, 90px);
+  filter: drop-shadow(0 0 15px rgba(0, 180, 216, 0.4));
+  animation: beakerBubble 3s ease-in-out infinite;
+}
+
+.lab-dropzone {
+  min-width: clamp(200px, 60vw, 320px);
+  min-height: 50px;
+  background: rgba(0, 180, 216, 0.1);
+  border: 2px dashed rgba(0, 180, 216, 0.4);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.lab-dropzone-hint {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 14px;
+}
+
+.lab-drop-tag {
+  background: rgba(0, 180, 216, 0.25);
+  border: 1px solid var(--accent-blue);
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 13px;
+  color: white;
+}
+
+.lab-options-area {
+  padding: 12px 16px;
+  padding-bottom: env(safe-area-inset-bottom, 12px);
+  background: rgba(0, 0, 0, 0.45);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10;
+}
+
+.lab-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.lab-option {
+  padding: 10px 16px;
+  font-size: clamp(13px, 3.5vw, 16px);
+  font-family: var(--font-main);
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  color: white;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.lab-option:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.lab-option.selected {
+  background: rgba(0, 180, 216, 0.3);
+  border-color: var(--accent-blue);
+  box-shadow: 0 0 12px rgba(0, 180, 216, 0.3);
+}
+
+.lab-option:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.lab-option.reveal-correct {
+  background: rgba(46, 204, 113, 0.3);
+  border-color: var(--accent-green);
+}
+
+.lab-option.reveal-wrong {
+  background: rgba(231, 76, 60, 0.3);
+  border-color: var(--accent-red);
+}
+
+.lab-submit-btn {
+  align-self: center;
+  min-width: 140px;
+  padding: 12px 28px;
+}
+
+.lab-submit-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.lab-effect-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.lab-success-fx {
+  background: radial-gradient(circle at center 40%, rgba(46, 204, 113, 0.3) 0%, transparent 70%);
+  animation: labSuccessGlow 1.8s ease-out;
+}
+
+.lab-burnt-fx {
+  background: radial-gradient(circle at center 40%, rgba(180, 80, 20, 0.4) 0%, transparent 70%);
+  animation: labBurntFlash 0.6s ease-out;
+}
+
+.lab-status {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 16px 28px;
+  border-radius: var(--radius-md);
+  font-size: clamp(16px, 4.5vw, 24px);
+  font-weight: 800;
+  text-align: center;
+  z-index: 20;
+  animation: fadeInUp 0.3s ease-out;
+  backdrop-filter: blur(10px);
+  line-height: 1.4;
+}
+
+.lab-status-success {
+  background: rgba(46, 204, 113, 0.2);
+  border: 2px solid var(--accent-green);
+  color: var(--accent-green);
+}
+
+.lab-status-fail {
+  background: rgba(180, 80, 20, 0.2);
+  border: 2px solid #e67e22;
+  color: #e67e22;
+}
+
+.lab-status-answer {
+  font-size: 0.6em;
+  color: var(--accent-gold);
+  display: block;
+  margin-top: 4px;
+}
+
+@keyframes beakerBubble {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(-4px) rotate(-2deg); }
+  60% { transform: translateY(2px) rotate(1deg); }
+}
+
+@keyframes labSuccessGlow {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes labBurntFlash {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}

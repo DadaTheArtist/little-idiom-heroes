@@ -21,7 +21,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-001"
+      "id": "sci32-choice-001",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -39,7 +40,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-002"
+      "id": "sci32-choice-002",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -57,7 +59,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-003"
+      "id": "sci32-choice-003",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -75,7 +78,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-004"
+      "id": "sci32-choice-004",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -93,7 +97,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-005"
+      "id": "sci32-choice-005",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -111,7 +116,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-006"
+      "id": "sci32-choice-006",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -129,7 +135,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-007"
+      "id": "sci32-choice-007",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -147,7 +154,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-008"
+      "id": "sci32-choice-008",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -165,7 +173,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-choice-009"
+      "id": "sci32-choice-009",
+      "questionCategory": "choice-self"
     },
     {
       "type": "true-false",
@@ -177,7 +186,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-001"
+      "id": "sci32-tf-001",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -189,7 +199,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-002"
+      "id": "sci32-tf-002",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -201,7 +212,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-003"
+      "id": "sci32-tf-003",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -213,7 +225,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-004"
+      "id": "sci32-tf-004",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -225,7 +238,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-005"
+      "id": "sci32-tf-005",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -237,7 +251,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-006"
+      "id": "sci32-tf-006",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -249,7 +264,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-007"
+      "id": "sci32-tf-007",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -261,7 +277,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-008"
+      "id": "sci32-tf-008",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -273,7 +290,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
-      "id": "sci32-tf-009"
+      "id": "sci32-tf-009",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -285,7 +303,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-003.txt",
-      "id": "sci32-tf-010"
+      "id": "sci32-tf-010",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -297,7 +316,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-003.txt",
-      "id": "sci32-tf-011"
+      "id": "sci32-tf-011",
+      "questionCategory": "true-false"
     },
     {
       "type": "choice",
@@ -315,7 +335,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-choice-010"
+      "id": "sci32-choice-010",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -333,7 +354,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-choice-011"
+      "id": "sci32-choice-011",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -351,7 +373,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-choice-012"
+      "id": "sci32-choice-012",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -369,7 +392,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-choice-013"
+      "id": "sci32-choice-013",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -387,7 +411,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-choice-014"
+      "id": "sci32-choice-014",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -405,7 +430,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-choice-015"
+      "id": "sci32-choice-015",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -423,7 +449,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-choice-016"
+      "id": "sci32-choice-016",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -441,7 +468,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-choice-017"
+      "id": "sci32-choice-017",
+      "questionCategory": "choice-self"
     },
     {
       "type": "true-false",
@@ -453,7 +481,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-012"
+      "id": "sci32-tf-012",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -465,7 +494,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-013"
+      "id": "sci32-tf-013",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -477,7 +507,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-014"
+      "id": "sci32-tf-014",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -489,7 +520,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-015"
+      "id": "sci32-tf-015",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -501,7 +533,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-016"
+      "id": "sci32-tf-016",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -513,7 +546,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-017"
+      "id": "sci32-tf-017",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -525,7 +559,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-018"
+      "id": "sci32-tf-018",
+      "questionCategory": "true-false"
     },
     {
       "type": "true-false",
@@ -537,7 +572,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-019"
+      "id": "sci32-tf-019",
+      "questionCategory": "true-false"
     },
     {
       "type": "choice",
@@ -555,7 +591,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-007.txt",
-      "id": "sci32-choice-018"
+      "id": "sci32-choice-018",
+      "questionCategory": "choice-self"
     },
     {
       "type": "choice",
@@ -573,7 +610,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-007.txt",
-      "id": "sci32-choice-019"
+      "id": "sci32-choice-019",
+      "questionCategory": "choice-self"
     },
     {
       "type": "true-false",
@@ -585,7 +623,8 @@
         "OCR"
       ],
       "sourceFile": "113下-3下-期中-翰林自然-007.txt",
-      "id": "sci32-tf-020"
+      "id": "sci32-tf-020",
+      "questionCategory": "true-false"
     }
   ]
 }

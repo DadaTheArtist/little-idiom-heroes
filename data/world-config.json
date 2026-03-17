@@ -67,9 +67,9 @@
         },
         {
           "id": "z2-2",
-          "name": "水之真假判斷",
+          "name": "水之拆彈挑戰",
           "selectionMode": "fixed",
-          "gameId": "racing",
+          "gameId": "bomb-defusal",
           "questionType": "true-false",
           "answerMode": "tap-select",
           "content": "science/g3-s2-midterm.json",

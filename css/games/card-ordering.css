@@ -1,0 +1,208 @@
+.order-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.order-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.order-info {
+  display: flex;
+  gap: 20px;
+  font-size: clamp(13px, 3.5vw, 16px);
+  color: var(--text-secondary);
+}
+
+.order-question {
+  font-size: clamp(14px, 3.8vw, 18px);
+  font-weight: 600;
+  text-align: center;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  line-height: 1.5;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.order-slots-area {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  min-height: 0;
+}
+
+.order-slot-numbers {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.order-number {
+  width: 32px;
+  height: clamp(48px, 12vw, 64px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(16px, 4vw, 22px);
+  font-weight: 800;
+  color: var(--accent-gold);
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+}
+
+.order-slots {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  max-width: 320px;
+}
+
+.order-card {
+  padding: 12px 16px;
+  min-height: clamp(48px, 12vw, 64px);
+  background: rgba(255, 255, 255, 0.08);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-sm);
+  font-size: clamp(13px, 3.5vw, 16px);
+  font-family: var(--font-main);
+  color: white;
+  display: flex;
+  align-items: center;
+  cursor: grab;
+  transition: transform 0.15s, box-shadow 0.15s, background 0.2s, border-color 0.2s;
+  user-select: none;
+  touch-action: none;
+}
+
+.order-card:active {
+  cursor: grabbing;
+  transform: scale(1.03);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+.order-card.dragging {
+  opacity: 0.5;
+  border-color: var(--accent-blue);
+  background: rgba(0, 180, 216, 0.15);
+}
+
+.order-card.slot-correct {
+  background: rgba(46, 204, 113, 0.25);
+  border-color: var(--accent-green);
+  animation: slotPop 0.4s ease-out;
+}
+
+.order-card.slot-wrong {
+  background: rgba(231, 76, 60, 0.25);
+  border-color: var(--accent-red);
+  animation: slotShake 0.4s ease-out;
+}
+
+.order-submit-btn {
+  align-self: center;
+  margin: 0 0 16px;
+  min-width: 140px;
+  padding: 12px 28px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+  z-index: 10;
+}
+
+.order-submit-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.order-effect-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.order-firework-fx {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.25) 0%, transparent 50%),
+              radial-gradient(circle at 70% 40%, rgba(233, 69, 96, 0.2) 0%, transparent 50%),
+              radial-gradient(circle at 50% 70%, rgba(0, 180, 216, 0.2) 0%, transparent 50%);
+  animation: fireworkBurst 2s ease-out;
+}
+
+.order-sad-fx {
+  background: radial-gradient(circle at center, rgba(100, 100, 120, 0.2) 0%, transparent 70%);
+  animation: sadDim 0.5s ease-out;
+}
+
+.order-status {
+  display: none;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 16px 28px;
+  border-radius: var(--radius-md);
+  font-size: clamp(18px, 5vw, 28px);
+  font-weight: 800;
+  text-align: center;
+  z-index: 20;
+  animation: fadeInUp 0.3s ease-out;
+  backdrop-filter: blur(10px);
+  line-height: 1.4;
+}
+
+.order-status-success {
+  background: rgba(255, 215, 0, 0.2);
+  border: 2px solid var(--accent-gold);
+  color: var(--accent-gold);
+  text-shadow: 0 0 12px rgba(255, 215, 0, 0.5);
+}
+
+.order-status-fail {
+  background: rgba(150, 150, 170, 0.15);
+  border: 2px solid rgba(200, 200, 220, 0.4);
+  color: #ccc;
+}
+
+.order-status-answer {
+  font-size: 0.55em;
+  color: var(--accent-gold);
+  display: block;
+  margin-top: 6px;
+}
+
+@keyframes slotPop {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes slotShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+@keyframes fireworkBurst {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes sadDim {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0.5; }
+}

@@ -71,6 +71,17 @@ export class ContentLoader {
       return normalized;
     }
 
+    if (type === 'multi-select') {
+      normalized.correctAnswers = Array.isArray(q.correctAnswers) ? [...q.correctAnswers] : [];
+      normalized.options = Array.isArray(q.options) ? [...q.options] : [...normalized.correctAnswers];
+      return normalized;
+    }
+
+    if (type === 'ordering') {
+      normalized.correctOrder = Array.isArray(q.correctOrder) ? [...q.correctOrder] : [];
+      return normalized;
+    }
+
     if (type === 'fill-blank' && Array.isArray(q.acceptableAnswers) && q.acceptableAnswers.length) {
       normalized.answer = q.acceptableAnswers[0];
     }

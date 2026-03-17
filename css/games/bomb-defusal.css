@@ -1,0 +1,260 @@
+.bomb-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #1a0a0a 0%, #2d1515 40%, #1a1a2e 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.bomb-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.bomb-info {
+  display: flex;
+  gap: 20px;
+  font-size: clamp(13px, 3.5vw, 16px);
+  color: var(--text-secondary);
+}
+
+.bomb-scene {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 0;
+}
+
+.bomb-device {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  transition: transform 0.3s, filter 0.3s;
+}
+
+.bomb-icon {
+  font-size: clamp(64px, 18vw, 120px);
+  filter: drop-shadow(0 0 20px rgba(255, 100, 50, 0.5));
+  animation: bombPulse 2s ease-in-out infinite;
+}
+
+.bomb-urgent .bomb-icon {
+  animation: bombUrgent 0.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(255, 50, 20, 0.8));
+}
+
+.bomb-defused .bomb-icon {
+  animation: none;
+  filter: drop-shadow(0 0 30px rgba(78, 204, 163, 0.8)) brightness(1.2);
+}
+
+.bomb-exploded .bomb-icon {
+  animation: none;
+  opacity: 0.3;
+  filter: blur(2px);
+}
+
+.bomb-wire-bar {
+  width: clamp(160px, 50vw, 260px);
+  height: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+
+.bomb-wire-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent-green), #2ecc71);
+  border-radius: 5px;
+  transition: width 0.3s linear;
+}
+
+.bomb-wire-label {
+  font-size: 13px;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.bomb-effect-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.bomb-defused-fx {
+  background: radial-gradient(circle at center, rgba(78, 204, 163, 0.35) 0%, transparent 70%);
+  animation: defusedGlow 1.5s ease-out;
+}
+
+.bomb-explosion-fx {
+  background: radial-gradient(circle at center, rgba(255, 80, 20, 0.6) 0%, rgba(255, 160, 0, 0.3) 40%, transparent 70%);
+  animation: explosionFlash 0.6s ease-out;
+}
+
+.bomb-status {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  font-size: clamp(18px, 5vw, 26px);
+  font-weight: 800;
+  text-align: center;
+  z-index: 20;
+  animation: fadeInUp 0.3s ease-out;
+  backdrop-filter: blur(8px);
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.bomb-status-success {
+  background: rgba(46, 204, 113, 0.25);
+  border: 2px solid var(--accent-green);
+  color: var(--accent-green);
+  text-shadow: 0 0 12px rgba(78, 204, 163, 0.6);
+}
+
+.bomb-status-fail {
+  background: rgba(231, 76, 60, 0.25);
+  border: 2px solid var(--accent-red);
+  color: var(--accent-red);
+  text-shadow: 0 0 12px rgba(233, 69, 96, 0.6);
+}
+
+.bomb-status-answer {
+  font-size: 0.6em;
+  color: var(--accent-gold);
+  display: block;
+  margin-top: 4px;
+}
+
+.bomb-question-panel {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.5);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 10;
+}
+
+.bomb-question {
+  font-size: clamp(15px, 4vw, 20px);
+  font-weight: 600;
+  text-align: center;
+  color: var(--text-primary);
+  min-height: 2.4em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.5;
+  padding: 0 8px;
+}
+
+.bomb-buttons {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  padding-bottom: env(safe-area-inset-bottom, 8px);
+}
+
+.bomb-btn {
+  width: clamp(100px, 30vw, 150px);
+  height: clamp(70px, 18vw, 100px);
+  border-radius: var(--radius-lg);
+  font-size: clamp(32px, 9vw, 48px);
+  font-weight: 900;
+  font-family: var(--font-main);
+  cursor: pointer;
+  border: 4px solid;
+  transition: transform 0.12s, box-shadow 0.12s, filter 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bomb-btn:active:not(:disabled) {
+  transform: scale(0.93);
+}
+
+.bomb-btn:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.bomb-btn-o {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  border-color: #4ecca3;
+  color: white;
+  box-shadow: 0 4px 20px rgba(46, 204, 113, 0.4);
+}
+
+.bomb-btn-x {
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+  border-color: #ff6b6b;
+  color: white;
+  box-shadow: 0 4px 20px rgba(231, 76, 60, 0.4);
+}
+
+.bomb-btn.correct {
+  animation: btnCorrect 0.5s ease-out;
+  box-shadow: 0 0 30px rgba(46, 204, 113, 0.8);
+}
+
+.bomb-btn.wrong {
+  animation: btnWrong 0.5s ease-out;
+  box-shadow: 0 0 30px rgba(231, 76, 60, 0.8);
+  filter: brightness(0.6);
+}
+
+@keyframes bombPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes bombUrgent {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.06) rotate(-3deg); }
+  75% { transform: scale(1.06) rotate(3deg); }
+}
+
+@keyframes defusedGlow {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes explosionFlash {
+  0% { opacity: 0; transform: scale(0.3); }
+  20% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+@keyframes btnCorrect {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes btnWrong {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
