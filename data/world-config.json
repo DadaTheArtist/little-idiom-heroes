@@ -86,6 +86,28 @@
           "content": "science/g3-s2-midterm.json",
           "questionCount": 6,
           "unlockRequire": "z2-2"
+        },
+        {
+          "id": "z2-4",
+          "name": "實驗室大挑戰",
+          "selectionMode": "fixed",
+          "gameId": "lab-experiment",
+          "questionType": "multi-select",
+          "answerMode": "multi-select",
+          "content": "science/g3-s2-midterm.json",
+          "questionCount": 3,
+          "unlockRequire": "z2-3"
+        },
+        {
+          "id": "z2-5",
+          "name": "步驟排排站",
+          "selectionMode": "fixed",
+          "gameId": "card-ordering",
+          "questionType": "ordering",
+          "answerMode": "ordering",
+          "content": "science/g3-s2-midterm.json",
+          "questionCount": 4,
+          "unlockRequire": "z2-4"
         }
       ]
     },
