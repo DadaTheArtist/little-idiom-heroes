@@ -19,6 +19,7 @@ export default class BombDefusal extends BaseGame {
             <div>題目 <span id="bomb-progress">1 / ${this.totalQuestions}</span></div>
             <div>拆除 <span id="bomb-correct">0</span></div>
           </div>
+          ${this._createHintButton()}
         </div>
 
         <div class="bomb-scene" id="bomb-scene">
@@ -69,6 +70,12 @@ export default class BombDefusal extends BaseGame {
         stars: 0
       });
     });
+
+    this._bindHintButton();
+  }
+
+  _getCurrentQuestion() {
+    return this.questions[this.currentIdx] || null;
   }
 
   start() {
@@ -162,7 +169,7 @@ export default class BombDefusal extends BaseGame {
     this._showStatus('timeout', q.answer === true || q.answer === 'O' ? 'O' : 'X');
 
     this.currentIdx++;
-    setTimeout(() => this._loadQuestion(), 2500);
+    setTimeout(() => this._loadQuestion(), 3500);
   }
 
   _handleAnswer(choice) {
@@ -194,7 +201,7 @@ export default class BombDefusal extends BaseGame {
     }
 
     this.currentIdx++;
-    const delay = correct ? 1800 : 2500;
+    const delay = correct ? 1800 : 3500;
     setTimeout(() => this._loadQuestion(), delay);
   }
 

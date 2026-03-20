@@ -20,8 +20,7 @@ export default class Connect extends BaseGame {
 
     this.cards = [];
     this.questions.forEach((q, i) => {
-      const stemText = q.stem.length > 20 ? q.stem.slice(0, 18) + '…' : q.stem;
-      this.cards.push({ type: 'stem', text: stemText, pairId: i });
+      this.cards.push({ type: 'stem', text: q.stem, pairId: i });
       this.cards.push({ type: 'answer', text: q.answer, pairId: i });
     });
     this.cards = this._shuffleArray(this.cards);
@@ -34,6 +33,7 @@ export default class Connect extends BaseGame {
             <div>配對 <span id="cn-matched">0</span>/${pairs}</div>
             <div id="cn-lives">${this._renderLives()}</div>
           </div>
+          ${this._createHintButton()}
         </div>
         <div class="connect-hint">選擇題目與對應的答案進行配對</div>
         <div class="connect-grid-wrapper">
@@ -59,6 +59,17 @@ export default class Connect extends BaseGame {
         stars: 0
       });
     });
+
+    this._bindHintButton();
+  }
+
+  _getCurrentQuestion() {
+    const matchedIds = new Set();
+    this.cards.forEach((c, i) => {
+      const el = this.gridEl?.children[i];
+      if (el?.classList.contains('matched')) matchedIds.add(c.pairId);
+    });
+    return this.questions.find((_, i) => !matchedIds.has(i)) || this.questions[0] || null;
   }
 
   start() {
@@ -79,14 +90,34 @@ export default class Connect extends BaseGame {
     this.gridEl.innerHTML = this.cards.map((card, idx) => `
       <div class="connect-card" data-idx="${idx}">
         <div class="connect-card-body">
-          <span class="connect-card-label">${card.type === 'stem' ? '題' : '答'}</span>
           <span class="connect-card-text">${card.text}</span>
         </div>
       </div>
     `).join('');
 
+    this._autoFitCardText();
+
     this.gridEl.querySelectorAll('.connect-card').forEach(el => {
       el.addEventListener('click', () => this._handleCardClick(el));
+    });
+  }
+
+  _autoFitCardText() {
+    this.gridEl.querySelectorAll('.connect-card-text').forEach(el => {
+      const parent = el.closest('.connect-card-body');
+      if (!parent) return;
+      const availH = parent.clientHeight - 8;
+      const availW = parent.clientWidth - 8;
+      const lineHeight = 1.25;
+      const targetLines = 3;
+      let size = Math.floor(availH / (targetLines * lineHeight));
+      size = Math.min(size, 14);
+      const minSize = 7;
+      el.style.fontSize = `${size}px`;
+      while (size > minSize && (el.scrollHeight > availH || el.scrollWidth > availW)) {
+        size -= 0.5;
+        el.style.fontSize = `${size}px`;
+      }
     });
   }
 

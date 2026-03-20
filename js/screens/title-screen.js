@@ -18,6 +18,7 @@ export class TitleScreen {
         <button class="btn btn-gold" id="btn-start">開始冒險</button>
       </div>
       ${totalStars > 0 ? `<div class="title-stars-info">⭐ 已收集 ${totalStars} 顆星星</div>` : ''}
+      <button class="title-settings-btn" id="btn-settings" aria-label="設定">⚙</button>
     `;
     container.appendChild(el);
     requestAnimationFrame(() => el.classList.add('active'));
@@ -25,6 +26,10 @@ export class TitleScreen {
     el.querySelector('#btn-start').addEventListener('click', () => {
       this.app.audioManager.playRandomBGM();
       this.app.screenManager.switchTo('world-map');
+    });
+
+    el.querySelector('#btn-settings').addEventListener('click', () => {
+      this.app.screenManager.switchTo('settings');
     });
   }
 

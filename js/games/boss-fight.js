@@ -37,6 +37,7 @@ export default class BossFight extends BaseGame {
               <div>題目 <span id="boss-progress">1 / ${this.totalQuestions}</span></div>
               <div>命中 <span id="boss-correct">0</span></div>
             </div>
+            ${this._createHintButton()}
           </div>
           <div class="boss-hp-wrap">
             <div class="boss-hp-container">
@@ -85,6 +86,12 @@ export default class BossFight extends BaseGame {
     this.sword.addEventListener('pointerdown', this._onPointerDown);
     window.addEventListener('pointermove', this._onPointerMove);
     window.addEventListener('pointerup', this._onPointerUp);
+
+    this._bindHintButton();
+  }
+
+  _getCurrentQuestion() {
+    return this.questions[this.currentIdx] || null;
   }
 
   start() {
@@ -172,7 +179,7 @@ export default class BossFight extends BaseGame {
 
       this._showStatus('fail', q.answer);
       this.currentIdx++;
-      setTimeout(() => this._loadQuestion(), 2500);
+      setTimeout(() => this._loadQuestion(), 3500);
     }
   }
 
@@ -195,7 +202,7 @@ export default class BossFight extends BaseGame {
       def.style.backgroundImage = `url('${defenseFx}?t=${Date.now()}')`;
       def.style.display = 'block';
       atk.style.display = 'none';
-      displayTime = 2500;
+      displayTime = 3500;
     }
 
     this.statusEl.style.display = 'block';

@@ -9,28 +9,32 @@
       "type": "true-false",
       "prompt": "Apple 是水果。這句話正確嗎？",
       "answer": true,
-      "tags": ["單字", "判斷"]
+      "tags": ["單字", "判斷"],
+      "playerHint": "Apple是紅紅的、可以吃的東西"
     },
     {
       "id": "eng-tf-002",
       "type": "true-false",
       "prompt": "Dog 的中文是「貓」。這句話正確嗎？",
       "answer": false,
-      "tags": ["單字", "判斷"]
+      "tags": ["單字", "判斷"],
+      "playerHint": "Dog是汪汪叫的動物"
     },
     {
       "id": "eng-tf-003",
       "type": "true-false",
       "prompt": "I am happy. 是在表達「我很開心」。",
       "answer": true,
-      "tags": ["句型", "判斷"]
+      "tags": ["句型", "判斷"],
+      "playerHint": "happy的中文是開心的意思"
     },
     {
       "id": "eng-tf-004",
       "type": "true-false",
       "prompt": "Blue 代表紅色。這句話正確嗎？",
       "answer": false,
-      "tags": ["顏色", "判斷"]
+      "tags": ["顏色", "判斷"],
+      "playerHint": "Blue是天空和海洋的顏色"
     },
     {
       "id": "eng-choice-001",
@@ -38,7 +42,8 @@
       "prompt": "book 的中文是什麼？",
       "answer": "書本",
       "choices": ["書本", "桌子", "蘋果", "老師"],
-      "tags": ["單字"]
+      "tags": ["單字"],
+      "playerHint": "book是你在圖書館會借的東西"
     },
     {
       "id": "eng-choice-002",
@@ -46,7 +51,8 @@
       "prompt": "cat 的中文是什麼？",
       "answer": "貓",
       "choices": ["狗", "貓", "鳥", "魚"],
-      "tags": ["單字"]
+      "tags": ["單字"],
+      "playerHint": "cat是喵喵叫的小動物"
     },
     {
       "id": "eng-choice-003",
@@ -54,7 +60,8 @@
       "prompt": "Good morning! 最接近哪個中文意思？",
       "answer": "早安",
       "choices": ["晚安", "早安", "謝謝", "再見"],
-      "tags": ["句型"]
+      "tags": ["句型"],
+      "playerHint": "morning是早上的意思"
     },
     {
       "id": "eng-choice-004",
@@ -62,7 +69,8 @@
       "prompt": "請選出和 school 對應的中文。",
       "answer": "學校",
       "choices": ["操場", "學校", "教室", "老師"],
-      "tags": ["單字"]
+      "tags": ["單字"],
+      "playerHint": "school是你每天去上課的地方"
     }
   ]
 }

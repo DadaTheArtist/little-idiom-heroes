@@ -26,6 +26,7 @@ export default class LabExperiment extends BaseGame {
             <div>題目 <span id="lab-progress">1 / ${this.totalQuestions}</span></div>
             <div>成功 <span id="lab-correct">0</span></div>
           </div>
+          ${this._createHintButton()}
         </div>
 
         <div class="lab-question" id="lab-question">準備中…</div>
@@ -70,6 +71,12 @@ export default class LabExperiment extends BaseGame {
         stars: 0
       });
     });
+
+    this._bindHintButton();
+  }
+
+  _getCurrentQuestion() {
+    return this.questions[this.currentIdx] || null;
   }
 
   start() {
@@ -171,7 +178,7 @@ export default class LabExperiment extends BaseGame {
     }
 
     this.currentIdx++;
-    setTimeout(() => this._loadQuestion(), allCorrect ? 2000 : 2800);
+    setTimeout(() => this._loadQuestion(), allCorrect ? 2000 : 3800);
   }
 
   _showSuccess() {

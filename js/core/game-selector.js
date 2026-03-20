@@ -3,8 +3,9 @@ export class GameSelector {
     this.gameRegistry = gameRegistry;
   }
 
-  resolve(challenge) {
+  resolve(challenge, options = {}) {
     const { selectionMode, gameId, candidateGameIds, questionType, answerMode } = challenge;
+    const randomEnabled = options.randomEnabled !== false;
 
     if (selectionMode === 'fixed') {
       const fixed = this.gameRegistry.get(gameId);
@@ -19,7 +20,7 @@ export class GameSelector {
     if (!compatible.length) {
       throw new Error(`No compatible games for challenge ${challenge.id}`);
     }
-    return this._pickWeighted(compatible);
+    return randomEnabled ? this._pickWeighted(compatible) : compatible[0];
   }
 
   peek(challenge) {

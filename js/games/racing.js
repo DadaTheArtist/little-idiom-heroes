@@ -28,6 +28,7 @@ export default class Racing extends BaseGame {
           </div>
           <div class="racing-progress-text" id="racing-progress"></div>
           <button class="back-btn" id="racing-back">←</button>
+          <div style="position:absolute;top:12px;right:12px;z-index:100;">${this._createHintButton()}</div>
         </div>
         <div class="racing-quiz-area">
           <div class="racing-question" id="racing-q">準備中…</div>
@@ -53,7 +54,12 @@ export default class Racing extends BaseGame {
       });
     });
 
+    this._bindHintButton();
     this._updateCars();
+  }
+
+  _getCurrentQuestion() {
+    return this.questions[this.currentIdx] || null;
   }
 
   start() {
@@ -119,7 +125,7 @@ export default class Racing extends BaseGame {
     if (this.playerPos >= this.trackSteps || this.cpuPos >= this.trackSteps) {
       setTimeout(() => this._endRace(), 800);
     } else {
-      setTimeout(() => this._loadQuestion(), 1000);
+      setTimeout(() => this._loadQuestion(), correct ? 1000 : 2000);
     }
   }
 

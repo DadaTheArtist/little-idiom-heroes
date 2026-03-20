@@ -4,9 +4,11 @@ export class LevelIntro {
   }
 
   async enter(container, { challenge, zone }) {
+    const effectiveChallenge = this.app.settings.applyToChallenge(challenge);
     const previewGame = this.app.peekGameForChallenge(challenge);
     const textbook = this.app.getTextbook(zone.textbookId);
-    const isRandomMode = challenge.selectionMode === 'random';
+    const isRandomMode = challenge.selectionMode === 'random'
+      && this.app.settings.get('randomGameSelection');
     const challengeModeText = isRandomMode ? '隨機遊戲' : '固定遊戲';
     const gameTitle = isRandomMode ? '隨機遊戲' : (previewGame?.displayName || '冒險挑戰');
     const gameDesc = isRandomMode
@@ -36,7 +38,7 @@ export class LevelIntro {
         ${textbook?.displayName || zone.textbookId} · ${challenge.questionType} · ${challengeModeText}
       </p>
       <p style="color:rgba(255,255,255,0.4);font-size:clamp(12px,3vw,14px);margin-top:-10px;animation:fadeInUp 0.5s ease 0.45s backwards;">
-        共 ${challenge.questionCount} 題
+        共 ${effectiveChallenge.questionCount} 題
       </p>
       <button class="btn btn-gold" id="btn-go" style="animation:fadeInUp 0.5s ease 0.5s backwards;">開始挑戰！</button>
     `;

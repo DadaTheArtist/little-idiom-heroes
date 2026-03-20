@@ -1,0 +1,117 @@
+.settings-screen {
+  background: radial-gradient(ellipse at 50% 30%, var(--bg-light) 0%, var(--bg-dark) 70%);
+  justify-content: center;
+  padding: 20px;
+}
+
+.settings-panel {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: fadeInUp 0.5s ease backwards;
+}
+
+.settings-title {
+  text-align: center;
+  font-size: clamp(22px, 5.5vw, 30px);
+  color: var(--accent-gold);
+}
+
+.settings-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: rgba(255,255,255,0.05);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  background: rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.settings-row:active {
+  background: rgba(255,255,255,0.08);
+}
+
+.settings-label {
+  font-size: clamp(14px, 3.5vw, 16px);
+  color: var(--text-primary);
+}
+
+.settings-toggle {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 48px;
+  height: 28px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.25s;
+  flex-shrink: 0;
+}
+.settings-toggle::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: white;
+  border-radius: 50%;
+  transition: transform 0.25s;
+}
+.settings-toggle:checked {
+  background: var(--accent-green);
+}
+.settings-toggle:checked::after {
+  transform: translateX(20px);
+}
+
+.settings-count-control {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.settings-count-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  transition: background 0.15s;
+}
+.settings-count-btn:active {
+  background: rgba(255,255,255,0.2);
+}
+
+.settings-count-value {
+  min-width: 36px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.settings-reset-btn {
+  align-self: center;
+  min-width: 140px;
+  padding: 10px 24px;
+  font-size: 14px;
+}

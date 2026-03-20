@@ -9,6 +9,10 @@ export class BaseGame {
     this.totalQuestions = questions.length;
     this._onCompleteCb = null;
     this._destroyed = false;
+
+    this._hintsEnabled = config.hintsEnabled !== false;
+    this._hintsRemaining = 3;
+    this._hintModalEl = null;
   }
 
   init() {}
@@ -19,6 +23,69 @@ export class BaseGame {
   destroy() {
     this._destroyed = true;
     this.container.innerHTML = '';
+  }
+
+  _getCurrentQuestion() {
+    return null;
+  }
+
+  _createHintButton() {
+    if (!this._hintsEnabled) return '';
+    return `<button class="hint-bulb-btn" id="hint-bulb" aria-label="提示">💡<span class="hint-bulb-count">${this._hintsRemaining}</span></button>`;
+  }
+
+  _bindHintButton() {
+    if (!this._hintsEnabled) return;
+    const btn = this.container.querySelector('#hint-bulb');
+    if (!btn) return;
+    btn.addEventListener('click', () => this._showHint());
+  }
+
+  _updateHintButton() {
+    const btn = this.container.querySelector('#hint-bulb');
+    if (!btn) return;
+    const countEl = btn.querySelector('.hint-bulb-count');
+    if (countEl) countEl.textContent = this._hintsRemaining;
+    if (this._hintsRemaining <= 0) btn.classList.add('exhausted');
+  }
+
+  _showHint() {
+    if (this._destroyed) return;
+    if (this._hintModalEl) return;
+
+    if (this._hintsRemaining <= 0) {
+      this._showHintModal('本關提示已用完');
+      return;
+    }
+
+    const q = this._getCurrentQuestion();
+    const text = q?.playerHint || '仔細看看題目的關鍵字吧！';
+    this._hintsRemaining--;
+    this._updateHintButton();
+    this._showHintModal(text);
+  }
+
+  _showHintModal(text) {
+    const overlay = document.createElement('div');
+    overlay.className = 'hint-modal-overlay';
+    overlay.innerHTML = `
+      <div class="hint-modal">
+        <button class="hint-modal-close" aria-label="關閉">✕</button>
+        <div class="hint-modal-icon">💡</div>
+        <div class="hint-modal-text">${text}</div>
+      </div>
+    `;
+    this.container.appendChild(overlay);
+    this._hintModalEl = overlay;
+
+    const close = () => {
+      overlay.remove();
+      this._hintModalEl = null;
+    };
+    overlay.querySelector('.hint-modal-close').addEventListener('click', close);
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close();
+    });
   }
 
   onComplete(cb) {

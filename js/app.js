@@ -1,6 +1,7 @@
 import { ScreenManager } from './core/screen-manager.js';
 import { AudioManager } from './core/audio-manager.js';
 import { Progress } from './core/progress.js';
+import { Settings } from './core/settings.js';
 import { ContentLoader } from './core/content-loader.js';
 import { GameRegistry } from './core/game-registry.js';
 import { GameSelector } from './core/game-selector.js';
@@ -8,6 +9,7 @@ import { TitleScreen } from './screens/title-screen.js';
 import { WorldMap } from './screens/world-map.js';
 import { LevelIntro } from './screens/level-intro.js';
 import { ResultScreen } from './screens/result-screen.js';
+import { SettingsScreen } from './screens/settings-screen.js';
 
 class App {
   constructor() {
@@ -15,6 +17,7 @@ class App {
     this.screenManager = new ScreenManager(this.container);
     this.audioManager = new AudioManager();
     this.progress = new Progress();
+    this.settings = new Settings();
     this.contentLoader = new ContentLoader();
     this.gameRegistry = new GameRegistry();
     this.gameSelector = new GameSelector(this.gameRegistry);
@@ -50,6 +53,7 @@ class App {
     this.screenManager.register('world-map', new WorldMap(this));
     this.screenManager.register('level-intro', new LevelIntro(this));
     this.screenManager.register('result', new ResultScreen(this));
+    this.screenManager.register('settings', new SettingsScreen(this));
 
     await this.screenManager.switchTo('title');
   }
@@ -71,11 +75,14 @@ class App {
   }
 
   async startLevel(runtimeConfig) {
-    const challenge = runtimeConfig.challenge || runtimeConfig.level || runtimeConfig;
+    const rawChallenge = runtimeConfig.challenge || runtimeConfig.level || runtimeConfig;
     const zone = runtimeConfig.zone || runtimeConfig.world || null;
-    if (!challenge) return;
+    if (!rawChallenge) return;
 
-    const selectedGame = this.gameSelector.resolve(challenge);
+    const challenge = this.settings.applyToChallenge(rawChallenge);
+    const selectedGame = this.gameSelector.resolve(challenge, {
+      randomEnabled: this.settings.get('randomGameSelection')
+    });
     const content = await this.contentLoader.load(challenge.content);
     const prepared = this.contentLoader.prepareQuestions(content, challenge);
     const questions = prepared.questions;
@@ -94,7 +101,8 @@ class App {
       challenge,
       zone,
       selectedGame,
-      art: zone ? this.getZoneArt(zone.id) : null
+      art: zone ? this.getZoneArt(zone.id) : null,
+      hintsEnabled: this.settings.get('hintsEnabled')
     });
 
     game.onComplete((results) => {

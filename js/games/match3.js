@@ -30,6 +30,7 @@ export default class Match3 extends BaseGame {
             <div>答對 <span id="m3-correct">0</span>/${this.totalQuestions}</div>
             <div>${timeInfoText}</div>
           </div>
+          ${this._createHintButton()}
         </div>
         <div class="match3-question-bar" id="m3-question">準備中…</div>
         <div class="match3-grid-wrapper">
@@ -55,6 +56,12 @@ export default class Match3 extends BaseGame {
         stars: 0
       });
     });
+
+    this._bindHintButton();
+  }
+
+  _getCurrentQuestion() {
+    return this.questions[this.currentQIdx] || null;
   }
 
   start() {

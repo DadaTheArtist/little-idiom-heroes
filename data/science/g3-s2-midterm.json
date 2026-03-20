@@ -22,7 +22,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-001",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "幼苗太擠需要更多生長空間"
     },
     {
       "type": "choice",
@@ -41,7 +42,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-002",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "記錄重點是蔬菜本身的變化"
     },
     {
       "type": "choice",
@@ -60,7 +62,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-003",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "想想哪種物質能讓溫度更低"
     },
     {
       "type": "choice",
@@ -79,7 +82,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-004",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "要讓水結冰，溫度必須在0°C以下"
     },
     {
       "type": "choice",
@@ -98,7 +102,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-005",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "冷的東西碰到暖空氣會怎樣？"
     },
     {
       "type": "choice",
@@ -117,7 +122,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-006",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "毛細現象需要細縫，想想哪個能製造最小的縫"
     },
     {
       "type": "choice",
@@ -136,7 +142,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-007",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "毛細現象是水沿細縫往上爬"
     },
     {
       "type": "choice",
@@ -155,7 +162,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-008",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "想想固態、液態、氣態各對應哪些用途"
     },
     {
       "type": "choice",
@@ -174,7 +182,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-choice-009",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "水溫愈高，冰塊融化愈快"
     },
     {
       "type": "true-false",
@@ -187,7 +196,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-001",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "想想種菜需要哪些基本工具"
     },
     {
       "type": "true-false",
@@ -200,7 +210,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-002",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "縫隙大小會影響水的爬升高度"
     },
     {
       "type": "true-false",
@@ -213,7 +224,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-003",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "蚯蚓是土壤的好幫手"
     },
     {
       "type": "true-false",
@@ -226,7 +238,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-004",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "植物有向光性，會朝光源生長"
     },
     {
       "type": "true-false",
@@ -239,7 +252,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-005",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "水是種子發芽的必要條件之一"
     },
     {
       "type": "true-false",
@@ -252,7 +266,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-006",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "澆水能讓移植後的根與土壤更緊密"
     },
     {
       "type": "true-false",
@@ -265,7 +280,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-007",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "毛細現象需要材料內部有細縫"
     },
     {
       "type": "true-false",
@@ -278,7 +294,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-008",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "水是液體，想想液體的特性"
     },
     {
       "type": "true-false",
@@ -291,7 +308,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-001.txt",
       "id": "sci32-tf-009",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "水蒸氣遇冷會凝結成小水滴"
     },
     {
       "type": "true-false",
@@ -304,7 +322,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-003.txt",
       "id": "sci32-tf-010",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "蔬菜生長需要多種條件配合"
     },
     {
       "type": "true-false",
@@ -317,7 +336,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-003.txt",
       "id": "sci32-tf-011",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "種子包裝上有種植建議，是否有幫助？"
     },
     {
       "type": "choice",
@@ -336,7 +356,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-choice-010",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "物理隔離是防蟲的好方法"
     },
     {
       "type": "choice",
@@ -355,7 +376,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-choice-011",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "間拔是留強去弱的作法"
     },
     {
       "type": "choice",
@@ -374,7 +396,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-choice-012",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "澆水要溫和，避免傷害幼苗"
     },
     {
       "type": "choice",
@@ -393,7 +416,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-choice-013",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "種菜的容器需要排水功能"
     },
     {
       "type": "choice",
@@ -412,7 +436,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-choice-014",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "有機肥料來自天然可分解的物質"
     },
     {
       "type": "choice",
@@ -431,7 +456,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-choice-015",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "哪一個是生長的「加分項」而非必要？"
     },
     {
       "type": "choice",
@@ -450,7 +476,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-choice-016",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "毛細現象讓水沿縫隙向上移動"
     },
     {
       "type": "choice",
@@ -469,7 +496,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-choice-017",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "縫隙愈小，水上升愈高"
     },
     {
       "type": "true-false",
@@ -482,7 +510,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-tf-012",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "不同蔬菜有不同的種植需求"
     },
     {
       "type": "true-false",
@@ -495,7 +524,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-tf-013",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "記錄方式很多元，不只一種"
     },
     {
       "type": "true-false",
@@ -508,7 +538,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-tf-014",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "採收需要看蔬菜成熟度嗎？"
     },
     {
       "type": "true-false",
@@ -521,7 +552,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-tf-015",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "鹽能使冰的融點降低"
     },
     {
       "type": "true-false",
@@ -534,7 +566,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-tf-016",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "凝結是氣態→液態的過程"
     },
     {
       "type": "true-false",
@@ -547,7 +580,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-tf-017",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "有細縫的材料都能產生毛細現象"
     },
     {
       "type": "true-false",
@@ -560,7 +594,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-tf-018",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "細縫與水上升高度的關係"
     },
     {
       "type": "true-false",
@@ -573,7 +608,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-tf-019",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "洗米水有養分，可以再利用"
     },
     {
       "type": "choice",
@@ -592,7 +628,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-007.txt",
       "id": "sci32-choice-018",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "缺水會造成乾旱，不是水太多"
     },
     {
       "type": "choice",
@@ -611,7 +648,8 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-007.txt",
       "id": "sci32-choice-019",
-      "questionCategory": "choice-self"
+      "questionCategory": "choice-self",
+      "playerHint": "白煙其實是水蒸氣遇冷凝結的"
     },
     {
       "type": "true-false",
@@ -624,73 +662,156 @@
       ],
       "sourceFile": "113下-3下-期中-翰林自然-007.txt",
       "id": "sci32-tf-020",
-      "questionCategory": "true-false"
+      "questionCategory": "true-false",
+      "playerHint": "液態水降溫變成固態冰"
     },
     {
       "type": "multi-select",
       "prompt": "人們常常為了節省時間，會利用何種方式讓水加速蒸發？（選出所有正確答案）",
-      "correctAnswers": ["在太陽下曝曬", "提高室內的溫度", "增加和空氣的接觸面積"],
-      "options": ["在太陽下曝曬", "提高室內的溫度", "增加和空氣的接觸面積", "將溼衣物放入衣櫃內"],
-      "tags": ["國小三下", "自然", "OCR"],
+      "correctAnswers": [
+        "在太陽下曝曬",
+        "提高室內的溫度",
+        "增加和空氣的接觸面積"
+      ],
+      "options": [
+        "在太陽下曝曬",
+        "提高室內的溫度",
+        "增加和空氣的接觸面積",
+        "將溼衣物放入衣櫃內"
+      ],
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ],
       "sourceFile": "113下-3下-期中-翰林自然-006.txt",
       "id": "sci32-ms-001",
-      "questionCategory": "multi-select"
+      "questionCategory": "multi-select",
+      "playerHint": "蒸發需要熱量和空氣接觸"
     },
     {
       "type": "multi-select",
       "prompt": "同學們觀察自己種植的蔬菜並記錄，會使用下列何種方法較為恰當？（選出所有正確答案）",
-      "correctAnswers": ["用畫圖方式記錄下來", "使用相機拍照記錄", "用文字描述生長情形"],
-      "options": ["用畫圖方式記錄下來", "摘葉子貼於記錄簿上", "使用相機拍照記錄", "用文字描述生長情形"],
-      "tags": ["國小三下", "自然", "OCR"],
+      "correctAnswers": [
+        "用畫圖方式記錄下來",
+        "使用相機拍照記錄",
+        "用文字描述生長情形"
+      ],
+      "options": [
+        "用畫圖方式記錄下來",
+        "摘葉子貼於記錄簿上",
+        "使用相機拍照記錄",
+        "用文字描述生長情形"
+      ],
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ],
       "sourceFile": "113下-3下-期中-翰林自然-006.txt",
       "id": "sci32-ms-002",
-      "questionCategory": "multi-select"
+      "questionCategory": "multi-select",
+      "playerHint": "記錄方式要能保留完整資訊"
     },
     {
       "type": "multi-select",
       "prompt": "下面哪些是水蒸發造成的現象？（選出所有正確答案）",
-      "correctAnswers": ["溼衣服變乾", "洗手後烘乾手", "芒果製成芒果乾"],
-      "options": ["溼衣服變乾", "洗手後烘乾手", "洗澡時鏡子起霧", "芒果製成芒果乾"],
-      "tags": ["國小三下", "自然", "OCR"],
+      "correctAnswers": [
+        "溼衣服變乾",
+        "洗手後烘乾手",
+        "芒果製成芒果乾"
+      ],
+      "options": [
+        "溼衣服變乾",
+        "洗手後烘乾手",
+        "洗澡時鏡子起霧",
+        "芒果製成芒果乾"
+      ],
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ],
       "sourceFile": "113下-3下-期中-翰林自然-006.txt",
       "id": "sci32-ms-003",
-      "questionCategory": "multi-select"
+      "questionCategory": "multi-select",
+      "playerHint": "蒸發是液態變氣態，水消失了"
     },
     {
       "type": "ordering",
       "prompt": "撒播的正確步驟為何？請按照順序排列。",
-      "correctOrder": ["把土弄鬆並放入花盆", "種子均勻撒在土壤上", "撒上薄薄的土覆蓋", "充分澆水"],
-      "tags": ["國小三下", "自然", "OCR"],
+      "correctOrder": [
+        "把土弄鬆並放入花盆",
+        "種子均勻撒在土壤上",
+        "撒上薄薄的土覆蓋",
+        "充分澆水"
+      ],
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ],
       "sourceFile": "113下-3下-期中-翰林自然-008.txt",
       "id": "sci32-ord-001",
-      "questionCategory": "ordering"
+      "questionCategory": "ordering",
+      "playerHint": "先準備土，再播種，最後澆水"
     },
     {
       "type": "ordering",
       "prompt": "點播四季豆的正確步驟為何？",
-      "correctOrder": ["在底部放置紗網", "把土放入花盆", "在土上挖幾個淺淺的小洞，把種子放入小洞中", "撒上薄薄的土", "充分澆水"],
-      "tags": ["國小三下", "自然", "OCR"],
+      "correctOrder": [
+        "在底部放置紗網",
+        "把土放入花盆",
+        "在土上挖幾個淺淺的小洞，把種子放入小洞中",
+        "撒上薄薄的土",
+        "充分澆水"
+      ],
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ],
       "sourceFile": "113下-3下-期中-翰林自然-004.txt",
       "id": "sci32-ord-002",
-      "questionCategory": "ordering"
+      "questionCategory": "ordering",
+      "playerHint": "先防漏再放土，挖洞播種後覆土澆水"
     },
     {
       "type": "ordering",
       "prompt": "探究水溫對冰塊融化快慢的實驗步驟為何？",
-      "correctOrder": ["準備兩個燒杯，分別裝熱水和冷水，測量並記錄水溫", "同時在兩杯中各放入一顆相同冰塊，開始計時", "觀察冰塊融化所需時間，比較並記錄"],
-      "tags": ["國小三下", "自然", "OCR"],
+      "correctOrder": [
+        "準備兩個燒杯，分別裝熱水和冷水，測量並記錄水溫",
+        "同時在兩杯中各放入一顆相同冰塊，開始計時",
+        "觀察冰塊融化所需時間，比較並記錄"
+      ],
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ],
       "sourceFile": "113下-3下-期中-翰林自然-003.txt",
       "id": "sci32-ord-003",
-      "questionCategory": "ordering"
+      "questionCategory": "ordering",
+      "playerHint": "先準備材料，再同時實驗，最後觀察"
     },
     {
       "type": "ordering",
       "prompt": "水的三態變化中，下列敘述請依照「水→水蒸氣→水→冰」的順序排列。",
-      "correctOrder": ["水 受熱 蒸發成水蒸氣", "水蒸氣 遇冷 凝結成水", "水 遇冷 凝固成冰", "冰 遇熱 融化成水"],
-      "tags": ["國小三下", "自然", "OCR"],
+      "correctOrder": [
+        "水 受熱 蒸發成水蒸氣",
+        "水蒸氣 遇冷 凝結成水",
+        "水 遇冷 凝固成冰",
+        "冰 遇熱 融化成水"
+      ],
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ],
       "sourceFile": "113下-3下-期中-翰林自然-007.txt",
       "id": "sci32-ord-004",
-      "questionCategory": "ordering"
+      "questionCategory": "ordering",
+      "playerHint": "水受熱→蒸氣→遇冷→冰→遇熱→水"
     }
   ]
 }

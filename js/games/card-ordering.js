@@ -31,6 +31,7 @@ export default class CardOrdering extends BaseGame {
             <div>題目 <span id="order-progress">1 / ${this.totalQuestions}</span></div>
             <div>正確 <span id="order-correct">0</span></div>
           </div>
+          ${this._createHintButton()}
         </div>
 
         <div class="order-question" id="order-question">準備中…</div>
@@ -70,6 +71,12 @@ export default class CardOrdering extends BaseGame {
         stars: 0
       });
     });
+
+    this._bindHintButton();
+  }
+
+  _getCurrentQuestion() {
+    return this.questions[this.currentIdx] || null;
   }
 
   start() {
@@ -218,7 +225,7 @@ export default class CardOrdering extends BaseGame {
     }
 
     this.currentIdx++;
-    setTimeout(() => this._loadQuestion(), isCorrect ? 2200 : 3000);
+    setTimeout(() => this._loadQuestion(), isCorrect ? 2200 : 4000);
   }
 
   _showFireworks() {

@@ -58,7 +58,8 @@ export class ContentLoader {
       type,
       prompt,
       stem: q.stem || prompt,
-      hint: q.hint || prompt
+      hint: q.hint || prompt,
+      playerHint: (q.playerHint && String(q.playerHint).trim()) || ''
     };
 
     if (type === 'true-false') {
