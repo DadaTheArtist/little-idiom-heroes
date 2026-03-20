@@ -12,6 +12,55 @@ export default class Connect extends BaseGame {
     this.isProcessing = false;
   }
 
+  _firstUnmatchedPairId() {
+    const matchedIds = new Set();
+    this.cards.forEach((c, i) => {
+      const el = this.gridEl?.children[i];
+      if (el?.classList.contains('matched')) matchedIds.add(c.pairId);
+    });
+    for (let i = 0; i < this.questions.length; i++) {
+      if (!matchedIds.has(i)) return i;
+    }
+    return -1;
+  }
+
+  _clearPairHintHighlight() {
+    this.gridEl?.querySelectorAll('.connect-hint-pair').forEach((el) => {
+      el.classList.remove('connect-hint-pair');
+    });
+  }
+
+  _showHint() {
+    if (this._destroyed) return;
+    if (this._hintModalEl) return;
+
+    if (this._hintsRemaining <= 0) {
+      this._showHintModal('本關提示已用完');
+      return;
+    }
+
+    const pairId = this._firstUnmatchedPairId();
+    if (pairId < 0) return;
+
+    this._clearPairHintHighlight();
+
+    const highlightEls = [];
+    this.gridEl.querySelectorAll('.connect-card').forEach((el) => {
+      const idx = parseInt(el.dataset.idx, 10);
+      const card = this.cards[idx];
+      if (card && card.pairId === pairId && !el.classList.contains('matched')) {
+        highlightEls.push(el);
+      }
+    });
+
+    if (highlightEls.length !== 2) return;
+
+    highlightEls.forEach((el) => el.classList.add('connect-hint-pair'));
+
+    this._hintsRemaining--;
+    this._updateHintButton();
+  }
+
   init() {
     const pairs = this.questions.length;
     const cols = pairs <= 4 ? 4 : 4;
@@ -145,6 +194,8 @@ export default class Connect extends BaseGame {
   }
 
   _checkMatch() {
+    this._clearPairHintHighlight();
+
     const [a, b] = this.selected;
     const isMatch = a.card.pairId === b.card.pairId && a.card.type !== b.card.type;
 
