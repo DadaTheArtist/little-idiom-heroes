@@ -133,12 +133,29 @@ export default class Racing extends BaseGame {
   }
 
   _updateCars() {
-    const maxPct = 82;
     const steps = Math.max(this.winSteps, 1);
-    const playerPct = Math.min((this.playerPos / steps) * maxPct, maxPct);
-    const cpuPct = Math.min((this.cpuPos / steps) * maxPct, maxPct);
-    this.carPlayer.style.left = `${6 + playerPct}%`;
-    this.carCpu.style.left = `${6 + cpuPct}%`;
+    /** 賽段上對應「抵達終點線」的進度（終點線約在 right:6%） */
+    const linePct = 82;
+    /** 答對最後一題／對手奪勝時再多開一段，視覺上越過終點線 */
+    const pastLinePct = 12;
+    const capPct = 94;
+
+    let playerPct;
+    if (this.playerPos >= this.winSteps) {
+      playerPct = linePct + pastLinePct;
+    } else {
+      playerPct = (this.playerPos / steps) * linePct;
+    }
+
+    let cpuPct;
+    if (this.cpuPos >= this.winSteps) {
+      cpuPct = linePct + pastLinePct;
+    } else {
+      cpuPct = (this.cpuPos / steps) * linePct;
+    }
+
+    this.carPlayer.style.left = `${6 + Math.min(playerPct, capPct)}%`;
+    this.carCpu.style.left = `${6 + Math.min(cpuPct, capPct)}%`;
   }
 
   _endRace() {
