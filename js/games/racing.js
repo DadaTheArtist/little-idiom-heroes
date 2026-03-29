@@ -6,7 +6,8 @@ export default class Racing extends BaseGame {
     this.currentIdx = 0;
     this.playerPos = 0;
     this.cpuPos = 0;
-    this.trackSteps = questions.length + 2;
+    /** 先答對這麼多題的一方抵達終點（與關卡設定的題數一致） */
+    this.winSteps = this.totalQuestions;
     this.isProcessing = false;
     this.finished = false;
   }
@@ -74,15 +75,17 @@ export default class Racing extends BaseGame {
 
   _loadQuestion() {
     if (this._destroyed || this.finished) return;
+
     if (this.currentIdx >= this.questions.length) {
-      this._endRace();
-      return;
+      this.questions = this._shuffleArray([...this.questions]);
+      this.currentIdx = 0;
     }
 
     this.isProcessing = false;
     const q = this.questions[this.currentIdx];
     this.questionEl.textContent = q.hint || q.stem;
-    this.progressEl.textContent = `第 ${this.currentIdx + 1} / ${this.totalQuestions} 題`;
+    this.progressEl.textContent =
+      `你 ${this.playerPos} / ${this.winSteps} ・ 對手 ${this.cpuPos} / ${this.winSteps}`;
 
     const baseOptions = Array.isArray(q.options) && q.options.length
       ? [...q.options]
@@ -116,13 +119,13 @@ export default class Racing extends BaseGame {
       this.playerPos++;
     } else {
       btn.classList.add('wrong');
-      this.cpuPos++;
+      this.cpuPos += 2;
     }
 
     this._updateCars();
     this.currentIdx++;
 
-    if (this.playerPos >= this.trackSteps || this.cpuPos >= this.trackSteps) {
+    if (this.playerPos >= this.winSteps || this.cpuPos >= this.winSteps) {
       setTimeout(() => this._endRace(), 800);
     } else {
       setTimeout(() => this._loadQuestion(), correct ? 1000 : 2000);
@@ -131,8 +134,9 @@ export default class Racing extends BaseGame {
 
   _updateCars() {
     const maxPct = 82;
-    const playerPct = Math.min((this.playerPos / this.trackSteps) * maxPct, maxPct);
-    const cpuPct = Math.min((this.cpuPos / this.trackSteps) * maxPct, maxPct);
+    const steps = Math.max(this.winSteps, 1);
+    const playerPct = Math.min((this.playerPos / steps) * maxPct, maxPct);
+    const cpuPct = Math.min((this.cpuPos / steps) * maxPct, maxPct);
     this.carPlayer.style.left = `${6 + playerPct}%`;
     this.carCpu.style.left = `${6 + cpuPct}%`;
   }
