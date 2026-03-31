@@ -68,6 +68,56 @@ const GAME_DEFINITIONS = [
     supportsQuestionTypes: ['ordering'],
     supportsAnswerModes: ['ordering'],
     weight: 1
+  },
+  {
+    gameId: 'whack-a-mole',
+    displayName: '打地鼠',
+    icon: '🔨',
+    description: '地鼠冒出來了！快打中正確答案的那隻！',
+    modulePath: './games/whack-a-mole.js',
+    supportsQuestionTypes: ['choice', 'true-false'],
+    supportsAnswerModes: ['tap-select'],
+    weight: 1
+  },
+  {
+    gameId: 'fishing',
+    displayName: '釣魚達人',
+    icon: '🎣',
+    description: '魚兒游來游去，釣起答對的那條！',
+    modulePath: './games/fishing.js',
+    supportsQuestionTypes: ['choice', 'true-false'],
+    supportsAnswerModes: ['tap-select'],
+    weight: 1
+  },
+  {
+    gameId: 'memory-flip',
+    displayName: '記憶翻牌',
+    icon: '🃏',
+    description: '翻開牌找出題目與答案的配對，考驗你的記憶力！',
+    modulePath: './games/memory-flip.js',
+    supportsQuestionTypes: ['choice', 'fill-blank'],
+    supportsAnswerModes: ['pair-select', 'tap-select'],
+    weight: 1
+  },
+  {
+    gameId: 'balloon-pop',
+    displayName: '氣球射擊',
+    icon: '🎈',
+    description: '氣球往上飄，快戳破正確答案的那顆！',
+    modulePath: './games/balloon-pop.js',
+    supportsQuestionTypes: ['choice', 'true-false'],
+    supportsAnswerModes: ['tap-select'],
+    weight: 1
+  },
+  {
+    gameId: 'space-shooter',
+    displayName: '太空射擊',
+    icon: '🚀',
+    description: '隕石飛來了！發射雷射摧毀正確答案的隕石！',
+    modulePath: './games/space-shooter.js',
+    supportsQuestionTypes: ['choice', 'true-false'],
+    supportsAnswerModes: ['tap-select'],
+    weight: 1
   }
 ];
 

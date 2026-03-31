@@ -1,0 +1,160 @@
+.memflip-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(135deg, #1a1a4e 0%, #0f0f35 100%);
+  overflow: hidden;
+}
+
+/* Header */
+.memflip-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  flex-shrink: 0;
+}
+.memflip-info {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  font-size: clamp(13px, 3vw, 16px);
+  color: #fff;
+}
+.memflip-info strong { color: var(--accent-gold); }
+
+.memflip-title {
+  text-align: center;
+  font-size: clamp(12px, 3vw, 15px);
+  color: rgba(255,255,255,0.6);
+  padding: 6px 12px;
+  flex-shrink: 0;
+}
+
+/* Grid */
+.memflip-grid {
+  flex: 1;
+  display: grid;
+  gap: clamp(6px, 2vw, 12px);
+  padding: clamp(8px, 3vw, 16px);
+  align-content: center;
+  justify-content: center;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Cards */
+.memflip-card {
+  aspect-ratio: 3/4;
+  cursor: pointer;
+  perspective: 600px;
+  min-width: 0;
+  max-width: clamp(60px, 20vw, 100px);
+  justify-self: center;
+  width: 100%;
+}
+.memflip-card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.45s cubic-bezier(0.4,0.2,0.2,1);
+  border-radius: 10px;
+}
+.memflip-card.flipped .memflip-card-inner,
+.memflip-card.matched .memflip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.memflip-card-front,
+.memflip-card-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+.memflip-card-front {
+  background: linear-gradient(135deg, #2d2d7e, #1a1a5e);
+  border: 2px solid rgba(155,89,182,0.6);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+.memflip-card-back {
+  background: linear-gradient(135deg, #16213e, #0f3460);
+  border: 2px solid rgba(0,180,216,0.6);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transform: rotateY(180deg);
+}
+
+.memflip-card-icon {
+  font-size: clamp(20px, 6vw, 32px);
+}
+.memflip-card-text {
+  font-size: clamp(11px, 2.8vw, 15px);
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  line-height: 1.3;
+  word-break: break-all;
+}
+
+/* Matched state */
+.memflip-card.matched .memflip-card-back {
+  background: linear-gradient(135deg, #1a4a1a, #0d3a0d);
+  border-color: #4caf50;
+}
+.memflip-card.matched .memflip-card-text { color: #a5d6a7; }
+
+/* Mismatch shake */
+.memflip-card.mismatch .memflip-card-inner {
+  animation: memShake 0.35s ease;
+}
+@keyframes memShake {
+  0%,100% { transform: translateX(0); }
+  25%     { transform: translateX(-5px) rotateZ(-2deg); }
+  75%     { transform: translateX(5px) rotateZ(2deg); }
+}
+
+/* Stars effect on matched */
+.memflip-card.matched {
+  animation: matchPop 0.4s ease;
+}
+@keyframes matchPop {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* Complete overlay */
+.memflip-complete-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.4s ease;
+}
+.memflip-complete-box {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.memflip-complete-icon { font-size: clamp(48px, 12vw, 72px); }
+.memflip-complete-text {
+  font-size: clamp(24px, 6vw, 36px);
+  font-weight: 900;
+  color: var(--accent-gold);
+}
+.memflip-complete-sub {
+  font-size: clamp(14px, 3.5vw, 18px);
+  color: rgba(255,255,255,0.7);
+}

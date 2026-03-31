@@ -1,0 +1,178 @@
+.fishing-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #0d2b45 0%, #0a1f30 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header */
+.fishing-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  flex-shrink: 0;
+}
+.fishing-info {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  font-size: clamp(13px, 3vw, 16px);
+  color: #fff;
+}
+.fishing-info strong { color: var(--accent-gold); }
+
+/* Question panel */
+.fishing-question-box {
+  padding: 10px 16px 8px;
+  background: rgba(0,0,0,0.45);
+  text-align: center;
+  flex-shrink: 0;
+  border-bottom: 2px solid rgba(0,180,216,0.3);
+}
+.fishing-rod {
+  font-size: clamp(20px, 5vw, 28px);
+  line-height: 1;
+}
+.fishing-question {
+  font-size: clamp(15px, 4vw, 22px);
+  color: #ffeb3b;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.fishing-hint {
+  font-size: clamp(11px, 2.8vw, 14px);
+  color: rgba(255,255,255,0.55);
+  margin-top: 2px;
+}
+
+/* Water area */
+.fishing-water {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #0a3d62 0%, #051e33 100%);
+}
+.fishing-surface {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 18px;
+  background: linear-gradient(180deg, rgba(0,180,216,0.5) 0%, transparent 100%);
+  animation: waterWave 3s ease-in-out infinite alternate;
+}
+@keyframes waterWave {
+  0%   { transform: scaleY(1); opacity: 0.6; }
+  100% { transform: scaleY(1.3); opacity: 1; }
+}
+
+/* Fish layer */
+.fishing-fish-layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* Individual fish */
+.fishing-fish {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: opacity 0.4s;
+  user-select: none;
+}
+.fishing-fish-emoji {
+  font-size: clamp(28px, 8vw, 44px);
+  filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
+  line-height: 1;
+  transition: transform 0.2s;
+}
+.fishing-fish-label {
+  background: rgba(255,255,255,0.9);
+  color: #1a1a2e;
+  border-radius: 8px;
+  padding: 3px 10px;
+  font-size: clamp(12px, 3vw, 16px);
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  white-space: nowrap; /* 單行，但不截斷——由格子自動撐寬 */
+}
+
+.fishing-fish:active .fishing-fish-emoji { transform: scale(1.2); }
+
+/* States */
+.fishing-fish.caught {
+  animation: reelIn 0.6s ease forwards;
+  pointer-events: none;
+}
+.fishing-fish.caught .fishing-fish-label {
+  background: #4caf50;
+  color: #fff;
+}
+.fishing-fish.escaped {
+  animation: escape 0.4s ease;
+  pointer-events: none;
+}
+.fishing-fish.highlight .fishing-fish-label {
+  background: #4caf50;
+  color: #fff;
+  outline: 3px solid #fff;
+}
+.fishing-fish.highlight .fishing-fish-emoji {
+  animation: pulse 0.6s ease infinite alternate;
+}
+
+@keyframes reelIn {
+  0%   { transform: scale(1) translateY(0); opacity: 1; }
+  60%  { transform: scale(1.3) translateY(-30px); opacity: 1; }
+  100% { transform: scale(0.5) translateY(-100px); opacity: 0; }
+}
+@keyframes escape {
+  0%,100% { transform: scaleX(-1) translateX(0); }
+  50%     { transform: scaleX(-1) translateX(20px); }
+}
+@keyframes pulse {
+  0%   { filter: drop-shadow(0 0 4px #4caf50); }
+  100% { filter: drop-shadow(0 0 12px #4caf50); }
+}
+
+/* Bubbles */
+.fishing-bubbles { position: absolute; inset: 0; pointer-events: none; }
+.fishing-bubble {
+  position: absolute;
+  bottom: 0;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.25);
+  animation: bubbleRise linear infinite;
+}
+@keyframes bubbleRise {
+  0%   { transform: translateY(0) scale(1); opacity: 0.6; }
+  100% { transform: translateY(-100vh) scale(1.3); opacity: 0; }
+}
+
+/* Feedback */
+.fishing-feedback {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(18px, 5vw, 28px);
+  font-weight: 900;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  z-index: 20;
+  white-space: nowrap;
+}
+.fishing-feedback.success { color: #4caf50; opacity: 1; }
+.fishing-feedback.fail    { color: #e94560; opacity: 1; }

@@ -1,0 +1,181 @@
+.balloon-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #87ceeb 0%, #c9e8ff 60%, #d4f1c4 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Header */
+.balloon-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  flex-shrink: 0;
+}
+.balloon-info {
+  flex: 1;
+  display: flex;
+  gap: 16px;
+  font-size: clamp(13px, 3vw, 16px);
+  color: #fff;
+}
+.balloon-info strong { color: #ffd700; }
+
+/* Question area */
+.balloon-question-area {
+  padding: 10px 16px 8px;
+  background: rgba(0,0,0,0.3);
+  text-align: center;
+  flex-shrink: 0;
+}
+.balloon-question {
+  font-size: clamp(15px, 4vw, 22px);
+  color: #1a1a2e;
+  font-weight: 800;
+  line-height: 1.4;
+  text-shadow: 0 1px 3px rgba(255,255,255,0.5);
+}
+.balloon-sub {
+  font-size: clamp(11px, 2.8vw, 14px);
+  color: rgba(0,0,0,0.55);
+  margin-top: 2px;
+  transition: color 0.3s;
+}
+
+/* Sky */
+.balloon-sky {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Clouds */
+.balloon-clouds { position: absolute; inset: 0; pointer-events: none; z-index: 0; }
+.balloon-cloud {
+  position: absolute;
+  opacity: 0.7;
+  animation: cloudDrift 8s ease-in-out infinite alternate;
+}
+@keyframes cloudDrift {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(20px); }
+}
+
+/* Arena */
+.balloon-arena {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* ── Balloon item：靜止浮在空中，輕微搖晃 ── */
+.balloon-item {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: balloonBob 3s ease-in-out var(--bob-delay, 0s) infinite alternate;
+}
+
+@keyframes balloonBob {
+  0%   { transform: translateX(0) translateY(0); }
+  50%  { transform: translateX(var(--wobble, 8px)) translateY(-6px); }
+  100% { transform: translateX(0) translateY(4px); }
+}
+
+/* Balloon body */
+.balloon-body {
+  width: clamp(56px, 15vw, 80px);
+  height: clamp(70px, 19vw, 100px);
+  border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 3px 4px 10px rgba(0,0,0,0.2), inset -4px -4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.1s;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.balloon-body:active { transform: scale(0.9); }
+
+.balloon-shine {
+  position: absolute;
+  top: 14%;
+  left: 18%;
+  width: 25%;
+  height: 28%;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.balloon-label {
+  font-size: clamp(10px, 2.6vw, 14px);
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  text-align: center;
+  padding: 0 6px;
+  line-height: 1.2;
+  word-break: break-all;
+  max-width: 90%;
+}
+
+/* String */
+.balloon-string {
+  width: 2px;
+  height: clamp(16px, 5vw, 28px);
+  background: rgba(0,0,0,0.35);
+  border-radius: 1px;
+}
+
+/* ── 答對：飛上天消失 ── */
+.balloon-item.fly-away {
+  animation: flyAway 0.8s ease forwards !important;
+  pointer-events: none;
+}
+@keyframes flyAway {
+  0%   { transform: translateY(0) scale(1); opacity: 1; }
+  60%  { transform: translateY(-120px) scale(1.15); opacity: 1; }
+  100% { transform: translateY(-300px) scale(0.3); opacity: 0; }
+}
+
+/* ── 答錯：搖晃不動 ── */
+.balloon-item.wrong-shake {
+  animation: wrongShake 0.45s ease !important;
+}
+@keyframes wrongShake {
+  0%,100% { transform: rotate(0deg); }
+  20%     { transform: rotate(-8deg); }
+  50%     { transform: rotate(8deg); }
+  75%     { transform: rotate(-4deg); }
+}
+
+/* Feedback */
+.balloon-feedback {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: clamp(18px, 5vw, 28px);
+  font-weight: 900;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  z-index: 20;
+  white-space: nowrap;
+}
+.balloon-feedback.success { color: #2e7d32; opacity: 1; }
+.balloon-feedback.fail    { color: #b71c1c; opacity: 1; }

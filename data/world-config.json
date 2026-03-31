@@ -42,6 +42,28 @@
           "content": "chinese/idioms.json",
           "questionCount": 10,
           "unlockRequire": "z1-2"
+        },
+        {
+          "id": "z1-4",
+          "name": "成語打地鼠",
+          "selectionMode": "fixed",
+          "gameId": "whack-a-mole",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/idioms.json",
+          "questionCount": 10,
+          "unlockRequire": "z1-3"
+        },
+        {
+          "id": "z1-5",
+          "name": "成語太空射擊",
+          "selectionMode": "fixed",
+          "gameId": "space-shooter",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/idioms.json",
+          "questionCount": 10,
+          "unlockRequire": "z1-4"
         }
       ]
     },
@@ -56,9 +78,9 @@
       "challenges": [
         {
           "id": "z2-1",
-          "name": "自然賽車暖身",
+          "name": "自然釣魚趣",
           "selectionMode": "fixed",
-          "gameId": "racing",
+          "gameId": "fishing",
           "questionType": "choice",
           "answerMode": "tap-select",
           "content": "science/g3-s2-midterm.json",
@@ -78,17 +100,6 @@
         },
         {
           "id": "z2-3",
-          "name": "自然連連看",
-          "selectionMode": "fixed",
-          "gameId": "connect",
-          "questionType": "choice",
-          "answerMode": "pair-select",
-          "content": "science/g3-s2-midterm.json",
-          "questionCount": 6,
-          "unlockRequire": "z2-2"
-        },
-        {
-          "id": "z2-4",
           "name": "實驗室大挑戰",
           "selectionMode": "fixed",
           "gameId": "lab-experiment",
@@ -96,10 +107,10 @@
           "answerMode": "multi-select",
           "content": "science/g3-s2-midterm.json",
           "questionCount": 3,
-          "unlockRequire": "z2-3"
+          "unlockRequire": "z2-2"
         },
         {
-          "id": "z2-5",
+          "id": "z2-4",
           "name": "步驟排排站",
           "selectionMode": "fixed",
           "gameId": "card-ordering",
@@ -107,6 +118,17 @@
           "answerMode": "ordering",
           "content": "science/g3-s2-midterm.json",
           "questionCount": 4,
+          "unlockRequire": "z2-3"
+        },
+        {
+          "id": "z2-5",
+          "name": "氣球大挑戰",
+          "selectionMode": "fixed",
+          "gameId": "balloon-pop",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "science/g3-s2-midterm.json",
+          "questionCount": 10,
           "unlockRequire": "z2-4"
         }
       ]
@@ -119,30 +141,7 @@
       "themeElement": "earth",
       "textbookId": "tw-g3-s1-math",
       "enabled": false,
-      "challenges": [
-        {
-          "id": "z3-1",
-          "name": "計算賽道",
-          "selectionMode": "random",
-          "candidateGameIds": ["racing", "boss-fight"],
-          "questionType": "choice",
-          "answerMode": "tap-select",
-          "content": "math/unit1.json",
-          "questionCount": 8,
-          "unlockRequire": null
-        },
-        {
-          "id": "z3-2",
-          "name": "真假算式",
-          "selectionMode": "fixed",
-          "gameId": "racing",
-          "questionType": "true-false",
-          "answerMode": "tap-select",
-          "content": "math/unit1.json",
-          "questionCount": 8,
-          "unlockRequire": "z3-1"
-        }
-      ]
+      "challenges": []
     }
   ]
 }

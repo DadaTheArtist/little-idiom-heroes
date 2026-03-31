@@ -178,7 +178,7 @@ export default class LabExperiment extends BaseGame {
     }
 
     this.currentIdx++;
-    setTimeout(() => this._loadQuestion(), allCorrect ? 2000 : 3800);
+    setTimeout(() => this._loadQuestion(), allCorrect ? 2000 : 4800);
   }
 
   _showSuccess() {
@@ -190,9 +190,10 @@ export default class LabExperiment extends BaseGame {
 
   _showBurnt() {
     this.effectEl.className = 'lab-effect-overlay lab-burnt-fx';
-    const q = this.questions[this.currentIdx - 1] || this.questions[this.currentIdx];
+    // 注意：此時 currentIdx 尚未遞增，直接取當前題目
+    const q = this.questions[this.currentIdx];
     const correctText = (q.correctAnswers || []).join('、');
-    this.statusEl.innerHTML = `烤焦了！實驗失敗<br><span class="lab-status-answer">正確：${correctText}</span>`;
+    this.statusEl.innerHTML = `烤焦了！實驗失敗<br><span class="lab-status-answer">正確答案：${correctText}</span>`;
     this.statusEl.className = 'lab-status lab-status-fail';
     this.statusEl.style.display = 'block';
   }
