@@ -5,12 +5,18 @@ export class ResultScreen {
 
   async enter(container, { results, levelConfig }) {
     const won = results.stars > 0;
-    const nextChallenge = won ? this._findNextChallenge(levelConfig) : null;
+    const isExamPractice = !!levelConfig.isExamPractice;
+    const nextChallenge = (!isExamPractice && won) ? this._findNextChallenge(levelConfig) : null;
     const el = document.createElement('div');
     el.className = `screen result-screen ${won ? 'win' : 'lose'}`;
 
     let actionsHTML;
-    if (won) {
+    if (isExamPractice) {
+      actionsHTML = `
+        <button class="btn btn-gold" id="btn-retry">再練一次</button>
+        <button class="btn btn-secondary" id="btn-map">回到練習區</button>
+      `;
+    } else if (won) {
       actionsHTML = `
         ${nextChallenge ? `<button class="btn btn-gold" id="btn-next">下一個關卡</button>` : ''}
         <button class="btn ${nextChallenge ? 'btn-secondary' : 'btn-gold'}" id="btn-map">回到地圖</button>
@@ -53,12 +59,20 @@ export class ResultScreen {
     const retryBtn = el.querySelector('#btn-retry');
     if (retryBtn) {
       retryBtn.addEventListener('click', () => {
-        this.app.startLevel(levelConfig);
+        if (isExamPractice) {
+          this.app.startExamPractice(levelConfig.challenge);
+        } else {
+          this.app.startLevel(levelConfig);
+        }
       });
     }
 
     el.querySelector('#btn-map').addEventListener('click', () => {
-      this.app.screenManager.switchTo('world-map', {});
+      if (isExamPractice) {
+        this.app.screenManager.switchTo('exam-practice');
+      } else {
+        this.app.screenManager.switchTo('world-map', {});
+      }
     });
   }
 

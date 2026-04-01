@@ -812,6 +812,1266 @@
       "id": "sci32-ord-004",
       "questionCategory": "ordering",
       "playerHint": "水受熱→蒸氣→遇冷→冰→遇熱→水"
+    },
+    {
+      "type": "true-false",
+      "prompt": "比較小顆的種子通常會用撒播的方式種植。",
+      "answer": true,
+      "id": "sci32-tf-021",
+      "questionCategory": "true-false",
+      "playerHint": "撒播適合小種子，點播適合大種子",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "大部分蔬菜的生長只需要適當的水分、流通的空氣和肥沃的土壤就可以長得很好，不需要陽光。",
+      "answer": false,
+      "id": "sci32-tf-022",
+      "questionCategory": "true-false",
+      "playerHint": "想想蔬菜生長的四大條件",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "臺灣一年四季都能買到不同的蔬菜，所以種植蔬菜時，不需要考慮蔬菜適合生長的季節。",
+      "answer": false,
+      "id": "sci32-tf-023",
+      "questionCategory": "true-false",
+      "playerHint": "買得到不等於在任何季節都適合種植",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "用落葉、廚餘等材料自製堆肥是屬於化學肥料。",
+      "answer": false,
+      "id": "sci32-tf-024",
+      "questionCategory": "true-false",
+      "playerHint": "天然材料做的是有機肥，不是化學肥",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "陽光會加快水蒸發的速度，風對水的蒸發速度沒有影響。",
+      "answer": false,
+      "id": "sci32-tf-025",
+      "questionCategory": "true-false",
+      "playerHint": "風吹走水蒸氣，也能加速蒸發",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "每種蔬菜都只能在冬天的時候種植。",
+      "answer": false,
+      "id": "sci32-tf-026",
+      "questionCategory": "true-false",
+      "playerHint": "不同蔬菜有不同的適合生長季節",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "蔬菜種子較大時，適合使用點播的方式種植。",
+      "answer": true,
+      "id": "sci32-tf-027",
+      "questionCategory": "true-false",
+      "playerHint": "大種子點播，小種子撒播",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "農夫在田裡鬆土時，發現土裡有蚯蚓，要趕快把蚯蚓抓走，避免危害到蔬菜的生長。",
+      "answer": false,
+      "id": "sci32-tf-028",
+      "questionCategory": "true-false",
+      "playerHint": "蚯蚓是土壤的好幫手，不是害蟲",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "當水的溫度降到 5°C 以下時，就會凝固成冰。",
+      "answer": false,
+      "id": "sci32-tf-029",
+      "questionCategory": "true-false",
+      "playerHint": "水結冰需要降到 0°C 以下，不是 5°C",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "當物體有細縫可以讓水滲透進去，並且水會沿著細縫移動，我們稱為毛細現象。",
+      "answer": true,
+      "id": "sci32-tf-030",
+      "questionCategory": "true-false",
+      "playerHint": "這正是毛細現象的定義",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "魚缸內的水會慢慢減少，是因為水在自然情況下蒸發變成氣態的關係。",
+      "answer": true,
+      "id": "sci32-tf-031",
+      "questionCategory": "true-false",
+      "playerHint": "水在室溫下也會緩慢蒸發",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "間拔和移植都是可以增加蔬菜生長空間的方法。",
+      "answer": true,
+      "id": "sci32-tf-032",
+      "questionCategory": "true-false",
+      "playerHint": "兩種方法都能讓幼苗有更多生長空間",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "種植油菜時，為了節省時間，可以在土壤上只挖一個洞，把全部種子都放進去。",
+      "answer": false,
+      "id": "sci32-tf-033",
+      "questionCategory": "true-false",
+      "playerHint": "種子要分散種植，才能各自生長",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "所有的蔬菜從播種到採收的時間長短都一樣。",
+      "answer": false,
+      "id": "sci32-tf-034",
+      "questionCategory": "true-false",
+      "playerHint": "不同蔬菜生長速度不同",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "把裝滿水的玻璃瓶放入冷凍庫結冰，玻璃瓶可能會有破裂的危險。",
+      "answer": true,
+      "id": "sci32-tf-035",
+      "questionCategory": "true-false",
+      "playerHint": "水結冰後體積會膨脹",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "冰塊放在杯子裡融化成水後，杯子外壁的小水滴是因為冷水從杯內滲透出來。",
+      "answer": false,
+      "id": "sci32-tf-036",
+      "questionCategory": "true-false",
+      "playerHint": "外壁水滴是空氣中水蒸氣遇冷凝結，不是滲透",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "播種前要先翻鬆土壤，是為了讓植物的根部更容易伸展和呼吸。",
+      "answer": true,
+      "id": "sci32-tf-037",
+      "questionCategory": "true-false",
+      "playerHint": "鬆土讓根能自由延伸並吸收空氣",
+      "sourceFile": "113下-3下-期中-翰林自然-004.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "水蒸氣是看不見、摸不著的氣體。",
+      "answer": true,
+      "id": "sci32-tf-038",
+      "questionCategory": "true-false",
+      "playerHint": "純粹的水蒸氣是無色透明的氣體",
+      "sourceFile": "113下-3下-期中-翰林自然-004.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "播種完在種子上覆蓋一層薄土，是為了防止澆水時將種子沖走。",
+      "answer": true,
+      "id": "sci32-tf-039",
+      "questionCategory": "true-false",
+      "playerHint": "薄土保護種子不被水流沖散",
+      "sourceFile": "113下-3下-期中-翰林自然-005.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "幼苗之間如果距離太近，會彼此競爭養分；所以只要趕快施肥，不需要移植。",
+      "answer": false,
+      "id": "sci32-tf-040",
+      "questionCategory": "true-false",
+      "playerHint": "施肥無法解決空間不足的問題",
+      "sourceFile": "113下-3下-期中-翰林自然-005.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "種子發芽後，先長出來的葉子（子葉）和後來生長的葉子，外形都長得一樣。",
+      "answer": false,
+      "id": "sci32-tf-041",
+      "questionCategory": "true-false",
+      "playerHint": "子葉和本葉形狀通常不同",
+      "sourceFile": "113下-3下-期中-翰林自然-005.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "任何材質的物品放入水中，都會產生毛細現象。",
+      "answer": false,
+      "id": "sci32-tf-042",
+      "questionCategory": "true-false",
+      "playerHint": "塑膠、玻璃等光滑材質不會產生毛細現象",
+      "sourceFile": "113下-3下-期中-翰林自然-005.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "採收蔬菜時，為了方便快速，應該用力將蔬菜拔起。",
+      "answer": false,
+      "id": "sci32-tf-043",
+      "questionCategory": "true-false",
+      "playerHint": "粗暴採收會傷害植物和周圍土壤",
+      "sourceFile": "113下-3下-期中-翰林自然-005.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "種子比較大通常就會用撒播的方式；種子比較小會使用點播的方式。",
+      "answer": false,
+      "id": "sci32-tf-044",
+      "questionCategory": "true-false",
+      "playerHint": "剛好相反：大種子點播，小種子撒播",
+      "sourceFile": "113下-3下-期中-翰林自然-007.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "液態的水會流動，有固定的形狀，不可以隨著容器的形狀改變。",
+      "answer": false,
+      "id": "sci32-tf-045",
+      "questionCategory": "true-false",
+      "playerHint": "液態水沒有固定形狀，會依容器改變",
+      "sourceFile": "113下-3下-期中-翰林自然-007.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "水由液態變成氣態的過程，稱為蒸發。",
+      "answer": true,
+      "id": "sci32-tf-046",
+      "questionCategory": "true-false",
+      "playerHint": "蒸發是液態→氣態的變化",
+      "sourceFile": "113下-3下-期中-翰林自然-007.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "在日常生活中，如果發現水管漏水或沒有將水龍頭關緊，都不會造成水資源的浪費。",
+      "answer": false,
+      "id": "sci32-tf-047",
+      "questionCategory": "true-false",
+      "playerHint": "任何水的漏失都是浪費",
+      "sourceFile": "113下-3下-期中-翰林自然-007.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "所有物質加熱後形態都會改變，溫度降低後都會回復原來的樣子。",
+      "answer": false,
+      "id": "sci32-tf-048",
+      "questionCategory": "true-false",
+      "playerHint": "雞蛋、木頭加熱後就無法回復了",
+      "sourceFile": "113下-3下-期中-翰林自然-008.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "冰和水都是同一種物質，只是形態不同，它們都佔有空間、具有重量。",
+      "answer": true,
+      "id": "sci32-tf-049",
+      "questionCategory": "true-false",
+      "playerHint": "固態和液態的水都是H₂O",
+      "sourceFile": "113下-3下-期中-翰林自然-008.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "true-false",
+      "prompt": "下雨天時空氣中有很多的水蒸氣，我們看不見，但是摸得到。",
+      "answer": false,
+      "id": "sci32-tf-050",
+      "questionCategory": "true-false",
+      "playerHint": "水蒸氣看不見也摸不著",
+      "sourceFile": "113下-3下-期中-翰林自然-008.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "澆水澆得好，蔬菜才能長得好，下列哪項是正確的？",
+      "answer": "最好在早上澆水",
+      "choices": [
+        "最好在早上澆水",
+        "水要澆越多越好",
+        "出水量大小都可以",
+        "澆水一定要澆在葉子上"
+      ],
+      "id": "sci32-choice-020",
+      "questionCategory": "choice-self",
+      "playerHint": "早上澆水蒸發少，對蔬菜最好",
+      "sourceFile": "112下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "泥土中常會有蚯蚓，關於蚯蚓對植物的影響哪個是錯誤的？",
+      "answer": "蚯蚓會吃掉植物的害蟲",
+      "choices": [
+        "蚯蚓糞便是含有營養的肥料",
+        "蚯蚓在土壤中鑽洞能翻鬆土壤",
+        "蚯蚓會吃掉植物的害蟲",
+        "蚯蚓會分解泥土中的樹葉和枯死的根"
+      ],
+      "id": "sci32-choice-021",
+      "questionCategory": "choice-self",
+      "playerHint": "蚯蚓吃的是腐植質，不是昆蟲",
+      "sourceFile": "112下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "關於有機農業，哪個敘述是錯誤的？",
+      "answer": "會使用農藥來除蟲",
+      "choices": [
+        "是利用大自然的法則來生產農作物",
+        "會用廚餘或堆肥方式製作的肥料",
+        "對環境是友善的",
+        "會使用農藥來除蟲"
+      ],
+      "id": "sci32-choice-022",
+      "questionCategory": "choice-self",
+      "playerHint": "有機農業不使用化學農藥",
+      "sourceFile": "112下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "我們為什麼要在花盆底部放置紗網或石頭呢？",
+      "answer": "避免土壤流失",
+      "choices": [
+        "防止水分流失",
+        "避免土壤流失",
+        "防止蚯蚓爬出去",
+        "阻擋小蟲進入"
+      ],
+      "id": "sci32-choice-023",
+      "questionCategory": "choice-self",
+      "playerHint": "底部的紗網讓水排出，同時留住土壤",
+      "sourceFile": "112下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "蔬菜長大就可以採收了，哪種採收方式較不適合？",
+      "answer": "用除草機割下",
+      "choices": [
+        "連根拔起",
+        "用除草機割下",
+        "用手摘下",
+        "用剪刀剪下"
+      ],
+      "id": "sci32-choice-024",
+      "questionCategory": "choice-self",
+      "playerHint": "採收蔬菜要精確，除草機不適合",
+      "sourceFile": "112下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "哪一個現象是物質遇熱所產生的？",
+      "answer": "積雪融化了",
+      "choices": [
+        "用抹布擦乾桌上的水",
+        "製作冰棒",
+        "積雪融化了",
+        "山上午後起霧了"
+      ],
+      "id": "sci32-choice-025",
+      "questionCategory": "choice-self",
+      "playerHint": "融化需要熱能，是遇熱的結果",
+      "sourceFile": "112下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "種植蔬菜前，想翻鬆土壤，應使用哪一種工具比較適合？",
+      "answer": "鏟子",
+      "choices": [
+        "澆水器",
+        "鏟子",
+        "花盆",
+        "紗網"
+      ],
+      "id": "sci32-choice-026",
+      "questionCategory": "choice-self",
+      "playerHint": "鏟子是翻土的基本農具",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "種植蔬菜時，下面哪一個澆水方法是對的？",
+      "answer": "降低澆水的位置",
+      "choices": [
+        "用強力水柱澆水",
+        "澆水次數愈多愈好",
+        "在中午澆水",
+        "降低澆水的位置"
+      ],
+      "id": "sci32-choice-027",
+      "questionCategory": "choice-self",
+      "playerHint": "降低澆水位置可以減少沖力，保護幼苗",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "有關蔬菜在播種發芽後的生長過程，哪一個順序是對的？",
+      "answer": "長葉、長大→開花→結果",
+      "choices": [
+        "長葉、長大→結果→開花",
+        "長葉、長大→開花→結果",
+        "開花→長葉、長大→結果",
+        "結果→開花→長葉、長大"
+      ],
+      "id": "sci32-choice-028",
+      "questionCategory": "choice-self",
+      "playerHint": "蔬菜先長大，再開花，最後結果",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "種植蔬菜時，為什麼要在花盆底部放置石頭或鋪紗網？",
+      "answer": "澆水時可以避免土壤從底部流失",
+      "choices": [
+        "讓植物的根長得更好",
+        "避免螞蟻從底部爬進去",
+        "減少土壤的用量",
+        "澆水時可以避免土壤從底部流失"
+      ],
+      "id": "sci32-choice-029",
+      "questionCategory": "choice-self",
+      "playerHint": "讓水能排出，但土壤不會一起流失",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下面哪一個不是節約用水的表現？",
+      "answer": "泡澡取代淋浴",
+      "choices": [
+        "泡澡取代淋浴",
+        "收集雨水再利用",
+        "使用省水馬桶",
+        "用洗米水澆花"
+      ],
+      "id": "sci32-choice-030",
+      "questionCategory": "choice-self",
+      "playerHint": "淋浴比泡澡省水",
+      "sourceFile": "113下-3下-期中-翰林自然-001.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "種植蔬菜時，不會用到下列哪個物品？",
+      "answer": "課本",
+      "choices": [
+        "蔬菜種子",
+        "盆栽",
+        "土",
+        "課本"
+      ],
+      "id": "sci32-choice-031",
+      "questionCategory": "choice-self",
+      "playerHint": "課本是書，不是種菜工具",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "冰塊遇熱變成水的狀態變化叫做什麼？",
+      "answer": "融化",
+      "choices": [
+        "凝固",
+        "熔化",
+        "融化",
+        "溶化"
+      ],
+      "id": "sci32-choice-032",
+      "questionCategory": "choice-self",
+      "playerHint": "固態→液態是融化",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列哪一項不是水蒸氣的特性？",
+      "answer": "看得到",
+      "choices": [
+        "看得到",
+        "摸不到",
+        "沒有顏色",
+        "沒有味道"
+      ],
+      "id": "sci32-choice-033",
+      "questionCategory": "choice-self",
+      "playerHint": "純粹的水蒸氣是無色透明的，肉眼看不到",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "哪一個方法可以觀察到毛細現象？",
+      "answer": "將衛生紙的一端放入水中",
+      "choices": [
+        "將水滴在玻璃片上",
+        "將衛生紙的一端放入水中",
+        "將水倒入杯子裡",
+        "將冰塊放入熱水中"
+      ],
+      "id": "sci32-choice-034",
+      "questionCategory": "choice-self",
+      "playerHint": "衛生紙有細縫，水會沿縫隙上升",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列關於水的三態變化，哪一項敘述是正確的？",
+      "answer": "水變成冰的過程稱為凝固",
+      "choices": [
+        "水蒸氣是肉眼看得到的小水滴",
+        "冰塊融化成水體積會變大",
+        "水變成冰的過程稱為凝固",
+        "水蒸氣遇熱會變成水"
+      ],
+      "id": "sci32-choice-035",
+      "questionCategory": "choice-self",
+      "playerHint": "液態→固態是凝固",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列哪一個現象與「蒸發」有關？",
+      "answer": "洗完的頭髮用吹風機吹乾",
+      "choices": [
+        "洗完的頭髮用吹風機吹乾",
+        "從冰箱拿出的飲料罐表面有水珠",
+        "冬天的早晨草地上有露水",
+        "放在冷凍庫的水變成冰塊"
+      ],
+      "id": "sci32-choice-036",
+      "questionCategory": "choice-self",
+      "playerHint": "熱風吹乾是水分蒸發的應用",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "關於節約用水的行為，下列何者錯誤？",
+      "answer": "洗手時水龍頭開到最大",
+      "choices": [
+        "洗澡改用淋浴方式",
+        "洗米水拿來澆花",
+        "洗手時水龍頭開到最大",
+        "定期檢查水管是否漏水"
+      ],
+      "id": "sci32-choice-037",
+      "questionCategory": "choice-self",
+      "playerHint": "開到最大會浪費水",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "哪種蔬菜的採收部位是「莖」？",
+      "answer": "空心菜",
+      "choices": [
+        "小白菜",
+        "空心菜",
+        "番茄",
+        "茄子"
+      ],
+      "id": "sci32-choice-038",
+      "questionCategory": "choice-self",
+      "playerHint": "空心菜的食用部位是中空的莖和葉",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列哪一種現象屬於「凝結」？",
+      "answer": "水燒開時冒出的白煙",
+      "choices": [
+        "水燒開時冒出的白煙",
+        "冰淇淋融化了",
+        "溼地板變乾了",
+        "水結成冰"
+      ],
+      "id": "sci32-choice-039",
+      "questionCategory": "choice-self",
+      "playerHint": "白煙是水蒸氣遇冷空氣凝結成小水滴",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "蔬菜生長過程中，不需要觀察記錄哪一項？",
+      "answer": "花盆的顏色",
+      "choices": [
+        "葉子的數量",
+        "植株的高度",
+        "天氣的變化",
+        "花盆的顏色"
+      ],
+      "id": "sci32-choice-040",
+      "questionCategory": "choice-self",
+      "playerHint": "花盆顏色不影響也不反映蔬菜生長",
+      "sourceFile": "113下-3下-期中-翰林自然-002.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "播種時，什麼情況比較適合用「撒播」？",
+      "answer": "種子很小顆",
+      "choices": [
+        "種子很小顆",
+        "種子比較大顆",
+        "種子形狀特別",
+        "不限種子大小"
+      ],
+      "id": "sci32-choice-041",
+      "questionCategory": "choice-self",
+      "playerHint": "小種子適合撒播，大種子用點播",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "水力發電通常是利用水的哪一種型態來發電？",
+      "answer": "液態",
+      "choices": [
+        "氣態",
+        "液態",
+        "固態",
+        "三種都有"
+      ],
+      "id": "sci32-choice-042",
+      "questionCategory": "choice-self",
+      "playerHint": "流動的液態水推動水輪發電",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "關於毛細現象，下列哪一個敘述是正確的？",
+      "answer": "水會沿著材料的細縫移動",
+      "choices": [
+        "只有棉布會產生毛細現象",
+        "細縫愈大，水上升愈高",
+        "水會沿著材料的細縫移動",
+        "毛細現象只在水中才會發生"
+      ],
+      "id": "sci32-choice-043",
+      "questionCategory": "choice-self",
+      "playerHint": "毛細現象就是水沿細縫移動的現象",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "採收蔬菜時，哪一種做法是不正確的？",
+      "answer": "用力拉扯蔬菜",
+      "choices": [
+        "用剪刀剪下",
+        "用手輕輕摘取",
+        "用力拉扯蔬菜",
+        "依不同蔬菜選擇適合的採收方式"
+      ],
+      "id": "sci32-choice-044",
+      "questionCategory": "choice-self",
+      "playerHint": "粗暴地拉扯會傷害植物根部",
+      "sourceFile": "113下-3下-期中-翰林自然-003.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "有關「水的三態」，下列哪一項敘述是錯誤的？",
+      "answer": "冰是液態的水",
+      "choices": [
+        "冰、水和水蒸氣是同一種物質",
+        "水蒸氣是氣態的水",
+        "冰是液態的水",
+        "水是液態"
+      ],
+      "id": "sci32-choice-045",
+      "questionCategory": "choice-self",
+      "playerHint": "冰是固態，不是液態",
+      "sourceFile": "113下-3下-期中-翰林自然-004.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列哪一項不是植物根的功能？",
+      "answer": "製造養分",
+      "choices": [
+        "吸收水分",
+        "固定植物體",
+        "吸收礦物質",
+        "製造養分"
+      ],
+      "id": "sci32-choice-046",
+      "questionCategory": "choice-self",
+      "playerHint": "製造養分是葉的工作，根負責吸收",
+      "sourceFile": "113下-3下-期中-翰林自然-005.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "有關「水的三態變化」，下列敘述何者錯誤？",
+      "answer": "水只有在沸騰時才會蒸發",
+      "choices": [
+        "水遇冷到 0°C 以下會凝固成冰",
+        "冰遇熱會融化成水",
+        "水蒸氣遇冷會凝結成小水珠",
+        "水只有在沸騰時才會蒸發"
+      ],
+      "id": "sci32-choice-047",
+      "questionCategory": "choice-self",
+      "playerHint": "水在常溫下也會慢慢蒸發",
+      "sourceFile": "113下-3下-期中-翰林自然-005.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列哪一個現象不是毛細現象的應用？",
+      "answer": "把溼衣服晾乾",
+      "choices": [
+        "用海綿吸乾翻倒的果汁",
+        "酒精燈的燈芯將酒精吸上來",
+        "把溼衣服晾乾",
+        "用毛巾擦乾頭髮"
+      ],
+      "id": "sci32-choice-048",
+      "questionCategory": "choice-self",
+      "playerHint": "晾乾是蒸發現象，不是毛細現象",
+      "sourceFile": "113下-3下-期中-翰林自然-005.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下面哪項不是主要會影響蔬菜生長好壞的因素？",
+      "answer": "空氣中是否有香氣",
+      "choices": [
+        "澆水量的多寡",
+        "曬到陽光的機會",
+        "空氣中是否有香氣",
+        "菜葉是否有病蟲害"
+      ],
+      "id": "sci32-choice-049",
+      "questionCategory": "choice-self",
+      "playerHint": "香氣與蔬菜生長完全無關",
+      "sourceFile": "113下-3下-期中-翰林自然-006.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "在寒冷的冬天裡，從嘴裡呼出一口氣後，看到的霧狀白煙是什麼？",
+      "answer": "小水滴",
+      "choices": [
+        "水蒸氣",
+        "小水滴",
+        "冰晶",
+        "霜"
+      ],
+      "id": "sci32-choice-050",
+      "questionCategory": "true-false",
+      "playerHint": "呼出的水蒸氣遇冷空氣凝結成小水滴",
+      "sourceFile": "113下-3下-期中-翰林自然-006.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "蔬菜根部全都爛掉，可能是什麼原因造成的？",
+      "answer": "太多水分無法從花盆底部排出",
+      "choices": [
+        "沒有足夠的水分讓蔬菜吸收長大",
+        "太多水分無法從花盆底部排出",
+        "沒有足夠的空間讓蔬菜成長",
+        "蟲把蔬菜的葉子都吃掉了"
+      ],
+      "id": "sci32-choice-051",
+      "questionCategory": "choice-self",
+      "playerHint": "根部爛掉通常是積水造成的",
+      "sourceFile": "113下-3下-期中-翰林自然-006.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列哪一種情況下水都會變成水蒸氣？",
+      "answer": "以上情況都會",
+      "choices": [
+        "教室拖地完一段時間後，地上乾了",
+        "把水拿到爐子上加熱",
+        "把水放在陽光底下",
+        "以上情況都會"
+      ],
+      "id": "sci32-choice-052",
+      "questionCategory": "choice-self",
+      "playerHint": "水蒸發不需要沸騰，各種情況都可能發生",
+      "sourceFile": "113下-3下-期中-翰林自然-006.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "進行水凝固成冰的實驗，需要將水降到幾度以下？",
+      "answer": "0°C",
+      "choices": [
+        "50°C",
+        "100°C",
+        "25°C",
+        "0°C"
+      ],
+      "id": "sci32-choice-053",
+      "questionCategory": "choice-self",
+      "playerHint": "水的凝固點是 0°C",
+      "sourceFile": "113下-3下-期中-翰林自然-006.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "種植蔬菜時遇到蔬菜會彎向一邊的情形，可能是何種原因造成？",
+      "answer": "缺乏日照",
+      "choices": [
+        "缺乏水分",
+        "缺乏養分",
+        "缺乏日照",
+        "缺乏空氣"
+      ],
+      "id": "sci32-choice-054",
+      "questionCategory": "choice-self",
+      "playerHint": "植物有向光性，日照不足時會彎向有光的方向",
+      "sourceFile": "113下-3下-期中-翰林自然-006.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "蔬菜生長得太擁擠，要把發育不良或太密集的幼苗拔除，稱為什麼？",
+      "answer": "間拔",
+      "choices": [
+        "間拔",
+        "移植",
+        "搬移",
+        "分株"
+      ],
+      "id": "sci32-choice-055",
+      "questionCategory": "choice-self",
+      "playerHint": "直接拔除弱苗的動作就叫間拔",
+      "sourceFile": "113下-3下-期中-翰林自然-007.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "哪種蔬菜主要的食用部位是「根」？",
+      "answer": "胡蘿蔔",
+      "choices": [
+        "小白菜",
+        "胡蘿蔔",
+        "青江菜",
+        "番茄"
+      ],
+      "id": "sci32-choice-056",
+      "questionCategory": "choice-self",
+      "playerHint": "胡蘿蔔吃的是那根橘色的根",
+      "sourceFile": "113下-3下-期中-翰林自然-007.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "哪種蔬菜主要的食用部位是「果實」？",
+      "answer": "四季豆",
+      "choices": [
+        "四季豆",
+        "花椰菜",
+        "馬鈴薯",
+        "空心菜"
+      ],
+      "id": "sci32-choice-057",
+      "questionCategory": "choice-self",
+      "playerHint": "豆莢就是植物的果實",
+      "sourceFile": "113下-3下-期中-翰林自然-007.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列哪個不是有機肥的特點？",
+      "answer": "成分單一",
+      "choices": [
+        "持續時間長",
+        "緩慢吸收",
+        "成分複雜",
+        "成分單一"
+      ],
+      "id": "sci32-choice-058",
+      "questionCategory": "choice-self",
+      "playerHint": "化學肥料才是成分單一，有機肥成分複雜",
+      "sourceFile": "113下-3下-期中-翰林自然-007.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "幫蔬菜澆水時，哪個作法是不正確的？",
+      "answer": "不論晴天、雨天都需要澆水",
+      "choices": [
+        "定時澆水並直接澆在土上",
+        "避免在中午時澆水",
+        "澆水時水柱小一點，避免沖倒幼苗",
+        "不論晴天、雨天都需要澆水"
+      ],
+      "id": "sci32-choice-059",
+      "questionCategory": "choice-self",
+      "playerHint": "下雨天已有充足水分，不需要再澆水",
+      "sourceFile": "113下-3下-期中-翰林自然-008.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "下列哪種物品最容易產生毛細現象？",
+      "answer": "乾抹布",
+      "choices": [
+        "塑膠袋",
+        "玻璃杯",
+        "乾抹布",
+        "瓷碗"
+      ],
+      "id": "sci32-choice-060",
+      "questionCategory": "choice-self",
+      "playerHint": "抹布是纖維材質，內有許多細縫",
+      "sourceFile": "113下-3下-期中-翰林自然-008.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "關於蔬菜的採收，下列敘述何者正確？",
+      "answer": "根據蔬菜的特性與生長情形來決定",
+      "choices": [
+        "所有蔬菜的採收期都一樣",
+        "必須等開花後才能採收",
+        "根據蔬菜的特性與生長情形來決定",
+        "一定要連根拔起"
+      ],
+      "id": "sci32-choice-061",
+      "questionCategory": "choice-self",
+      "playerHint": "每種蔬菜採收時機和方式都不同",
+      "sourceFile": "113下-3下-期中-翰林自然-008.txt",
+      "tags": [
+        "國小三下",
+        "自然",
+        "OCR"
+      ]
     }
   ]
 }

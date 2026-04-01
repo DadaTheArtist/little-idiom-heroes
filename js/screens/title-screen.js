@@ -16,6 +16,7 @@ export class TitleScreen {
       </div>
       <div class="title-actions">
         <button class="btn btn-gold" id="btn-start">開始冒險</button>
+        <button class="btn btn-secondary" id="btn-exam">考前練習區</button>
       </div>
       ${totalStars > 0 ? `<div class="title-stars-info">⭐ 已收集 ${totalStars} 顆星星</div>` : ''}
       <button class="title-settings-btn" id="btn-settings" aria-label="設定">⚙</button>
@@ -30,6 +31,11 @@ export class TitleScreen {
 
     el.querySelector('#btn-settings').addEventListener('click', () => {
       this.app.screenManager.switchTo('settings');
+    });
+
+    el.querySelector('#btn-exam').addEventListener('click', () => {
+      this.app.audioManager.playRandomBGM();
+      this.app.screenManager.switchTo('exam-practice');
     });
   }
 

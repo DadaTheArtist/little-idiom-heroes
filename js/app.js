@@ -10,6 +10,7 @@ import { WorldMap } from './screens/world-map.js';
 import { LevelIntro } from './screens/level-intro.js';
 import { ResultScreen } from './screens/result-screen.js';
 import { SettingsScreen } from './screens/settings-screen.js';
+import { ExamPracticeScreen } from './screens/exam-practice-screen.js';
 
 class App {
   constructor() {
@@ -54,6 +55,7 @@ class App {
     this.screenManager.register('level-intro', new LevelIntro(this));
     this.screenManager.register('result', new ResultScreen(this));
     this.screenManager.register('settings', new SettingsScreen(this));
+    this.screenManager.register('exam-practice', new ExamPracticeScreen(this));
 
     await this.screenManager.switchTo('title');
   }
@@ -121,6 +123,57 @@ class App {
     });
 
     this.audioManager.playRandomBGM({ themeElement: zone?.themeElement });
+    game.init();
+    game.start();
+  }
+
+  async startExamPractice(challenge) {
+    if (!challenge) return;
+
+    // Apply only timer setting — never apply questionCountOverride for exam practice
+    const examChallenge = { ...challenge };
+    if (!this.settings.get('timerEnabled')) {
+      delete examChallenge.timeLimitSeconds;
+    }
+
+    const selectedGame = this.gameSelector.resolve(examChallenge, { randomEnabled: false });
+    const content = await this.contentLoader.load(examChallenge.content);
+    const prepared = this.contentLoader.prepareQuestions(content, examChallenge);
+    const questions = prepared.questions;
+    const allQuestions = prepared.allQuestions;
+
+    const module = await import(selectedGame.modulePath);
+    const GameClass = module.default;
+
+    this.container.innerHTML = '';
+    const gameContainer = document.createElement('div');
+    gameContainer.style.cssText = 'width:100%;height:100%;position:relative;';
+    this.container.appendChild(gameContainer);
+
+    const game = new GameClass(gameContainer, questions, {
+      allQuestions,
+      challenge: examChallenge,
+      zone: null,
+      selectedGame,
+      art: null,
+      hintsEnabled: false
+    });
+
+    game.onComplete((results) => {
+      game.destroy();
+      // Intentionally no this.progress.completeLevel() — practice never saves progress
+      this.screenManager.switchTo('result', {
+        results,
+        levelConfig: {
+          challenge: examChallenge,
+          zone: null,
+          selectedGame,
+          isExamPractice: true
+        }
+      });
+    });
+
+    this.audioManager.playRandomBGM({ themeElement: null });
     game.init();
     game.start();
   }

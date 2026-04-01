@@ -143,5 +143,47 @@
       "enabled": false,
       "challenges": []
     }
-  ]
+  ],
+  "examPractice": {
+    "title": "考前練習區",
+    "challenges": [
+      {
+        "id": "ep-1",
+        "name": "成語大挑戰",
+        "icon": "⚔️",
+        "description": "30題成語選擇題，全力備考！",
+        "selectionMode": "fixed",
+        "gameId": "boss-fight",
+        "questionType": "choice",
+        "answerMode": "drag-select",
+        "content": "chinese/idioms.json",
+        "questionCount": 30
+      },
+      {
+        "id": "ep-2",
+        "name": "自然釣魚練習",
+        "icon": "🎣",
+        "description": "釣起正確答案，定點出題不追魚！",
+        "selectionMode": "fixed",
+        "gameId": "fishing",
+        "questionType": "choice",
+        "answerMode": "tap-select",
+        "content": "science/g3-s2-midterm.json",
+        "questionCount": 30,
+        "fishFixed": true
+      },
+      {
+        "id": "ep-3",
+        "name": "拆彈練習",
+        "icon": "💣",
+        "description": "是非題全面練習，鎮定解除炸彈！",
+        "selectionMode": "fixed",
+        "gameId": "bomb-defusal",
+        "questionType": "true-false",
+        "answerMode": "tap-select",
+        "content": "science/g3-s2-midterm.json",
+        "questionCount": 30
+      }
+    ]
+  }
 }

@@ -1,0 +1,106 @@
+.exam-practice-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  background: radial-gradient(ellipse at 60% 30%, #1a1a4e 0%, #0d0d2b 60%, #000014 100%);
+  padding: 0 0 40px;
+  overflow-y: auto;
+}
+
+.ep-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 480px;
+  padding: 16px 16px 8px;
+  gap: 12px;
+}
+
+.ep-title {
+  font-size: clamp(18px, 5vw, 24px);
+  font-weight: 700;
+  color: var(--accent-gold);
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.ep-subtitle {
+  font-size: clamp(12px, 3vw, 14px);
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 0 16px;
+}
+
+.ep-challenge-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 480px;
+  padding: 0 16px;
+}
+
+.ep-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 215, 0, 0.2);
+  border-radius: 16px;
+  padding: 18px 20px;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s, border-color 0.15s, transform 0.1s;
+  color: var(--text-primary);
+}
+
+.ep-card:hover {
+  background: rgba(255, 215, 0, 0.08);
+  border-color: rgba(255, 215, 0, 0.5);
+}
+
+.ep-card:active {
+  transform: scale(0.97);
+  background: rgba(255, 215, 0, 0.12);
+}
+
+.ep-card-icon {
+  font-size: clamp(32px, 8vw, 44px);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.ep-card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ep-card-name {
+  font-size: clamp(16px, 4.5vw, 20px);
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+
+.ep-card-desc {
+  font-size: clamp(12px, 3vw, 14px);
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.ep-card-count {
+  font-size: clamp(11px, 2.8vw, 13px);
+  color: var(--accent-green, #4ecca3);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.ep-card-arrow {
+  font-size: 20px;
+  color: rgba(255, 215, 0, 0.5);
+  flex-shrink: 0;
+}

@@ -12,6 +12,7 @@ export default class Fishing extends BaseGame {
     this.fishData = [];
     this.animFrames = [];
     this.spawnTimer = null;
+    this._fishFixed = config.challenge?.fishFixed === true;
   }
 
   init() {
@@ -143,55 +144,72 @@ export default class Fishing extends BaseGame {
     const fishEl = document.createElement('div');
     fishEl.className = 'fishing-fish';
 
-    const goLeft = idx % 2 === 0;
     const emoji = FISH_EMOJIS[idx % FISH_EMOJIS.length];
     const color = FISH_COLORS[idx % FISH_COLORS.length];
-    const yPct = 20 + (idx / total) * 55; // distribute vertically
-    const speed = (24 + Math.random() * 18); // px/s（原速 × 0.7）
 
-    // goLeft=true 代表魚從左側出發往右游；false 則從右往左游
-    // 只對 emoji 做水平翻轉，label 保持正向可讀
-    const emojiFlip = !goLeft; // 往左游時 emoji 需要翻轉
-    fishEl.innerHTML = `
-      <span class="fishing-fish-emoji" style="color:${color}; display:inline-block; transform:scaleX(${emojiFlip ? -1 : 1})">${emoji}</span>
-      <span class="fishing-fish-label">${label}</span>
-    `;
     fishEl.dataset.correct = isCorrect ? '1' : '0';
     fishEl.dataset.answer = label;
-    fishEl.style.top = `${yPct}%`;
 
-    const startX = goLeft ? -120 : this.fishLayer.clientWidth + 120;
-    const endX = goLeft ? this.fishLayer.clientWidth + 120 : -120;
-    fishEl.style.left = `${startX}px`;
-    // 移除整體 scaleX(-1)，方向已由 emoji 單獨處理
+    if (this._fishFixed) {
+      // Fixed mode: 2-column grid layout, no swimming animation
+      const col = idx % 2;
+      const row = Math.floor(idx / 2);
+      const xPct = col === 0 ? 10 : 55;
+      const yPct = 15 + row * 28;
+      fishEl.innerHTML = `
+        <span class="fishing-fish-emoji" style="color:${color}; display:inline-block;">${emoji}</span>
+        <span class="fishing-fish-label">${label}</span>
+      `;
+      fishEl.style.left = `${xPct}%`;
+      fishEl.style.top = `${yPct}%`;
+      fishEl.style.position = 'absolute';
+      this.fishLayer.appendChild(fishEl);
+    } else {
+      // Swimming mode: original logic
+      const goLeft = idx % 2 === 0;
+      const yPct = 20 + (idx / total) * 55; // distribute vertically
+      const speed = (24 + Math.random() * 18); // px/s
 
-    this.fishLayer.appendChild(fishEl);
+      // goLeft=true 代表魚從左側出發往右游；false 則從右往左游
+      // 只對 emoji 做水平翻轉，label 保持正向可讀
+      const emojiFlip = !goLeft; // 往左游時 emoji 需要翻轉
+      fishEl.innerHTML = `
+        <span class="fishing-fish-emoji" style="color:${color}; display:inline-block; transform:scaleX(${emojiFlip ? -1 : 1})">${emoji}</span>
+        <span class="fishing-fish-label">${label}</span>
+      `;
+      fishEl.style.top = `${yPct}%`;
 
-    fishEl.addEventListener('pointerdown', () => this._handleFishClick(fishEl));
+      const startX = goLeft ? -120 : this.fishLayer.clientWidth + 120;
+      const endX = goLeft ? this.fishLayer.clientWidth + 120 : -120;
+      fishEl.style.left = `${startX}px`;
 
-    // Animate fish swimming
-    let posX = startX;
-    const dir = goLeft ? 1 : -1;
+      this.fishLayer.appendChild(fishEl);
 
-    const animate = (timestamp) => {
-      if (this._destroyed || this.isProcessing || !fishEl.isConnected) return;
-      posX += (speed / 60) * dir;
-      fishEl.style.left = `${posX}px`;
+      // Animate fish swimming
+      let posX = startX;
+      const dir = goLeft ? 1 : -1;
 
-      // Gentle vertical bob
-      const bob = Math.sin(timestamp / 600 + idx) * 4;
-      fishEl.style.top = `calc(${yPct}% + ${bob}px)`;
+      const animate = (timestamp) => {
+        if (this._destroyed || this.isProcessing || !fishEl.isConnected) return;
+        posX += (speed / 60) * dir;
+        fishEl.style.left = `${posX}px`;
 
-      if ((dir > 0 && posX > endX) || (dir < 0 && posX < endX)) {
-        fishEl.remove();
-        return;
-      }
+        // Gentle vertical bob
+        const bob = Math.sin(timestamp / 600 + idx) * 4;
+        fishEl.style.top = `calc(${yPct}% + ${bob}px)`;
+
+        if ((dir > 0 && posX > endX) || (dir < 0 && posX < endX)) {
+          fishEl.remove();
+          return;
+        }
+        const frame = requestAnimationFrame(animate);
+        this.animFrames.push(frame);
+      };
       const frame = requestAnimationFrame(animate);
       this.animFrames.push(frame);
-    };
-    const frame = requestAnimationFrame(animate);
-    this.animFrames.push(frame);
+    }
 
+    fishEl.addEventListener('pointerdown', () => this._handleFishClick(fishEl));
     this.fishData.push({ el: fishEl, isCorrect });
   }
 

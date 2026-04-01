@@ -39,6 +39,23 @@ export class SettingsScreen {
           </div>
         </div>
 
+        <div class="settings-section-divider"></div>
+        <h3 class="settings-subtitle">考前練習題庫資訊</h3>
+        <div class="settings-info-list" id="ep-bank-info">
+          <div class="settings-info-row">
+            <span class="settings-label">⚔️ 成語大挑戰</span>
+            <span class="settings-info-value" id="ep-count-0">載入中…</span>
+          </div>
+          <div class="settings-info-row">
+            <span class="settings-label">🎣 自然釣魚練習</span>
+            <span class="settings-info-value" id="ep-count-1">載入中…</span>
+          </div>
+          <div class="settings-info-row">
+            <span class="settings-label">💣 拆彈練習</span>
+            <span class="settings-info-value" id="ep-count-2">載入中…</span>
+          </div>
+        </div>
+
         <button class="btn btn-secondary settings-reset-btn" id="set-reset">還原預設</button>
       </div>
     `;
@@ -95,6 +112,25 @@ export class SettingsScreen {
       el.querySelector('#set-timer').checked = s.get('timerEnabled');
       updateQDisplay();
     });
+
+    this._loadPracticeCounts(el);
+  }
+
+  async _loadPracticeCounts(el) {
+    const challenges = this.app.worldConfig.examPractice?.challenges || [];
+    for (const [i, ch] of challenges.entries()) {
+      try {
+        const content = await this.app.contentLoader.load(ch.content);
+        const count = content.questions.filter(q =>
+          (q.type || 'choice') === ch.questionType
+        ).length;
+        const countEl = el.querySelector(`#ep-count-${i}`);
+        if (countEl) countEl.textContent = `共 ${count} 題可用`;
+      } catch {
+        const countEl = el.querySelector(`#ep-count-${i}`);
+        if (countEl) countEl.textContent = '無法載入';
+      }
+    }
   }
 
   async exit() {}
