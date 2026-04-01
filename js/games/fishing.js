@@ -151,16 +151,14 @@ export default class Fishing extends BaseGame {
     fishEl.dataset.answer = label;
 
     if (this._fishFixed) {
-      // Fixed mode: 2-column grid layout, no swimming animation
-      const col = idx % 2;
-      const row = Math.floor(idx / 2);
-      const xPct = col === 0 ? 10 : 55;
-      const yPct = 15 + row * 28;
+      // Fixed mode: single-column vertical layout, no swimming animation
+      const yPct = 12 + idx * 20;
       fishEl.innerHTML = `
         <span class="fishing-fish-emoji" style="color:${color}; display:inline-block;">${emoji}</span>
         <span class="fishing-fish-label">${label}</span>
       `;
-      fishEl.style.left = `${xPct}%`;
+      fishEl.style.left = '5%';
+      fishEl.style.width = '90%';
       fishEl.style.top = `${yPct}%`;
       fishEl.style.position = 'absolute';
       this.fishLayer.appendChild(fishEl);
