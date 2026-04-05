@@ -4,7 +4,8 @@ const DEFAULTS = {
   randomGameSelection: true,
   hintsEnabled: true,
   questionCountOverride: null,
-  timerEnabled: true
+  timerEnabled: true,
+  examPracticeFullBank: false
 };
 
 export class Settings {

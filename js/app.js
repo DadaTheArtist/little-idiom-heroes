@@ -135,6 +135,9 @@ class App {
     if (!this.settings.get('timerEnabled')) {
       delete examChallenge.timeLimitSeconds;
     }
+    if (this.settings.get('examPracticeFullBank')) {
+      examChallenge.ordered = true;
+    }
 
     const selectedGame = this.gameSelector.resolve(examChallenge, { randomEnabled: false });
     const content = await this.contentLoader.load(examChallenge.content);

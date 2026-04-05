@@ -40,6 +40,14 @@ export class SettingsScreen {
         </div>
 
         <div class="settings-section-divider"></div>
+        <h3 class="settings-subtitle">考前練習設定</h3>
+        <div class="settings-list">
+          <label class="settings-row">
+            <span class="settings-label">依序出全部題庫（不隨機抽題）</span>
+            <input type="checkbox" class="settings-toggle" id="set-ep-fullbank" ${s.get('examPracticeFullBank') ? 'checked' : ''}>
+          </label>
+        </div>
+
         <h3 class="settings-subtitle">考前練習題庫資訊</h3>
         <div class="settings-info-list" id="ep-bank-info">
           <div class="settings-info-row">
@@ -79,6 +87,10 @@ export class SettingsScreen {
       s.set('timerEnabled', e.target.checked);
     });
 
+    el.querySelector('#set-ep-fullbank').addEventListener('change', (e) => {
+      s.set('examPracticeFullBank', e.target.checked);
+    });
+
     const qValEl = el.querySelector('#set-q-val');
     const updateQDisplay = () => {
       const v = s.get('questionCountOverride');
@@ -110,6 +122,7 @@ export class SettingsScreen {
       el.querySelector('#set-random').checked = s.get('randomGameSelection');
       el.querySelector('#set-hints').checked = s.get('hintsEnabled');
       el.querySelector('#set-timer').checked = s.get('timerEnabled');
+      el.querySelector('#set-ep-fullbank').checked = s.get('examPracticeFullBank');
       updateQDisplay();
     });
 

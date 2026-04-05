@@ -41,7 +41,9 @@ export class ContentLoader {
     const selectedPool = challenge.answerMode === 'pair-select'
       ? this._dedupeByAnswer(sourcePool)
       : sourcePool;
-    const selected = this._shuffleArray(selectedPool).slice(0, questionCount);
+    const selected = challenge.ordered
+      ? selectedPool
+      : this._shuffleArray(selectedPool).slice(0, questionCount);
 
     const enriched = selected.map((q) => this._ensureOptions(q, allQuestions));
     return {
