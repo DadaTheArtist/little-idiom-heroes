@@ -300,7 +300,7 @@
     {
       "type": "true-false",
       "prompt": "洗熱水澡後，浴室鏡子上有小水滴，是因為水蒸發變成水蒸氣了。",
-      "answer": true,
+      "answer": false,
       "tags": [
         "國小三下",
         "自然",
