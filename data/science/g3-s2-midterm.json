@@ -529,20 +529,6 @@
     },
     {
       "type": "true-false",
-      "prompt": "採收蔬菜時，只要是蔬菜長大了，隨時都可以採收，不需要考慮蔬菜的種類。",
-      "answer": true,
-      "tags": [
-        "國小三下",
-        "自然",
-        "OCR"
-      ],
-      "sourceFile": "113下-3下-期中-翰林自然-004.txt",
-      "id": "sci32-tf-014",
-      "questionCategory": "true-false",
-      "playerHint": "採收需要看蔬菜成熟度嗎？"
-    },
-    {
-      "type": "true-false",
       "prompt": "冰塊加入食鹽後，溫度會降得比 0°C 還要低。",
       "answer": true,
       "tags": [
