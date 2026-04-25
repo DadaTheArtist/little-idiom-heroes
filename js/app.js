@@ -11,6 +11,7 @@ import { WorldMap } from './screens/world-map.js';
 import { LevelIntro } from './screens/level-intro.js';
 import { ResultScreen } from './screens/result-screen.js';
 import { SettingsScreen } from './screens/settings-screen.js';
+import { ContentReview } from './screens/content-review.js';
 import { ExamPracticeScreen } from './screens/exam-practice-screen.js';
 
 class App {
@@ -57,6 +58,7 @@ class App {
     this.screenManager.register('level-intro', new LevelIntro(this));
     this.screenManager.register('result', new ResultScreen(this));
     this.screenManager.register('settings', new SettingsScreen(this));
+    this.screenManager.register('content-review', new ContentReview(this));
     this.screenManager.register('exam-practice', new ExamPracticeScreen(this));
 
     await this.screenManager.switchTo('title');

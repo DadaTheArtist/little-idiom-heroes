@@ -1,0 +1,200 @@
+.content-review-screen {
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+  padding: 60px 16px 16px;
+  align-items: stretch;
+}
+
+.cr-header {
+  text-align: center;
+  margin-bottom: 12px;
+  flex-shrink: 0;
+}
+.cr-header h1 {
+  font-size: clamp(20px, 5vw, 28px);
+  color: var(--accent-gold);
+}
+.cr-header p {
+  font-size: clamp(12px, 3vw, 14px);
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.cr-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cr-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: var(--font-main);
+  text-align: left;
+  transition: transform 0.15s, background 0.2s;
+}
+.cr-card:active { transform: scale(0.97); background: rgba(255,255,255,0.1); }
+.cr-card.theme-fire { border-color: rgba(233,69,96,0.4); }
+.cr-card.theme-water { border-color: rgba(0,180,216,0.4); }
+.cr-card.theme-earth { border-color: rgba(155,89,182,0.4); }
+.cr-card.theme-lightning { border-color: rgba(255,215,0,0.4); }
+
+.cr-card-body { flex: 1; min-width: 0; }
+.cr-card-name {
+  font-size: clamp(15px, 4vw, 18px);
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+.cr-card-meta {
+  font-size: clamp(11px, 2.8vw, 13px);
+  color: var(--text-secondary);
+  margin-top: 2px;
+}
+.cr-card-arrow {
+  font-size: 24px;
+  color: rgba(255,255,255,0.5);
+}
+
+.cr-search-wrap {
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto 8px;
+  flex-shrink: 0;
+}
+.cr-search {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: var(--font-main);
+  border-radius: var(--radius-md);
+  border: 2px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: var(--text-primary);
+  outline: none;
+}
+.cr-search:focus { border-color: var(--accent-gold); }
+
+.cr-questions {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0 12px;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.cr-loading,
+.cr-empty {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 40px 16px;
+  font-size: 14px;
+}
+
+.cr-group {
+  margin-bottom: 14px;
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.cr-group-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.06);
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+.cr-group-source {
+  font-family: monospace;
+  color: var(--accent-blue);
+  word-break: break-all;
+}
+.cr-group-zone {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+.cr-group-count {
+  margin-left: auto;
+  color: var(--accent-gold);
+  font-weight: 700;
+}
+
+.cr-q {
+  padding: 12px 14px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cr-q:first-child { border-top: none; }
+
+.cr-q-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+.cr-q-idx {
+  background: rgba(255,215,0,0.15);
+  color: var(--accent-gold);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+.cr-q-id { font-family: monospace; }
+.cr-q-type {
+  margin-left: auto;
+  background: rgba(0,180,216,0.15);
+  color: var(--accent-blue);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.cr-q-row {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.cr-q-label {
+  flex-shrink: 0;
+  width: 78px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+.cr-q-text {
+  flex: 1;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+.cr-q-answer {
+  flex: 1;
+  color: var(--accent-green);
+  font-weight: 700;
+  word-break: break-word;
+}
+.cr-q-meta {
+  flex: 1;
+  color: rgba(255,255,255,0.6);
+  font-size: 12px;
+  word-break: break-word;
+}

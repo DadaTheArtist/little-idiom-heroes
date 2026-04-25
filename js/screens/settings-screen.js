@@ -48,6 +48,10 @@ export class SettingsScreen {
           </label>
         </div>
 
+        <div class="settings-section-divider"></div>
+        <h3 class="settings-subtitle">內容校對</h3>
+        <button class="btn btn-secondary settings-review-btn" id="set-review">📖 題目校對</button>
+
         <h3 class="settings-subtitle">考前練習題庫資訊</h3>
         <div class="settings-info-list" id="ep-bank-info">
           <div class="settings-info-row">
@@ -115,6 +119,10 @@ export class SettingsScreen {
         s.set('questionCountOverride', cur + 1);
       }
       updateQDisplay();
+    });
+
+    el.querySelector('#set-review').addEventListener('click', () => {
+      this.app.screenManager.switchTo('content-review');
     });
 
     el.querySelector('#set-reset').addEventListener('click', () => {

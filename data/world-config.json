@@ -149,7 +149,7 @@
       "icon": "🔥",
       "description": "三下成語期末複習（一），共 18 個成語。",
       "themeElement": "fire",
-      "textbookId": "tw-g3-s2-chinese-final-1",
+      "textbookId": "tw-g3-s2-chinese-final",
       "enabled": true,
       "challenges": [
         {
@@ -215,7 +215,7 @@
       "icon": "🔥",
       "description": "三下成語期末複習（二），共 30 個成語。",
       "themeElement": "fire",
-      "textbookId": "tw-g3-s2-chinese-final-2",
+      "textbookId": "tw-g3-s2-chinese-final",
       "enabled": true,
       "challenges": [
         {
