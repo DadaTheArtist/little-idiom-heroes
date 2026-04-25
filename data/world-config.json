@@ -142,6 +142,138 @@
       "textbookId": "tw-g3-s1-math",
       "enabled": false,
       "challenges": []
+    },
+    {
+      "id": "zone-final-flame-1",
+      "name": "成語期末（一）",
+      "icon": "🔥",
+      "description": "三下成語期末複習（一），共 18 個成語。",
+      "themeElement": "fire",
+      "textbookId": "tw-g3-s2-chinese-final-1",
+      "enabled": true,
+      "challenges": [
+        {
+          "id": "z3-1",
+          "name": "成語闖關",
+          "selectionMode": "fixed",
+          "gameId": "boss-fight",
+          "questionType": "choice",
+          "answerMode": "drag-select",
+          "content": "chinese/g3-s2-final-1.json",
+          "questionCount": 10,
+          "unlockRequire": null
+        },
+        {
+          "id": "z3-2",
+          "name": "成語配對陣",
+          "selectionMode": "fixed",
+          "gameId": "connect",
+          "questionType": "choice",
+          "answerMode": "pair-select",
+          "content": "chinese/g3-s2-final-1.json",
+          "questionCount": 8,
+          "unlockRequire": "z3-1"
+        },
+        {
+          "id": "z3-3",
+          "name": "成語疾速道",
+          "selectionMode": "fixed",
+          "gameId": "racing",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/g3-s2-final-1.json",
+          "questionCount": 10,
+          "unlockRequire": "z3-2"
+        },
+        {
+          "id": "z3-4",
+          "name": "成語打地鼠",
+          "selectionMode": "fixed",
+          "gameId": "whack-a-mole",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/g3-s2-final-1.json",
+          "questionCount": 10,
+          "unlockRequire": "z3-3"
+        },
+        {
+          "id": "z3-5",
+          "name": "成語太空射擊",
+          "selectionMode": "fixed",
+          "gameId": "space-shooter",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/g3-s2-final-1.json",
+          "questionCount": 10,
+          "unlockRequire": "z3-4"
+        }
+      ]
+    },
+    {
+      "id": "zone-final-flame-2",
+      "name": "成語期末（二）",
+      "icon": "🔥",
+      "description": "三下成語期末複習（二），共 30 個成語。",
+      "themeElement": "fire",
+      "textbookId": "tw-g3-s2-chinese-final-2",
+      "enabled": true,
+      "challenges": [
+        {
+          "id": "z4-1",
+          "name": "成語闖關",
+          "selectionMode": "fixed",
+          "gameId": "boss-fight",
+          "questionType": "choice",
+          "answerMode": "drag-select",
+          "content": "chinese/g3-s2-final-2.json",
+          "questionCount": 10,
+          "unlockRequire": null
+        },
+        {
+          "id": "z4-2",
+          "name": "成語配對陣",
+          "selectionMode": "fixed",
+          "gameId": "connect",
+          "questionType": "choice",
+          "answerMode": "pair-select",
+          "content": "chinese/g3-s2-final-2.json",
+          "questionCount": 8,
+          "unlockRequire": "z4-1"
+        },
+        {
+          "id": "z4-3",
+          "name": "成語疾速道",
+          "selectionMode": "fixed",
+          "gameId": "racing",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/g3-s2-final-2.json",
+          "questionCount": 10,
+          "unlockRequire": "z4-2"
+        },
+        {
+          "id": "z4-4",
+          "name": "成語打地鼠",
+          "selectionMode": "fixed",
+          "gameId": "whack-a-mole",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/g3-s2-final-2.json",
+          "questionCount": 10,
+          "unlockRequire": "z4-3"
+        },
+        {
+          "id": "z4-5",
+          "name": "成語太空射擊",
+          "selectionMode": "fixed",
+          "gameId": "space-shooter",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/g3-s2-final-2.json",
+          "questionCount": 10,
+          "unlockRequire": "z4-4"
+        }
+      ]
     }
   ],
   "examPractice": {

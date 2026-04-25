@@ -2,32 +2,69 @@ export class WorldMap {
   constructor(app) {
     this.app = app;
     this.currentWorldIdx = 0;
+    this.activeTextbookId = null;
   }
 
   async enter(container, data) {
-    if (data.worldIdx !== undefined) this.currentWorldIdx = data.worldIdx;
+    if (data.textbookId !== undefined) this.activeTextbookId = data.textbookId;
 
-    const zones = this.app.worldConfig.zones;
+    const allZones = this.app.worldConfig.zones;
+    const zones = this.activeTextbookId
+      ? allZones.filter((z) => z.textbookId === this.activeTextbookId)
+      : allZones;
 
-    if (zones[this.currentWorldIdx]?.enabled === false) {
-      this.currentWorldIdx = zones.findIndex(z => z.enabled !== false);
-      if (this.currentWorldIdx < 0) this.currentWorldIdx = 0;
+    if (!zones.length) {
+      const empty = document.createElement('div');
+      empty.className = 'screen world-map-screen';
+      empty.innerHTML = `
+        <button class="back-btn" id="btn-back" aria-label="返回">←</button>
+        <div style="margin:auto;text-align:center;color:#aaa;">這本課本還沒有關卡</div>
+      `;
+      container.appendChild(empty);
+      requestAnimationFrame(() => empty.classList.add('active'));
+      empty.querySelector('#btn-back').addEventListener('click', () => {
+        this.app.screenManager.switchTo('textbook-select');
+      });
+      return;
     }
+
+    const requestedIdx = data.worldIdx !== undefined
+      ? allZones.indexOf(allZones[data.worldIdx])
+      : -1;
+    let activeIdx = zones.findIndex((z) => allZones.indexOf(z) === requestedIdx);
+    if (activeIdx < 0) activeIdx = 0;
+    if (zones[activeIdx]?.enabled === false) {
+      const fallback = zones.findIndex((z) => z.enabled !== false);
+      activeIdx = fallback < 0 ? 0 : fallback;
+    }
+    this.currentWorldIdx = activeIdx;
+
     const el = document.createElement('div');
     el.className = 'screen world-map-screen';
 
+    const showTabs = zones.length > 1;
+    const textbook = this.activeTextbookId ? this.app.getTextbook(this.activeTextbookId) : null;
+
     el.innerHTML = `
-      <div class="world-tabs">${zones.map((z, i) => {
-        const disabled = z.enabled === false;
-        return `<button class="world-tab${i === this.currentWorldIdx ? ' active' : ''}${disabled ? ' disabled' : ''}" data-idx="${i}" ${disabled ? 'disabled' : ''}>
-          ${z.icon} ${z.name}${disabled ? '<span class="tab-locked-label">(尚未開放)</span>' : ''}
-        </button>`;
-      }).join('')}</div>
-      <div class="world-content" id="world-content"></div>
+      <button class="back-btn" id="btn-back" aria-label="返回">←</button>
+      ${textbook ? `<div class="world-textbook-label">📘 ${textbook.displayName}</div>` : ''}
+      ${showTabs ? `
+        <div class="world-tabs">${zones.map((z, i) => {
+          const disabled = z.enabled === false;
+          return `<button class="world-tab${i === this.currentWorldIdx ? ' active' : ''}${disabled ? ' disabled' : ''}" data-idx="${i}" ${disabled ? 'disabled' : ''}>
+            ${z.icon} ${z.name}${disabled ? '<span class="tab-locked-label">(尚未開放)</span>' : ''}
+          </button>`;
+        }).join('')}</div>
+      ` : ''}
+      <div class="world-content${showTabs ? '' : ' world-content-no-tabs'}" id="world-content"></div>
     `;
 
     container.appendChild(el);
     requestAnimationFrame(() => el.classList.add('active'));
+
+    el.querySelector('#btn-back').addEventListener('click', () => {
+      this.app.screenManager.switchTo('textbook-select');
+    });
 
     el.querySelectorAll('.world-tab:not([disabled])').forEach(tab => {
       tab.addEventListener('click', () => {

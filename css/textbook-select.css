@@ -1,0 +1,129 @@
+.textbook-select-screen {
+  background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-medium) 100%);
+  padding: 60px 18px 24px;
+  align-items: stretch;
+}
+
+.tb-header {
+  text-align: center;
+  margin-bottom: 18px;
+  animation: fadeInUp 0.5s ease backwards;
+}
+.tb-header h1 {
+  font-size: clamp(24px, 6vw, 34px);
+  color: var(--accent-gold);
+  letter-spacing: 2px;
+}
+.tb-header p {
+  font-size: clamp(13px, 3.2vw, 16px);
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.tb-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 4px 12px;
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.tb-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-md);
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: var(--font-main);
+  text-align: left;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+  animation: fadeInUp 0.5s ease backwards;
+}
+.tb-card:nth-child(1) { animation-delay: 0.05s; }
+.tb-card:nth-child(2) { animation-delay: 0.1s; }
+.tb-card:nth-child(3) { animation-delay: 0.15s; }
+.tb-card:nth-child(4) { animation-delay: 0.2s; }
+.tb-card:nth-child(5) { animation-delay: 0.25s; }
+
+.tb-card:active {
+  transform: scale(0.97);
+  background: rgba(255,255,255,0.1);
+}
+
+.tb-card.theme-fire { border-color: rgba(233,69,96,0.45); }
+.tb-card.theme-water { border-color: rgba(0,180,216,0.45); }
+.tb-card.theme-earth { border-color: rgba(155,89,182,0.45); }
+.tb-card.theme-lightning { border-color: rgba(255,215,0,0.45); }
+
+.tb-card.disabled {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+  cursor: not-allowed;
+}
+
+.tb-card-icon {
+  font-size: clamp(28px, 7vw, 36px);
+  flex-shrink: 0;
+  width: 54px;
+  text-align: center;
+}
+
+.tb-card-body {
+  flex: 1;
+  min-width: 0;
+}
+.tb-card-name {
+  font-size: clamp(15px, 4vw, 18px);
+  font-weight: 700;
+  color: var(--accent-gold);
+}
+.tb-card-zones {
+  font-size: clamp(11px, 2.8vw, 13px);
+  color: var(--text-secondary);
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.tb-card-stat {
+  font-size: clamp(11px, 2.8vw, 13px);
+  color: rgba(255,255,255,0.7);
+  margin-top: 4px;
+}
+.tb-card-stat-locked {
+  color: rgba(255,255,255,0.45);
+}
+
+.tb-card-arrow {
+  font-size: 28px;
+  color: rgba(255,255,255,0.5);
+  flex-shrink: 0;
+  margin-left: 4px;
+}
+
+.tb-exam-btn {
+  margin: 12px auto 0;
+  padding: 12px 28px;
+  font-size: clamp(14px, 3.6vw, 17px);
+  font-weight: 700;
+  font-family: var(--font-main);
+  border-radius: var(--radius-pill);
+  border: 2px solid rgba(255,215,0,0.55);
+  background: rgba(255,215,0,0.12);
+  color: var(--accent-gold);
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+}
+.tb-exam-btn:active {
+  transform: scale(0.96);
+  background: rgba(255,215,0,0.2);
+}

@@ -1,0 +1,248 @@
+{
+  "subject": "chinese",
+  "textbookId": "tw-g3-s2-chinese-final-2",
+  "unit": "三下成語期末複習（二）",
+  "version": 1,
+  "questions": [
+    {
+      "id": "g3s2f2-001",
+      "stem": "比喻初入社會、缺少歷練",
+      "answer": "初出茅廬",
+      "hint": "他剛 _____，社會經驗還很缺乏。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "剛從茅草屋走出來，初入江湖"
+    },
+    {
+      "id": "g3s2f2-002",
+      "stem": "利用時機耍小聰明，求取個人的好處",
+      "answer": "投機取巧",
+      "hint": "你別老想著這樣 _____，凡事還是要靠真本事。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "找機會走捷徑、佔便宜"
+    },
+    {
+      "id": "g3s2f2-003",
+      "stem": "別人以禮相待，自己也要以禮回敬",
+      "answer": "禮尚往來",
+      "hint": "今年中秋我哥哥送月餅給李家，_____，他家也回送了一盒禮盒。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "禮節是要互相往來的"
+    },
+    {
+      "id": "g3s2f2-004",
+      "stem": "比喻孤立無助，難以成事",
+      "answer": "孤掌難鳴",
+      "hint": "你再有能力，若沒有人協助，也會 _____。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "一隻手掌拍不出聲音"
+    },
+    {
+      "id": "g3s2f2-005",
+      "stem": "由衰老恢復青春，形容老年人的精神煥發",
+      "answer": "返老還童",
+      "hint": "爺爺自從參加社區活動，整天活力充沛，好像 _____ 一般。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "從老年回到童年"
+    },
+    {
+      "id": "g3s2f2-006",
+      "stem": "形容貪心強盛、企圖心過大的樣子",
+      "answer": "野心勃勃",
+      "hint": "他見利忘義，總是顯露出 _____ 的姿態。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "野心很大、很旺盛"
+    },
+    {
+      "id": "g3s2f2-007",
+      "stem": "形容人溫文爾雅、有禮貌的樣子",
+      "answer": "文質彬彬",
+      "hint": "他平時看起來 _____，待人非常有禮貌。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "文雅又有禮貌"
+    },
+    {
+      "id": "g3s2f2-008",
+      "stem": "比喻微不足道的技能",
+      "answer": "雕蟲小技",
+      "hint": "我會的山水畫只是 _____，沒什麼了不起。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "雕刻小蟲子般的小手藝"
+    },
+    {
+      "id": "g3s2f2-009",
+      "stem": "形容技藝達到高超神奇的境界",
+      "answer": "出神入化",
+      "hint": "他的鋼琴演奏 _____，令現場觀眾讚嘆。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "技藝超凡，達到神化般的境界"
+    },
+    {
+      "id": "g3s2f2-010",
+      "stem": "形容技藝精巧勝過天然",
+      "answer": "巧奪天工",
+      "hint": "這件紙雕作品真是 _____，令人讚嘆不已。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "巧妙到勝過自然天成"
+    },
+    {
+      "id": "g3s2f2-011",
+      "stem": "比喻人的心腸狠毒，沒有良心",
+      "answer": "狼心狗肺",
+      "hint": "他以民意代表的身分掩飾自己的犯罪行為，實在是 _____。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "心像狼、肺像狗，比喻無情狠毒"
+    },
+    {
+      "id": "g3s2f2-012",
+      "stem": "形容人成熟老練，處事沉著穩重",
+      "answer": "老成持重",
+      "hint": "這對雙胞胎個性完全不同，一個 _____，一個輕浮。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "老練穩重，做事不輕浮"
+    },
+    {
+      "id": "g3s2f2-013",
+      "stem": "形容現象離奇怪異，色彩參差錯雜",
+      "answer": "光怪陸離",
+      "hint": "現代社會複雜多變，各種 _____ 的現象，不足為奇。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "光影怪異又繁雜，奇怪又五光十色"
+    },
+    {
+      "id": "g3s2f2-014",
+      "stem": "雙方力量情勢相當，不分上下",
+      "answer": "勢均力敵",
+      "hint": "由於兩位選手實力 _____，所以比賽至今仍未分出勝負。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "力量、氣勢都不相上下"
+    },
+    {
+      "id": "g3s2f2-015",
+      "stem": "用言語和文字來揭發、譴責他人的罪狀",
+      "answer": "口誅筆伐",
+      "hint": "當弊案爆發後，社會大眾對那些貪汙的官員 _____。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "用嘴指責、用筆討伐"
+    },
+    {
+      "id": "g3s2f2-016",
+      "stem": "好還要更好，永不滿足",
+      "answer": "精益求精",
+      "hint": "我們不該以眼前的成就為滿足，應該 _____，才能不斷進步。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "已經很精了，還要更精進"
+    },
+    {
+      "id": "g3s2f2-017",
+      "stem": "不記仇恨，反以恩德回報他人",
+      "answer": "以德報怨",
+      "hint": "他年紀雖輕，卻能不計前嫌 _____，令人十分欽佩。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "用恩德來回報怨恨"
+    },
+    {
+      "id": "g3s2f2-018",
+      "stem": "形容人有勇無謀",
+      "answer": "匹夫之勇",
+      "hint": "做事要謹慎小心，不是光憑 _____ 就能解決問題。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "一個普通人的莽撞勇氣"
+    },
+    {
+      "id": "g3s2f2-019",
+      "stem": "比喻言辭或行為不乾脆",
+      "answer": "拖泥帶水",
+      "hint": "媽媽做事一向乾脆，絕不 _____。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "走路拖著泥水，比喻不俐落"
+    },
+    {
+      "id": "g3s2f2-020",
+      "stem": "形容布列繁密，分布廣泛",
+      "answer": "星羅棋布",
+      "hint": "野柳景觀最迷人的地方，正是那 _____ 的怪石奇岩。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "像星星和棋子一樣分布"
+    },
+    {
+      "id": "g3s2f2-021",
+      "stem": "胸中充滿因正義而激起的憤怒",
+      "answer": "義憤填膺",
+      "hint": "對於歹徒殘暴的行徑，每個人都 _____，咬牙切齒。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "因正義引發的憤怒充滿胸口"
+    },
+    {
+      "id": "g3s2f2-022",
+      "stem": "因為理由正大、充分，所以氣勢壯而無所畏懼",
+      "answer": "理直氣壯",
+      "hint": "只要我們 _____，就沒有什麼好害怕的。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "道理站得住，說話氣就壯"
+    },
+    {
+      "id": "g3s2f2-023",
+      "stem": "比喻人刻意混淆是非，顛倒黑白",
+      "answer": "指鹿為馬",
+      "hint": "他竟然敢在大眾面前 _____，顛倒是非，真是大膽。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "指著鹿說是馬，故意顛倒"
+    },
+    {
+      "id": "g3s2f2-024",
+      "stem": "比喻心懷不軌，伺機掠奪",
+      "answer": "虎視眈眈",
+      "hint": "老鼠一現身，馬上被一旁 _____ 的花貓抓住了。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "像老虎一樣盯著看"
+    },
+    {
+      "id": "g3s2f2-025",
+      "stem": "形容人惶恐不安，不知如何是好",
+      "answer": "手足無措",
+      "hint": "今天上課時，老師突然請我發表意見，讓我 _____。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "手腳都不知道要怎麼放"
+    },
+    {
+      "id": "g3s2f2-026",
+      "stem": "比喻長輩懇切教誨",
+      "answer": "耳提面命",
+      "hint": "畢業生雖然即將離開學校，但是老師平日的 _____，大家都銘記在心。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "提著耳朵當面教導"
+    },
+    {
+      "id": "g3s2f2-027",
+      "stem": "形容彼此實力相當，難分高下",
+      "answer": "伯仲之間",
+      "hint": "這兩位選手實力 _____，難分高下。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "兄與弟之間，差距很小"
+    },
+    {
+      "id": "g3s2f2-028",
+      "stem": "形容事情複雜紛亂",
+      "answer": "千頭萬緒",
+      "hint": "他才剛接手這個職務，_____，不知從何著手。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "千百個頭，萬條線索"
+    },
+    {
+      "id": "g3s2f2-029",
+      "stem": "比喻人能看清楚細微的地方",
+      "answer": "明察秋毫",
+      "hint": "在警方 _____ 的偵辦下，這件懸案終於宣告偵破。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "連秋天動物的細毛都看得清楚"
+    },
+    {
+      "id": "g3s2f2-030",
+      "stem": "比喻事情雖小，但其本質不可不慎",
+      "answer": "防微杜漸",
+      "hint": "小錯誤往往釀成大禍，凡事必須 _____，及早防範。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "從微小處預防，阻止漸漸變大"
+    }
+  ]
+}

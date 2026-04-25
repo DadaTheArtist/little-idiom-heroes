@@ -26,7 +26,7 @@ export class TitleScreen {
 
     el.querySelector('#btn-start').addEventListener('click', () => {
       this.app.audioManager.playRandomBGM();
-      this.app.screenManager.switchTo('world-map');
+      this.app.screenManager.switchTo('textbook-select');
     });
 
     el.querySelector('#btn-settings').addEventListener('click', () => {

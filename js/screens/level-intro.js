@@ -47,7 +47,8 @@ export class LevelIntro {
     requestAnimationFrame(() => el.classList.add('active'));
 
     el.querySelector('#btn-back').addEventListener('click', () => {
-      this.app.screenManager.switchTo('world-map', {});
+      const textbookId = zone?.textbookId || null;
+      this.app.screenManager.switchTo('world-map', textbookId ? { textbookId } : {});
     });
 
     el.querySelector('#btn-go').addEventListener('click', () => {

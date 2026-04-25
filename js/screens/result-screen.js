@@ -71,7 +71,8 @@ export class ResultScreen {
       if (isExamPractice) {
         this.app.screenManager.switchTo('exam-practice');
       } else {
-        this.app.screenManager.switchTo('world-map', {});
+        const textbookId = levelConfig?.zone?.textbookId || null;
+        this.app.screenManager.switchTo('world-map', textbookId ? { textbookId } : {});
       }
     });
   }

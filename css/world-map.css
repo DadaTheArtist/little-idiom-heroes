@@ -13,6 +13,23 @@
 }
 .world-tabs::-webkit-scrollbar { display: none; }
 
+.world-textbook-label {
+  position: absolute;
+  top: 16px;
+  left: 64px;
+  right: 16px;
+  font-size: clamp(13px, 3.4vw, 16px);
+  font-weight: 700;
+  color: var(--accent-gold);
+  text-align: center;
+  pointer-events: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.world-content-no-tabs { padding-top: 60px; }
+
 .world-tab {
   flex: 1;
   min-width: 0;

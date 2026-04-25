@@ -32,6 +32,22 @@
       "subject": "自然",
       "displayName": "國小三下自然",
       "themeElement": "water"
+    },
+    {
+      "textbookId": "tw-g3-s2-chinese-final-1",
+      "grade": "國小三年級",
+      "term": "下學期",
+      "subject": "國文",
+      "displayName": "三下成語期末（一）",
+      "themeElement": "fire"
+    },
+    {
+      "textbookId": "tw-g3-s2-chinese-final-2",
+      "grade": "國小三年級",
+      "term": "下學期",
+      "subject": "國文",
+      "displayName": "三下成語期末（二）",
+      "themeElement": "fire"
     }
   ]
 }

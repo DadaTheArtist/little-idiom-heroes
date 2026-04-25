@@ -6,6 +6,7 @@ import { ContentLoader } from './core/content-loader.js';
 import { GameRegistry } from './core/game-registry.js';
 import { GameSelector } from './core/game-selector.js';
 import { TitleScreen } from './screens/title-screen.js';
+import { TextbookSelect } from './screens/textbook-select.js';
 import { WorldMap } from './screens/world-map.js';
 import { LevelIntro } from './screens/level-intro.js';
 import { ResultScreen } from './screens/result-screen.js';
@@ -51,6 +52,7 @@ class App {
     }
 
     this.screenManager.register('title', new TitleScreen(this));
+    this.screenManager.register('textbook-select', new TextbookSelect(this));
     this.screenManager.register('world-map', new WorldMap(this));
     this.screenManager.register('level-intro', new LevelIntro(this));
     this.screenManager.register('result', new ResultScreen(this));
