@@ -83,3 +83,35 @@
   background: rgba(255,255,255,0.15);
   color: var(--accent-gold);
 }
+.title-settings-btn.hidden {
+  display: none;
+}
+
+.title-logo {
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.title-dev-toast {
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-12px);
+  padding: 10px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.75);
+  border: 1px solid rgba(255, 215, 0, 0.5);
+  color: var(--accent-gold);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  z-index: 20;
+}
+.title-dev-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

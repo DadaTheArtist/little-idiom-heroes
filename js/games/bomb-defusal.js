@@ -196,6 +196,7 @@ export default class BombDefusal extends BaseGame {
       this._showDefused();
       this._showStatus('success', null);
     } else {
+      this._recordWrong(q, choice);
       this._showExplosion();
       this._showStatus('fail', correctAnswer);
     }

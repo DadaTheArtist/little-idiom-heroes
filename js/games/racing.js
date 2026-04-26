@@ -118,6 +118,7 @@ export default class Racing extends BaseGame {
       btn.classList.add('correct');
       this.playerPos++;
     } else {
+      this._recordWrong(q, chosen);
       btn.classList.add('wrong');
       this.cpuPos += 2;
     }

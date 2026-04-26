@@ -5,7 +5,9 @@ const DEFAULTS = {
   hintsEnabled: true,
   questionCountOverride: null,
   timerEnabled: true,
-  examPracticeFullBank: false
+  examPracticeFullBank: false,
+  showWrongAnswerReview: true,
+  developerMode: false
 };
 
 export class Settings {

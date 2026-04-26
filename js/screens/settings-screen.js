@@ -29,6 +29,11 @@ export class SettingsScreen {
             <input type="checkbox" class="settings-toggle" id="set-timer" ${s.get('timerEnabled') ? 'checked' : ''}>
           </label>
 
+          <label class="settings-row">
+            <span class="settings-label">關卡結束顯示錯題檢討</span>
+            <input type="checkbox" class="settings-toggle" id="set-wrong-review" ${s.get('showWrongAnswerReview') ? 'checked' : ''}>
+          </label>
+
           <div class="settings-row">
             <span class="settings-label">每區題目數量</span>
             <div class="settings-count-control">
@@ -91,6 +96,10 @@ export class SettingsScreen {
       s.set('timerEnabled', e.target.checked);
     });
 
+    el.querySelector('#set-wrong-review').addEventListener('change', (e) => {
+      s.set('showWrongAnswerReview', e.target.checked);
+    });
+
     el.querySelector('#set-ep-fullbank').addEventListener('change', (e) => {
       s.set('examPracticeFullBank', e.target.checked);
     });
@@ -130,6 +139,7 @@ export class SettingsScreen {
       el.querySelector('#set-random').checked = s.get('randomGameSelection');
       el.querySelector('#set-hints').checked = s.get('hintsEnabled');
       el.querySelector('#set-timer').checked = s.get('timerEnabled');
+      el.querySelector('#set-wrong-review').checked = s.get('showWrongAnswerReview');
       el.querySelector('#set-ep-fullbank').checked = s.get('examPracticeFullBank');
       updateQDisplay();
     });

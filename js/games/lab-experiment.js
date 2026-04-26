@@ -174,6 +174,7 @@ export default class LabExperiment extends BaseGame {
       this.correctEl.textContent = `${this.correctCount}`;
       this._showSuccess();
     } else {
+      this._recordWrong(q, [...this.selectedAnswers]);
       this._showBurnt();
     }
 

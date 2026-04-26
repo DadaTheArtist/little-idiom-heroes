@@ -224,6 +224,7 @@ export default class SpaceShooter extends BaseGame {
         a.style.pointerEvents = 'none';
       });
     } else {
+      this._recordWrong(this.questions[this.currentIdx], asteroid.dataset?.answer || asteroid.textContent);
       asteroid.classList.add('wrong-hit');
       this._loseLife();
       // Highlight correct answer for 1 second before proceeding

@@ -28,16 +28,25 @@ export class ResultScreen {
       `;
     }
 
+    const showReview = this.app.settings.get('showWrongAnswerReview');
+    const wrongAnswers = Array.isArray(results.wrongAnswers) ? results.wrongAnswers : [];
+    const reviewHTML = (showReview && wrongAnswers.length > 0)
+      ? this._renderReview(wrongAnswers)
+      : '';
+
     el.innerHTML = `
-      <div class="result-title">${won ? '關卡通過！' : '挑戰失敗…'}</div>
-      <div class="result-stars">
-        ${[1, 2, 3].map(i =>
-          `<span class="result-star ${i <= results.stars ? 'earned' : 'empty'}">${i <= results.stars ? '⭐' : '☆'}</span>`
-        ).join('')}
-      </div>
-      <div class="result-stats">
-        <p>答對 <span class="highlight">${results.correctCount}</span> / ${results.totalQuestions} 題</p>
-        <p>花費時間 <span class="highlight">${this._formatTime(results.timeSpent)}</span></p>
+      <div class="result-scroll">
+        <div class="result-title">${won ? '關卡通過！' : '挑戰失敗…'}</div>
+        <div class="result-stars">
+          ${[1, 2, 3].map(i =>
+            `<span class="result-star ${i <= results.stars ? 'earned' : 'empty'}">${i <= results.stars ? '⭐' : '☆'}</span>`
+          ).join('')}
+        </div>
+        <div class="result-stats">
+          <p>答對 <span class="highlight">${results.correctCount}</span> / ${results.totalQuestions} 題</p>
+          <p>花費時間 <span class="highlight">${this._formatTime(results.timeSpent)}</span></p>
+        </div>
+        ${reviewHTML}
       </div>
       <div class="result-actions">
         ${actionsHTML}
@@ -91,6 +100,32 @@ export class ResultScreen {
     const m = Math.floor(seconds / 60);
     const s = Math.floor(seconds % 60);
     return m > 0 ? `${m}分${s}秒` : `${s}秒`;
+  }
+
+  _renderReview(wrongAnswers) {
+    const safe = (s) => (s == null ? '' : String(s).replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c])));
+    return `
+      <div class="result-review">
+        <div class="result-review-title">📝 錯題檢討（${wrongAnswers.length} 題）</div>
+        <div class="result-review-list">
+          ${wrongAnswers.map((w) => `
+            <div class="result-review-item">
+              <div class="result-review-stem">${safe(w.stem || w.hint || '')}</div>
+              <div class="result-review-row">
+                <span class="result-review-label">正解</span>
+                <span class="result-review-answer">${safe(w.answer)}</span>
+              </div>
+              ${w.picked ? `
+                <div class="result-review-row">
+                  <span class="result-review-label">你選</span>
+                  <span class="result-review-picked">${safe(w.picked)}</span>
+                </div>
+              ` : ''}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
   }
 
   async exit() {}

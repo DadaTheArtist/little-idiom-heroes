@@ -149,6 +149,7 @@ export default class Match3 extends BaseGame {
         }
       }, 500);
     } else {
+      this._recordWrong(q, this.grid[idx]);
       tile.classList.add('wrong');
       setTimeout(() => tile.classList.remove('wrong'), 400);
     }

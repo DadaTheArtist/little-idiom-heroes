@@ -221,6 +221,7 @@ export default class CardOrdering extends BaseGame {
       this.correctEl.textContent = `${this.correctCount}`;
       this._showFireworks();
     } else {
+      this._recordWrong(q, [...this.slotContents]);
       this._showSadFace(correctOrder);
     }
 

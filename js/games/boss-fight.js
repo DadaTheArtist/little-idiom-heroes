@@ -164,6 +164,7 @@ export default class BossFight extends BaseGame {
         setTimeout(() => this._loadQuestion(), 500);
       }
     } else {
+      this._recordWrong(q, target.textContent);
       this.bossHp += 2;
       this._updateHp();
 

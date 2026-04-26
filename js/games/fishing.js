@@ -230,6 +230,7 @@ export default class Fishing extends BaseGame {
         f.style.pointerEvents = 'none';
       });
     } else {
+      this._recordWrong(this.questions[this.currentIdx], fishEl.dataset.answer);
       fishEl.classList.add('escaped');
       // Highlight correct fish
       this.fishLayer.querySelectorAll('.fishing-fish').forEach(f => {

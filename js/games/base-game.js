@@ -7,6 +7,7 @@ export class BaseGame {
     this.startTime = 0;
     this.correctCount = 0;
     this.totalQuestions = questions.length;
+    this._wrongAnswers = [];
     this._onCompleteCb = null;
     this._destroyed = false;
 
@@ -92,6 +93,40 @@ export class BaseGame {
     this._onCompleteCb = cb;
   }
 
+  _recordWrong(question, picked) {
+    if (!question) return;
+    const id = question.id || `${question.stem || ''}|${question.answer || ''}`;
+    const existing = this._wrongAnswers.find((w) => w._key === id);
+    const entry = {
+      _key: id,
+      id: question.id || null,
+      stem: question.stem || question.prompt || '',
+      hint: question.hint || '',
+      answer: this._formatAnswer(question),
+      picked: this._formatPicked(picked)
+    };
+    if (existing) {
+      existing.picked = entry.picked;
+    } else {
+      this._wrongAnswers.push(entry);
+    }
+  }
+
+  _formatAnswer(q) {
+    if (q.type === 'multi-select') return (q.correctAnswers || []).join('、');
+    if (q.type === 'ordering') return (q.correctOrder || []).join(' → ');
+    if (q.type === 'true-false') {
+      return q.answer === 'O' || q.answer === true ? 'O 正確' : 'X 錯誤';
+    }
+    return String(q.answer ?? '');
+  }
+
+  _formatPicked(picked) {
+    if (picked == null) return '';
+    if (Array.isArray(picked)) return picked.join('、');
+    return String(picked);
+  }
+
   _finish() {
     if (this._destroyed) return;
     const timeSpent = (Date.now() - this.startTime) / 1000;
@@ -105,7 +140,8 @@ export class BaseGame {
       correctCount: this.correctCount,
       totalQuestions: this.totalQuestions,
       timeSpent,
-      stars
+      stars,
+      wrongAnswers: [...this._wrongAnswers]
     };
 
     if (this._onCompleteCb) this._onCompleteCb(results);

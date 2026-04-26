@@ -215,6 +215,11 @@ export default class Connect extends BaseGame {
         setTimeout(() => this._finish(), 600);
       }
     } else {
+      const stemCard = a.card.type === 'stem' ? a.card : (b.card.type === 'stem' ? b.card : null);
+      const answerCard = a.card.type === 'answer' ? a.card : (b.card.type === 'answer' ? b.card : null);
+      const targetQ = this.questions[stemCard?.pairId ?? a.card.pairId];
+      this._recordWrong(targetQ, answerCard?.text || b.card.text);
+
       this.mistakes++;
       this.livesEl.innerHTML = this._renderLives();
 
