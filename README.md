@@ -352,7 +352,14 @@ python3 -m http.server 8000
 
 ## 錯題檢討
 
-關卡結束後，結算畫面下方會自動列出本次答錯的題目，方便孩子複習：每題顯示題幹、正解，以及孩子當下選的錯誤答案（劃刪除線）。
+關卡結束後，若該局有答錯的題目，結算畫面會出現「📝 查看錯題檢討」按鈕。點下去進到獨立的「錯題檢討」頁，每一題完整顯示：
+
+- **題目**：玩家在遊戲中實際看到的題目（例句 / `hint`，沒有就退回 `stem`）
+- **解釋**：成語意義（`stem`），當與題目不同時才顯示
+- **正解**：正確答案
+- **你選**：玩家答錯時的選擇（劃刪除線）
+
+按返回會回到結算畫面（會重新播放星星動畫，這是預期行為）。
 
 - 設定開關：`設定 → 關卡結束顯示錯題檢討`，預設 **開啟**。
 - 對應 `Settings` key：`showWrongAnswerReview`（boolean）。
@@ -360,6 +367,7 @@ python3 -m http.server 8000
 - 已串接的遊戲：boss-fight、racing、match3、connect、bomb-defusal、lab-experiment、card-ordering、fishing、space-shooter。
 - **未串接**（這些遊戲設計上「答錯就再試」，題目最終都會答對，沒有「答錯的題目」可記）：whack-a-mole、balloon-pop、memory-flip。
 - 新遊戲若有「答錯後跳下一題」的流程，記得在錯誤分支呼叫 `this._recordWrong(currentQuestion, pickedAnswer)`，自動就能在結算畫面出現。
+- 對應檔案：[js/screens/wrong-answer-review.js](js/screens/wrong-answer-review.js)、[css/wrong-answer-review.css](css/wrong-answer-review.css)。
 
 ---
 
