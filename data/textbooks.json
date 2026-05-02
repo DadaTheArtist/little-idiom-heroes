@@ -34,11 +34,11 @@
       "themeElement": "water"
     },
     {
-      "textbookId": "tw-g3-s2-chinese-final",
+      "textbookId": "tw-g3-s2-chinese",
       "grade": "國小三年級",
       "term": "下學期",
       "subject": "國文",
-      "displayName": "三下成語期末複習",
+      "displayName": "國小三下國文",
       "themeElement": "fire"
     }
   ]
