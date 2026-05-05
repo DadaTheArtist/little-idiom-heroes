@@ -62,11 +62,11 @@
     },
     {
       "id": "g3s2f1-008",
-      "stem": "形容自尊強橫，不講道理",
-      "answer": "不可一世",
+      "stem": "指人態度強橫，不講道理，沒有辦法跟他講通",
+      "answer": "不可理喻",
       "hint": "這人如此專橫，總是自以為是，簡直 _____。",
       "questionCategory": "choice-sampled",
-      "playerHint": "目中無人，覺得自己無敵"
+      "playerHint": "沒辦法用道理讓他明白"
     },
     {
       "id": "g3s2f1-009",
@@ -382,11 +382,43 @@
     },
     {
       "id": "g3s2f2-030",
-      "stem": "比喻事情雖小，但其本質不可不慎",
-      "answer": "防微杜漸",
-      "hint": "小錯誤往往釀成大禍，凡事必須 _____，及早防範。",
+      "stem": "比喻文字、歌聲或字跡圓潤流利",
+      "answer": "珠圓玉潤",
+      "hint": "他寫的字 _____，看起來像珠玉一般。",
       "questionCategory": "choice-sampled",
-      "playerHint": "從微小處預防，阻止漸漸變大"
+      "playerHint": "像珍珠和玉一樣圓潤"
+    },
+    {
+      "id": "g3s2f2-031",
+      "stem": "形容人見識短淺，只看見眼前的利益",
+      "answer": "目光如豆",
+      "hint": "我們不必為了 _____ 的人感到難過。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "眼界像豆子一樣小"
+    },
+    {
+      "id": "g3s2f2-032",
+      "stem": "形容逃跑得無蹤無影",
+      "answer": "逃之夭夭",
+      "hint": "這群賭徒一聽到警察來了，馬上 _____。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "夭夭原指草木茂盛，借音表示逃得快"
+    },
+    {
+      "id": "g3s2f2-033",
+      "stem": "形容百姓生活非常困苦",
+      "answer": "民不聊生",
+      "hint": "非洲某些地區長期乾旱導致 _____，需要世界各國施予援手。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "百姓沒辦法好好過日子"
+    },
+    {
+      "id": "g3s2f2-034",
+      "stem": "比喻事情或戰事進展順利、毫無阻礙",
+      "answer": "勢如破竹",
+      "hint": "開戰後，我軍 _____，打得敵軍節節敗退。",
+      "questionCategory": "choice-sampled",
+      "playerHint": "像劈竹子一樣，一節接一節順下去"
     }
   ]
 }
