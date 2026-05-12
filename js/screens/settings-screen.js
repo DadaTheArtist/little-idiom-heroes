@@ -59,18 +59,12 @@ export class SettingsScreen {
 
         <h3 class="settings-subtitle">考前練習題庫資訊</h3>
         <div class="settings-info-list" id="ep-bank-info">
-          <div class="settings-info-row">
-            <span class="settings-label">⚔️ 成語大挑戰</span>
-            <span class="settings-info-value" id="ep-count-0">載入中…</span>
-          </div>
-          <div class="settings-info-row">
-            <span class="settings-label">🎣 自然釣魚練習</span>
-            <span class="settings-info-value" id="ep-count-1">載入中…</span>
-          </div>
-          <div class="settings-info-row">
-            <span class="settings-label">💣 拆彈練習</span>
-            <span class="settings-info-value" id="ep-count-2">載入中…</span>
-          </div>
+          ${(this.app.worldConfig.examPractice?.challenges || []).map((ch, i) => `
+            <div class="settings-info-row">
+              <span class="settings-label">${ch.icon || '📝'} ${ch.name}</span>
+              <span class="settings-info-value" id="ep-count-${i}">載入中…</span>
+            </div>
+          `).join('')}
         </div>
 
         <button class="btn btn-secondary settings-reset-btn" id="set-reset">還原預設</button>

@@ -215,7 +215,7 @@
     "challenges": [
       {
         "id": "ep-1",
-        "name": "成語大挑戰",
+        "name": "三上成語大挑戰",
         "icon": "⚔️",
         "description": "30題成語選擇題，全力備考！",
         "selectionMode": "fixed",
@@ -224,6 +224,18 @@
         "answerMode": "drag-select",
         "content": "chinese/idioms.json",
         "questionCount": 30
+      },
+      {
+        "id": "ep-4",
+        "name": "三下成語大挑戰",
+        "icon": "⚔️",
+        "description": "三下國文成語全本 52 題練習，全力備考！",
+        "selectionMode": "fixed",
+        "gameId": "boss-fight",
+        "questionType": "choice",
+        "answerMode": "drag-select",
+        "content": "chinese/g3-s2.json",
+        "questionCount": 52
       },
       {
         "id": "ep-2",
