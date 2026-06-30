@@ -80,6 +80,16 @@ const GAME_DEFINITIONS = [
     weight: 1
   },
   {
+    gameId: 'maze-runner',
+    displayName: '迷宮探險',
+    icon: '🧭',
+    description: '在迷宮中尋找正確答案，找到出口！',
+    modulePath: './games/maze-runner.js',
+    supportsQuestionTypes: ['choice'],
+    supportsAnswerModes: ['tap-select'],
+    weight: 1
+  },
+  {
     gameId: 'fishing',
     displayName: '釣魚達人',
     icon: '🎣',
@@ -147,4 +157,3 @@ export class GameRegistry {
     });
   }
 }
-
