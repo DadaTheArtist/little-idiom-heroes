@@ -249,6 +249,7 @@ export default class MazeRunner extends BaseGame {
         if (hasHero) {
           const hero = document.createElement('span');
           hero.className = 'maze-hero';
+          hero.setAttribute('aria-label', '勇者位置');
           hero.textContent = '勇';
           cell.appendChild(hero);
         }
