@@ -206,6 +206,17 @@
           "content": "chinese/g3-s2.json",
           "questionCount": 10,
           "unlockRequire": "zg3s2-4"
+        },
+        {
+          "id": "zg3s2-6",
+          "name": "成語迷宮探險",
+          "selectionMode": "fixed",
+          "gameId": "maze-runner",
+          "questionType": "choice",
+          "answerMode": "tap-select",
+          "content": "chinese/g3-s2.json",
+          "questionCount": 10,
+          "unlockRequire": "zg3s2-5"
         }
       ]
     }
