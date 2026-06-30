@@ -14,6 +14,9 @@ const KEY_DIRECTIONS = {
   ArrowLeft: 'left',
   ArrowRight: 'right'
 };
+const CORRECT_DELAY = 900;
+const WRONG_DELAY = 1700;
+const FEEDBACK_DURATION = 1200;
 const MAZE_LAYOUTS = [
   {
     start: { row: 3, col: 3 },
@@ -58,8 +61,13 @@ export default class MazeRunner extends BaseGame {
     this.heroPos = { row: 0, col: 0 };
     this.gates = [];
     this.wallKeys = new Set();
+    this.isProcessing = false;
     this.feedbackTimer = null;
+    this.resolveTimer = null;
+    this.backBtn = null;
+    this.controlHandlers = [];
     this._handleKeyDown = this._handleKeyDown.bind(this);
+    this._handleBack = this._handleBack.bind(this);
   }
 
   init() {
@@ -101,23 +109,29 @@ export default class MazeRunner extends BaseGame {
     this.boardEl = this.container.querySelector('#maze-board');
     this.feedbackEl = this.container.querySelector('#maze-feedback');
 
-    this.container.querySelector('#maze-back').addEventListener('click', () => {
-      this.destroy();
-      this._onCompleteCb?.({
-        correctCount: this.correctCount,
-        totalQuestions: this.totalQuestions,
-        timeSpent: (Date.now() - this.startTime) / 1000,
-        stars: 0,
-        wrongAnswers: [...this._wrongAnswers]
-      });
-    });
+    this.backBtn = this.container.querySelector('#maze-back');
+    this.backBtn.addEventListener('click', this._handleBack);
 
     this._bindHintButton();
+    this.controlHandlers = [];
     this.container.querySelectorAll('.maze-control').forEach((btn) => {
-      btn.addEventListener('click', () => this._moveHero(btn.dataset.dir));
+      const handler = () => this._moveHero(btn.dataset.dir);
+      btn.addEventListener('click', handler);
+      this.controlHandlers.push({ btn, handler });
     });
     document.addEventListener('keydown', this._handleKeyDown);
     this._renderLives();
+  }
+
+  _handleBack() {
+    this.destroy();
+    this._onCompleteCb?.({
+      correctCount: this.correctCount,
+      totalQuestions: this.totalQuestions,
+      timeSpent: (Date.now() - this.startTime) / 1000,
+      stars: 0,
+      wrongAnswers: [...this._wrongAnswers]
+    });
   }
 
   _getCurrentQuestion() {
@@ -131,7 +145,13 @@ export default class MazeRunner extends BaseGame {
 
   destroy() {
     document.removeEventListener('keydown', this._handleKeyDown);
+    if (this.backBtn) this.backBtn.removeEventListener('click', this._handleBack);
+    this.controlHandlers.forEach(({ btn, handler }) => {
+      btn.removeEventListener('click', handler);
+    });
+    this.controlHandlers = [];
     clearTimeout(this.feedbackTimer);
+    clearTimeout(this.resolveTimer);
     super.destroy();
   }
 
@@ -142,6 +162,7 @@ export default class MazeRunner extends BaseGame {
     this.questionEl.textContent = q?.hint || q?.stem || q?.prompt || '準備進入迷宮！';
     this.progressEl.textContent = `${Math.min(this.currentIdx + 1, this.totalQuestions)}/${this.totalQuestions}`;
     this.scoreEl.textContent = this.correctCount;
+    this.isProcessing = false;
     this._showFeedback('');
     this._setupMaze(q);
     this._renderBoard();
@@ -156,7 +177,8 @@ export default class MazeRunner extends BaseGame {
     const options = this._buildOptions(q);
     this.gates = this.layout.gates.map((gate, idx) => ({
       ...gate,
-      answer: options[idx] || ''
+      answer: options[idx] || '',
+      state: ''
     }));
   }
 
@@ -213,6 +235,7 @@ export default class MazeRunner extends BaseGame {
           cell.setAttribute('aria-label', '牆');
         } else if (gate) {
           cell.classList.add('maze-cell-gate');
+          if (gate.state) cell.classList.add(`maze-cell-gate-${gate.state}`);
           cell.setAttribute('aria-label', `答案門：${gate.answer}`);
 
           const label = document.createElement('span');
@@ -236,7 +259,7 @@ export default class MazeRunner extends BaseGame {
   }
 
   _moveHero(dir) {
-    if (this._destroyed || !DIRECTIONS[dir]) return;
+    if (this._destroyed || this.isProcessing || !DIRECTIONS[dir]) return;
 
     const delta = DIRECTIONS[dir];
     const next = {
@@ -269,7 +292,45 @@ export default class MazeRunner extends BaseGame {
   }
 
   _handleGate(gate) {
-    this._showFeedback(`你選了：${gate.answer}`);
+    if (this.isProcessing || this._destroyed) return;
+
+    const q = this._getCurrentQuestion();
+    if (!q) return;
+
+    this.isProcessing = true;
+    const pickedAnswer = gate.answer;
+    const isCorrect = String(pickedAnswer) === String(q.answer);
+
+    if (isCorrect) {
+      this.correctCount++;
+      this.scoreEl.textContent = this.correctCount;
+      gate.state = 'correct';
+      this._showFeedback('答對了！');
+    } else {
+      this.lives = Math.max(0, this.lives - 1);
+      this._recordWrong(q, pickedAnswer);
+      this._renderLives();
+      gate.state = 'wrong';
+      const correctGate = this.gates.find((candidate) => String(candidate.answer) === String(q.answer));
+      if (correctGate) correctGate.state = 'correct';
+      this._showFeedback('答錯了，看看正確答案！');
+    }
+
+    this._renderBoard();
+    this.currentIdx++;
+    this._advanceAfter(isCorrect ? CORRECT_DELAY : WRONG_DELAY);
+  }
+
+  _advanceAfter(delay) {
+    clearTimeout(this.resolveTimer);
+    this.resolveTimer = setTimeout(() => {
+      if (this._destroyed) return;
+      if (this.lives <= 0 || this.currentIdx >= this.totalQuestions) {
+        this._finish();
+        return;
+      }
+      this._loadQuestion();
+    }, delay);
   }
 
   _handleKeyDown(e) {
@@ -288,7 +349,7 @@ export default class MazeRunner extends BaseGame {
         if (!this._destroyed && this.feedbackEl.textContent === text) {
           this.feedbackEl.textContent = '';
         }
-      }, 1200);
+      }, FEEDBACK_DURATION);
     }
   }
 
