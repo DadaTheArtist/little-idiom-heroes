@@ -1,6 +1,6 @@
 # 小小英雄冒險王國 (Little Idiom Heroes)
 
-針對台灣國小三、四年級設計的網頁版遊戲化學習平台。把成語、自然、數學等課本內容包裝成 12 種小遊戲，讓孩子用「闖關 + 收集星星」的方式邊玩邊複習。
+針對台灣國小三、四年級設計的網頁版遊戲化學習平台。把成語、自然、數學等課本內容包裝成 13 種小遊戲，讓孩子用「闖關 + 收集星星」的方式邊玩邊複習。
 
 無框架純 ES6 模組，整個專案不需建置工具，丟到任何靜態網頁伺服器就能跑。
 
@@ -146,7 +146,7 @@ python3 -m http.server 8000
     │   ├── settings-screen.js
     │   ├── content-review.js   題目校對畫面
     │   └── exam-practice-screen.js
-    └── games/                  12 個遊戲，每個 extends BaseGame
+    └── games/                  13 個遊戲，每個 extends BaseGame
 ```
 
 ---
@@ -162,7 +162,7 @@ python3 -m http.server 8000
 - `_normalizeQuestion`：把不同題型統一成一致的物件結構。
 
 ### `GameRegistry` + `GameSelector`
-`GameRegistry` 是 12 個遊戲的靜態定義表，每個遊戲標明支援哪些 `questionType` / `answerMode`。`GameSelector.resolve(challenge)` 會挑出實際要跑的遊戲：
+`GameRegistry` 是 13 個遊戲的靜態定義表，每個遊戲標明支援哪些 `questionType` / `answerMode`。`GameSelector.resolve(challenge)` 會挑出實際要跑的遊戲：
 
 - `selectionMode: 'fixed'` → 直接用 `gameId` 指定的遊戲。
 - 其他 → 從 `getCompatible()` 撈出相容的遊戲，再依 `weight` 隨機。
@@ -316,7 +316,7 @@ python3 -m http.server 8000
 
 | `questionType` | 適用遊戲 | 答題互動 |
 |---|---|---|
-| `choice` | boss-fight, racing, match3, connect, whack-a-mole, fishing, memory-flip, balloon-pop, space-shooter | 4 選 1 |
+| `choice` | boss-fight, racing, match3, connect, whack-a-mole, fishing, memory-flip, balloon-pop, space-shooter, maze-runner | 4 選 1 |
 | `true-false` | boss-fight, racing, bomb-defusal, whack-a-mole, fishing, balloon-pop, space-shooter | O / X |
 | `fill-blank` | connect, memory-flip | 配對題目與答案 |
 | `multi-select` | lab-experiment | 多選 |
@@ -326,7 +326,7 @@ python3 -m http.server 8000
 
 ## 遊戲列表
 
-12 個遊戲皆位於 `js/games/`，每個是一個 class，預設 export，和 BaseGame 同介面（`init / start / onComplete / destroy`）。
+13 個遊戲皆位於 `js/games/`，每個是一個 class，預設 export，和 BaseGame 同介面（`init / start / onComplete / destroy`）。
 
 | ID | 名稱 | 互動 | 支援題型 |
 |---|---|---|---|
@@ -342,6 +342,7 @@ python3 -m http.server 8000
 | `memory-flip` | 🃏 記憶翻牌 | 配對 | choice / fill-blank |
 | `balloon-pop` | 🎈 氣球射擊 | 點選 | choice / true-false |
 | `space-shooter` | 🚀 太空射擊 | 點選 | choice / true-false |
+| `maze-runner` | 🧭 迷宮探險 | 方向控制 | choice |
 
 要新增遊戲：
 1. 在 `js/games/` 寫一個 class，預設 export，介面與其他遊戲相同。
@@ -364,7 +365,7 @@ python3 -m http.server 8000
 - 設定開關：`設定 → 關卡結束顯示錯題檢討`，預設 **開啟**。
 - 對應 `Settings` key：`showWrongAnswerReview`（boolean）。
 - 來源：`BaseGame._wrongAnswers` 陣列；每個遊戲在答錯路徑呼叫 `this._recordWrong(question, picked)`，會以 `question.id` 去重。
-- 已串接的遊戲：boss-fight、racing、match3、connect、bomb-defusal、lab-experiment、card-ordering、fishing、space-shooter。
+- 已串接的遊戲：boss-fight、racing、match3、connect、bomb-defusal、lab-experiment、card-ordering、fishing、space-shooter、maze-runner。
 - **未串接**（這些遊戲設計上「答錯就再試」，題目最終都會答對，沒有「答錯的題目」可記）：whack-a-mole、balloon-pop、memory-flip。
 - 新遊戲若有「答錯後跳下一題」的流程，記得在錯誤分支呼叫 `this._recordWrong(currentQuestion, pickedAnswer)`，自動就能在結算畫面出現。
 - 對應檔案：[js/screens/wrong-answer-review.js](js/screens/wrong-answer-review.js)、[css/wrong-answer-review.css](css/wrong-answer-review.css)。
