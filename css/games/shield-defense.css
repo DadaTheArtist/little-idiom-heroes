@@ -1,0 +1,196 @@
+.shield-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #293a59 0%, #182538 46%, #3e5d3a 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+.shield-hud {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(4px);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.shield-hud-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: clamp(13px, 3vw, 16px);
+}
+
+.shield-hud-info strong {
+  color: var(--accent-gold);
+}
+
+.shield-health {
+  display: flex;
+  gap: 3px;
+  font-size: clamp(16px, 4vw, 22px);
+  line-height: 1;
+}
+
+.shield-heart {
+  color: #ff5f7e;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.shield-heart.empty {
+  opacity: 0.28;
+}
+
+.shield-question {
+  flex-shrink: 0;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.28);
+  color: #ffeb3b;
+  text-align: center;
+  font-size: clamp(16px, 4.4vw, 24px);
+  font-weight: 800;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.shield-battlefield {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(90px, 24vw, 150px);
+  gap: 12px;
+  padding: 14px;
+}
+
+.shield-lanes {
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
+  gap: 10px;
+  min-width: 0;
+}
+
+.shield-lane {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.09);
+  color: #fff;
+  padding: 8px 10px;
+  font-family: var(--font-main);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.shield-lane::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 52%, transparent 100%);
+  transform: translateX(-100%);
+  animation: shieldLaneSweep 4.8s linear infinite;
+  animation-delay: var(--lane-delay, 0s);
+}
+
+.shield-lane.correct {
+  border-color: #7dffb2;
+  background: rgba(38, 180, 98, 0.45);
+}
+
+.shield-lane.wrong {
+  border-color: #ff9aaa;
+  background: rgba(190, 48, 78, 0.45);
+}
+
+.shield-enemy {
+  z-index: 1;
+  font-size: clamp(24px, 7vw, 38px);
+}
+
+.shield-answer {
+  z-index: 1;
+  min-width: 0;
+  color: #fff;
+  font-size: clamp(14px, 3.8vw, 20px);
+  font-weight: 900;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.shield-castle {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 10px;
+}
+
+.shield-castle-icon {
+  font-size: clamp(48px, 14vw, 86px);
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.38));
+}
+
+.shield-barrier {
+  opacity: 0.45;
+  font-size: clamp(34px, 10vw, 60px);
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.shield-barrier.active {
+  opacity: 1;
+  transform: scale(1.18);
+}
+
+.shield-barrier.hit {
+  opacity: 1;
+  animation: shieldHit 0.45s ease;
+}
+
+.shield-feedback {
+  min-height: 28px;
+  padding: 0 12px 12px;
+  text-align: center;
+  color: var(--accent-gold);
+  font-size: clamp(14px, 3.6vw, 18px);
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+@keyframes shieldLaneSweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes shieldHit {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+@media (max-width: 560px) {
+  .shield-battlefield {
+    grid-template-columns: 1fr;
+    grid-template-rows: minmax(0, 1fr) auto;
+    padding: 10px;
+  }
+
+  .shield-castle {
+    grid-template-columns: auto auto;
+    justify-content: center;
+  }
+
+  .shield-lanes {
+    gap: 8px;
+  }
+}

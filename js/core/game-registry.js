@@ -90,6 +90,26 @@ const GAME_DEFINITIONS = [
     weight: 1
   },
   {
+    gameId: 'shield-defense',
+    displayName: '盾牌防禦',
+    icon: '🛡️',
+    description: '選擇正確答案啟動盾牌，守住城堡不被攻破。',
+    modulePath: './games/shield-defense.js',
+    supportsQuestionTypes: ['choice'],
+    supportsAnswerModes: ['tap-select'],
+    weight: 1
+  },
+  {
+    gameId: 'sorter-belt',
+    displayName: '分類輸送帶',
+    icon: '📦',
+    description: '把題目卡送進正確答案箱，分類成功就前進。',
+    modulePath: './games/sorter-belt.js',
+    supportsQuestionTypes: ['choice'],
+    supportsAnswerModes: ['tap-select'],
+    weight: 1
+  },
+  {
     gameId: 'fishing',
     displayName: '釣魚達人',
     icon: '🎣',

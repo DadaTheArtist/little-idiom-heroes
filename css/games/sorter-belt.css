@@ -1,0 +1,228 @@
+.sorter-game {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(180deg, #243041 0%, #121923 58%, #263523 100%);
+  color: #fff;
+  overflow: hidden;
+}
+
+.sorter-hud {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(4px);
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.sorter-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: clamp(13px, 3vw, 16px);
+}
+
+.sorter-info strong {
+  color: var(--accent-gold);
+}
+
+.sorter-lives {
+  display: flex;
+  gap: 5px;
+  color: #82f58a;
+  font-size: clamp(14px, 3.8vw, 19px);
+  line-height: 1;
+}
+
+.sorter-life {
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.sorter-life.empty {
+  opacity: 0.26;
+}
+
+.sorter-stage {
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: auto minmax(110px, 1fr) auto;
+  gap: 12px;
+  padding: 14px;
+}
+
+.sorter-prompt-board {
+  padding: 12px 14px;
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffeb3b;
+  text-align: center;
+  font-size: clamp(16px, 4.2vw, 23px);
+  font-weight: 900;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.sorter-belt {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+  overflow: hidden;
+}
+
+.sorter-belt-line {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 22%;
+  height: 28px;
+  border-top: 4px solid rgba(255, 255, 255, 0.28);
+  border-bottom: 4px solid rgba(0, 0, 0, 0.38);
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 18px,
+      rgba(0, 0, 0, 0.12) 18px,
+      rgba(0, 0, 0, 0.12) 34px
+    ),
+    #55616f;
+  animation: sorterBeltRoll 1.2s linear infinite;
+}
+
+.sorter-card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  width: min(92%, 520px);
+  min-height: 82px;
+  padding: 14px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  background: #f8f1d8;
+  color: #273140;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.34);
+  transition: transform 0.35s, opacity 0.35s;
+}
+
+.sorter-card.moving.correct {
+  transform: translateY(16px) scale(0.92);
+  opacity: 0.8;
+}
+
+.sorter-card.moving.wrong {
+  animation: sorterWrongCard 0.45s ease;
+}
+
+.sorter-card-icon {
+  font-size: clamp(32px, 8vw, 46px);
+  line-height: 1;
+}
+
+.sorter-card-text {
+  min-width: 0;
+  font-size: clamp(15px, 3.8vw, 21px);
+  font-weight: 900;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.sorter-bins {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.sorter-bin {
+  position: relative;
+  display: grid;
+  grid-template-rows: 12px minmax(54px, auto);
+  min-width: 0;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: #fff;
+  font-family: var(--font-main);
+  cursor: pointer;
+}
+
+.sorter-bin-lid {
+  margin: 0 8px;
+  border-radius: 6px 6px 0 0;
+  background: hsl(var(--bin-hue), 66%, 48%);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.28);
+}
+
+.sorter-bin-label {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  min-height: 58px;
+  padding: 8px 6px;
+  border: 3px solid rgba(255, 255, 255, 0.16);
+  border-radius: 6px 6px 8px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  font-size: clamp(13px, 3.3vw, 18px);
+  font-weight: 900;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.sorter-bin.correct .sorter-bin-label {
+  border-color: #91ff9a;
+  background: rgba(47, 174, 78, 0.55);
+}
+
+.sorter-bin.wrong .sorter-bin-label {
+  border-color: #ff9aaa;
+  background: rgba(192, 48, 76, 0.55);
+}
+
+.sorter-feedback {
+  min-height: 30px;
+  padding: 0 12px 12px;
+  color: var(--accent-gold);
+  text-align: center;
+  font-size: clamp(15px, 3.7vw, 20px);
+  font-weight: 900;
+  flex-shrink: 0;
+}
+
+@keyframes sorterBeltRoll {
+  0% { background-position: 0 0; }
+  100% { background-position: 34px 0; }
+}
+
+@keyframes sorterWrongCard {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+@media (max-width: 640px) {
+  .sorter-stage {
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .sorter-bins {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  .sorter-bin-label {
+    min-height: 50px;
+  }
+}
