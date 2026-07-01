@@ -6,12 +6,18 @@ export class ResultScreen {
   async enter(container, { results, levelConfig }) {
     const won = results.stars > 0;
     const isExamPractice = !!levelConfig.isExamPractice;
-    const nextChallenge = (!isExamPractice && won) ? this._findNextChallenge(levelConfig) : null;
+    const isGameTest = !!levelConfig.isGameTest;
+    const nextChallenge = (!isExamPractice && !isGameTest && won) ? this._findNextChallenge(levelConfig) : null;
     const el = document.createElement('div');
     el.className = `screen result-screen ${won ? 'win' : 'lose'}`;
 
     let actionsHTML;
-    if (isExamPractice) {
+    if (isGameTest) {
+      actionsHTML = `
+        <button class="btn btn-gold" id="btn-retry">再測一次</button>
+        <button class="btn btn-secondary" id="btn-map">回到測試區</button>
+      `;
+    } else if (isExamPractice) {
       actionsHTML = `
         <button class="btn btn-gold" id="btn-retry">再練一次</button>
         <button class="btn btn-secondary" id="btn-map">回到練習區</button>
@@ -66,7 +72,10 @@ export class ResultScreen {
     const retryBtn = el.querySelector('#btn-retry');
     if (retryBtn) {
       retryBtn.addEventListener('click', () => {
-        if (isExamPractice) {
+        if (isGameTest) {
+          const gameId = levelConfig.selectedGame?.gameId || levelConfig.challenge?.gameId;
+          this.app.startGameTest(gameId);
+        } else if (isExamPractice) {
           this.app.startExamPractice(levelConfig.challenge);
         } else {
           this.app.startLevel(levelConfig);
@@ -86,7 +95,9 @@ export class ResultScreen {
     }
 
     el.querySelector('#btn-map').addEventListener('click', () => {
-      if (isExamPractice) {
+      if (isGameTest) {
+        this.app.screenManager.switchTo('game-test');
+      } else if (isExamPractice) {
         this.app.screenManager.switchTo('exam-practice');
       } else {
         const textbookId = levelConfig?.zone?.textbookId || null;
