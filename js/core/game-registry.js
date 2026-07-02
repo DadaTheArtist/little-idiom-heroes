@@ -91,9 +91,9 @@ const GAME_DEFINITIONS = [
   },
   {
     gameId: 'shield-defense',
-    displayName: '盾牌防禦',
-    icon: '🛡️',
-    description: '選擇正確答案啟動盾牌，守住城堡不被攻破。',
+    displayName: '城門查哨站',
+    icon: '🏰',
+    description: '協助守衛查驗答案，答對放行入城、答錯請離開。',
     modulePath: './games/shield-defense.js',
     supportsQuestionTypes: ['choice'],
     supportsAnswerModes: ['tap-select'],

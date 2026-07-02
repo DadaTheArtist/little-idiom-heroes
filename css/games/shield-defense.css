@@ -65,58 +65,244 @@
   flex: 1;
   min-height: 0;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(90px, 24vw, 150px);
-  gap: 12px;
+  grid-template-columns: clamp(120px, 28vw, 210px) minmax(0, 1fr);
+  gap: 14px;
   padding: 14px;
 }
 
-.shield-lanes {
+.shield-checkpoint {
+  position: relative;
   display: grid;
-  grid-template-rows: repeat(4, 1fr);
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.shield-gate {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 180px);
+  min-height: 150px;
+  color: #f8e7b5;
+  filter: drop-shadow(0 10px 16px rgba(0, 0, 0, 0.36));
+}
+
+.shield-gate-roof {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 42px;
+  border: 3px solid rgba(255, 255, 255, 0.18);
+  border-radius: 8px 8px 3px 3px;
+  background: #7d4d2f;
+  color: #ffe7a7;
+  font-size: clamp(15px, 3.5vw, 21px);
+  font-weight: 900;
+}
+
+.shield-gate-arch {
+  position: absolute;
+  bottom: 0;
+  width: 82%;
+  height: 128px;
+  border: 12px solid #9a6842;
+  border-bottom-width: 16px;
+  border-radius: 62px 62px 10px 10px;
+  background:
+    linear-gradient(180deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.34)),
+    repeating-linear-gradient(
+      90deg,
+      #5e3926 0,
+      #5e3926 18px,
+      #6b432d 18px,
+      #6b432d 35px
+    );
+  box-shadow:
+    inset 0 -12px 0 rgba(0, 0, 0, 0.22),
+    0 0 0 4px rgba(255, 255, 255, 0.08);
+}
+
+.shield-guard {
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  gap: 3px;
+  padding: 6px 9px;
+  border: 2px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  background: rgba(18, 31, 47, 0.74);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.shield-guard.approve {
+  background: rgba(35, 145, 82, 0.78);
+  transform: translateY(-4px);
+}
+
+.shield-guard.deny {
+  background: rgba(165, 45, 65, 0.82);
+  animation: shieldDeny 0.42s ease;
+}
+
+.shield-guard-icon {
+  font-size: clamp(34px, 9vw, 56px);
+  line-height: 1;
+}
+
+.shield-guard-label {
+  color: #fff;
+  font-size: clamp(12px, 3vw, 15px);
+  font-weight: 900;
+}
+
+.shield-queue-area {
+  display: grid;
+  grid-template-rows: minmax(78px, 0.9fr) minmax(0, 1.5fr);
+  gap: 12px;
+  min-width: 0;
+  min-height: 0;
+}
+
+.shield-queue {
+  position: relative;
+  display: flex;
+  align-items: end;
+  gap: 9px;
+  min-width: 0;
+  min-height: 92px;
+  padding: 8px 10px;
+  border: 2px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(0, 0, 0, 0.12)),
+    rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+}
+
+.shield-queue::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  height: 6px;
+  background: rgba(255, 238, 174, 0.45);
+}
+
+.shield-person {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  flex: 0 0 clamp(42px, 9vw, 62px);
+  min-height: 68px;
+  transition: transform 0.32s, opacity 0.32s, filter 0.32s;
+}
+
+.shield-person.current {
+  transform: translateY(-7px) scale(1.08);
+}
+
+.shield-person.waiting {
+  opacity: 0.82;
+}
+
+.shield-person.done {
+  opacity: 0.42;
+  filter: saturate(0.65);
+  transform: translateX(-6px) scale(0.86);
+}
+
+.shield-person.admitted {
+  animation: shieldPersonAdmit 0.72s ease forwards;
+}
+
+.shield-person.rejected {
+  animation: shieldPersonReject 0.72s ease forwards;
+}
+
+.shield-person-icon {
+  font-size: clamp(30px, 7vw, 46px);
+  line-height: 1;
+}
+
+.shield-person-number {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background: #ffe082;
+  color: #273140;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.shield-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
   min-width: 0;
 }
 
-.shield-lane {
+.shield-option {
   position: relative;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: 10px;
+  gap: 9px;
   min-width: 0;
+  min-height: 62px;
   border: 2px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.09);
   color: #fff;
-  padding: 8px 10px;
+  padding: 9px 10px;
   font-family: var(--font-main);
   cursor: pointer;
   overflow: hidden;
 }
 
-.shield-lane::before {
+.shield-option::before {
   content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 52%, transparent 100%);
   transform: translateX(-100%);
-  animation: shieldLaneSweep 4.8s linear infinite;
-  animation-delay: var(--lane-delay, 0s);
+  animation: shieldOptionSweep 4.8s linear infinite;
+  animation-delay: var(--option-delay, 0s);
 }
 
-.shield-lane.correct {
+.shield-option.correct {
   border-color: #7dffb2;
   background: rgba(38, 180, 98, 0.45);
 }
 
-.shield-lane.wrong {
+.shield-option.wrong {
   border-color: #ff9aaa;
   background: rgba(190, 48, 78, 0.45);
 }
 
-.shield-enemy {
+.shield-option-badge {
   z-index: 1;
-  font-size: clamp(24px, 7vw, 38px);
+  display: grid;
+  place-items: center;
+  min-width: 48px;
+  min-height: 36px;
+  padding: 4px 6px;
+  border-radius: 6px;
+  background: rgba(255, 224, 130, 0.92);
+  color: #3d2a19;
+  font-size: clamp(11px, 2.7vw, 14px);
+  font-weight: 900;
+  line-height: 1.1;
 }
 
 .shield-answer {
@@ -129,34 +315,6 @@
   overflow-wrap: anywhere;
 }
 
-.shield-castle {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: 10px;
-}
-
-.shield-castle-icon {
-  font-size: clamp(48px, 14vw, 86px);
-  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.38));
-}
-
-.shield-barrier {
-  opacity: 0.45;
-  font-size: clamp(34px, 10vw, 60px);
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.shield-barrier.active {
-  opacity: 1;
-  transform: scale(1.18);
-}
-
-.shield-barrier.hit {
-  opacity: 1;
-  animation: shieldHit 0.45s ease;
-}
-
 .shield-feedback {
   min-height: 28px;
   padding: 0 12px 12px;
@@ -167,12 +325,22 @@
   flex-shrink: 0;
 }
 
-@keyframes shieldLaneSweep {
+@keyframes shieldOptionSweep {
   0% { transform: translateX(-100%); }
   100% { transform: translateX(100%); }
 }
 
-@keyframes shieldHit {
+@keyframes shieldPersonAdmit {
+  0% { transform: translateX(0) translateY(-7px) scale(1.08); opacity: 1; }
+  100% { transform: translateX(-145%) translateY(-12px) scale(0.78); opacity: 0; }
+}
+
+@keyframes shieldPersonReject {
+  0% { transform: translateX(0) translateY(-7px) rotate(0); opacity: 1; }
+  100% { transform: translateX(118%) translateY(18px) rotate(8deg); opacity: 0; }
+}
+
+@keyframes shieldDeny {
   0%, 100% { transform: translateX(0); }
   25% { transform: translateX(-6px); }
   75% { transform: translateX(6px); }
@@ -181,16 +349,36 @@
 @media (max-width: 560px) {
   .shield-battlefield {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr);
     padding: 10px;
   }
 
-  .shield-castle {
+  .shield-checkpoint {
     grid-template-columns: auto auto;
     justify-content: center;
   }
 
-  .shield-lanes {
+  .shield-gate {
+    min-height: 108px;
+    width: 120px;
+  }
+
+  .shield-gate-arch {
+    height: 88px;
+    border-width: 9px;
+    border-bottom-width: 12px;
+  }
+
+  .shield-queue-area {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .shield-queue {
+    min-height: 76px;
+  }
+
+  .shield-options {
+    grid-template-columns: 1fr;
     gap: 8px;
   }
 }

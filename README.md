@@ -343,7 +343,7 @@ python3 -m http.server 8000
 | `balloon-pop` | 🎈 氣球射擊 | 點選 | choice / true-false |
 | `space-shooter` | 🚀 太空射擊 | 點選 | choice / true-false |
 | `maze-runner` | 🧭 迷宮探險 | 方向控制 | choice |
-| `shield-defense` | 🛡️ 盾牌防禦 | 點選防禦 | choice |
+| `shield-defense` | 🏰 城門查哨站 | 點選查驗 | choice |
 | `sorter-belt` | 📦 分類輸送帶 | 點選分類箱 | choice |
 
 要新增遊戲：

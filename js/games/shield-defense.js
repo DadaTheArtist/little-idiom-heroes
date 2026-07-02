@@ -5,6 +5,38 @@ const CORRECT_DELAY = 900;
 const WRONG_DELAY = 1500;
 const FEEDBACK_DURATION = 1100;
 
+export function createGateQueue(totalQuestions, currentIdx, resolutions = []) {
+  const total = Math.max(0, Number(totalQuestions) || 0);
+  const current = Math.max(0, Number(currentIdx) || 0);
+
+  return Array.from({ length: total }, (_, idx) => {
+    const resolved = resolutions[idx];
+    let status = 'waiting';
+    if (resolved === 'admitted' || resolved === 'rejected') {
+      status = resolved;
+    } else if (idx < current) {
+      status = 'done';
+    } else if (idx === current) {
+      status = 'current';
+    }
+
+    return {
+      index: idx,
+      number: idx + 1,
+      status
+    };
+  });
+}
+
+export function createVisibleGateQueue(totalQuestions, currentIdx, resolutions = []) {
+  return createGateQueue(totalQuestions, currentIdx, resolutions)
+    .filter((person) => person.index >= currentIdx);
+}
+
+export function getGateResolutionClass(isCorrect) {
+  return isCorrect ? 'admitted' : 'rejected';
+}
+
 export default class ShieldDefense extends BaseGame {
   constructor(container, questions, config) {
     super(container, questions, config);
@@ -13,6 +45,7 @@ export default class ShieldDefense extends BaseGame {
     this.isProcessing = false;
     this.feedbackTimer = null;
     this.resolveTimer = null;
+    this.queueResolutions = Array.from({ length: this.totalQuestions }, () => null);
   }
 
   init() {
@@ -29,10 +62,19 @@ export default class ShieldDefense extends BaseGame {
         </div>
         <div class="shield-question" id="shield-question">準備防禦！</div>
         <div class="shield-battlefield">
-          <div class="shield-lanes" id="shield-lanes"></div>
-          <div class="shield-castle">
-            <div class="shield-castle-icon">🏰</div>
-            <div class="shield-barrier" id="shield-barrier">🛡️</div>
+          <div class="shield-checkpoint">
+            <div class="shield-gate">
+              <div class="shield-gate-roof">城門</div>
+              <div class="shield-gate-arch"></div>
+            </div>
+            <div class="shield-guard" id="shield-guard">
+              <span class="shield-guard-icon">💂</span>
+              <span class="shield-guard-label">守衛</span>
+            </div>
+          </div>
+          <div class="shield-queue-area">
+            <div class="shield-queue" id="shield-queue"></div>
+            <div class="shield-options" id="shield-options"></div>
           </div>
         </div>
         <div class="shield-feedback" id="shield-feedback"></div>
@@ -43,9 +85,10 @@ export default class ShieldDefense extends BaseGame {
     this.progressEl = this.container.querySelector('#shield-progress');
     this.scoreEl = this.container.querySelector('#shield-score');
     this.healthEl = this.container.querySelector('#shield-health');
-    this.lanesEl = this.container.querySelector('#shield-lanes');
+    this.queueEl = this.container.querySelector('#shield-queue');
+    this.optionsEl = this.container.querySelector('#shield-options');
     this.feedbackEl = this.container.querySelector('#shield-feedback');
-    this.barrierEl = this.container.querySelector('#shield-barrier');
+    this.guardEl = this.container.querySelector('#shield-guard');
 
     this.container.querySelector('#shield-back').addEventListener('click', () => this._handleBack());
     this._bindHintButton();
@@ -90,28 +133,43 @@ export default class ShieldDefense extends BaseGame {
     this.progressEl.textContent = `${this.currentIdx + 1}/${this.totalQuestions}`;
     this.scoreEl.textContent = this.correctCount;
     this.questionEl.textContent = q?.hint || q?.stem || q?.prompt || '選出正確答案';
+    this._renderQueue();
     this._showFeedback('');
-    this._renderLanes(q);
+    this._renderOptions(q);
   }
 
-  _renderLanes(q) {
-    this.lanesEl.innerHTML = '';
-    this._buildOptions(q).forEach((answer, idx) => {
-      const lane = document.createElement('button');
-      lane.className = 'shield-lane';
-      lane.type = 'button';
-      lane.dataset.answer = answer;
-      lane.style.setProperty('--lane-delay', `${idx * 0.12}s`);
+  _renderQueue() {
+    this.queueEl.innerHTML = '';
+    createVisibleGateQueue(this.totalQuestions, this.currentIdx, this.queueResolutions).forEach((person) => {
+      const item = document.createElement('div');
+      item.className = `shield-person ${person.status}`;
+      item.dataset.index = String(person.index);
+      item.innerHTML = `
+        <span class="shield-person-icon">🧍</span>
+        <span class="shield-person-number">${person.number}</span>
+      `;
+      this.queueEl.appendChild(item);
+    });
+  }
 
-      const enemy = document.createElement('span');
-      enemy.className = 'shield-enemy';
-      enemy.textContent = '⚔️';
+  _renderOptions(q) {
+    this.optionsEl.innerHTML = '';
+    this._buildOptions(q).forEach((answer, idx) => {
+      const option = document.createElement('button');
+      option.className = 'shield-option';
+      option.type = 'button';
+      option.dataset.answer = answer;
+      option.style.setProperty('--option-delay', `${idx * 0.08}s`);
+
+      const badge = document.createElement('span');
+      badge.className = 'shield-option-badge';
+      badge.textContent = '通行牌';
       const label = document.createElement('span');
       label.className = 'shield-answer';
       label.textContent = answer;
-      lane.append(enemy, label);
-      lane.addEventListener('click', () => this._submitAnswer(answer));
-      this.lanesEl.appendChild(lane);
+      option.append(badge, label);
+      option.addEventListener('click', () => this._submitAnswer(answer));
+      this.optionsEl.appendChild(option);
     });
   }
 
@@ -122,23 +180,31 @@ export default class ShieldDefense extends BaseGame {
 
     this.isProcessing = true;
     const isCorrect = String(answer) === String(q.answer);
-    this.lanesEl.querySelectorAll('.shield-lane').forEach((lane) => {
-      lane.disabled = true;
-      if (String(lane.dataset.answer) === String(q.answer)) lane.classList.add('correct');
-      if (!isCorrect && String(lane.dataset.answer) === String(answer)) lane.classList.add('wrong');
+    this.optionsEl.querySelectorAll('.shield-option').forEach((option) => {
+      option.disabled = true;
+      if (String(option.dataset.answer) === String(q.answer)) option.classList.add('correct');
+      if (!isCorrect && String(option.dataset.answer) === String(answer)) option.classList.add('wrong');
     });
+
+    const resolution = getGateResolutionClass(isCorrect);
+    this.queueResolutions[this.currentIdx] = resolution;
+    const currentPerson = this.queueEl.querySelector('.shield-person.current');
+    if (currentPerson) {
+      currentPerson.classList.remove('current');
+      currentPerson.classList.add(resolution);
+    }
 
     if (isCorrect) {
       this.correctCount++;
       this.scoreEl.textContent = this.correctCount;
-      this.barrierEl.classList.add('active');
-      this._showFeedback('盾牌成功防禦！');
+      this.guardEl.classList.add('approve');
+      this._showFeedback('查驗通過，放行入城！');
     } else {
       this.health = Math.max(0, this.health - 1);
       this._recordWrong(q, answer);
       this._renderHealth();
-      this.barrierEl.classList.add('hit');
-      this._showFeedback('城堡受傷了！');
+      this.guardEl.classList.add('deny');
+      this._showFeedback('查驗未通過，請離開！');
     }
 
     this.currentIdx++;
@@ -149,7 +215,7 @@ export default class ShieldDefense extends BaseGame {
     clearTimeout(this.resolveTimer);
     this.resolveTimer = setTimeout(() => {
       if (this._destroyed) return;
-      this.barrierEl.classList.remove('active', 'hit');
+      this.guardEl.classList.remove('approve', 'deny');
       if (this.currentIdx >= this.totalQuestions || this.health <= 0) {
         this._finish();
         return;

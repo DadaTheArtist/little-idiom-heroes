@@ -4,6 +4,14 @@ const MAX_LIVES = 3;
 const CORRECT_DELAY = 950;
 const WRONG_DELAY = 1350;
 const FEEDBACK_DURATION = 1100;
+const CONVEYOR_LANE_COUNT = 3;
+
+export function getNextConveyorLane(previousLane, laneCount = CONVEYOR_LANE_COUNT) {
+  const safeLaneCount = Math.max(1, Math.floor(Number(laneCount) || 1));
+  if (safeLaneCount === 1) return 0;
+  if (!Number.isInteger(previousLane) || previousLane < 0) return 0;
+  return (previousLane + 1) % safeLaneCount;
+}
 
 export default class SorterBelt extends BaseGame {
   constructor(container, questions, config) {
@@ -13,6 +21,7 @@ export default class SorterBelt extends BaseGame {
     this.isProcessing = false;
     this.resolveTimer = null;
     this.feedbackTimer = null;
+    this.lastConveyorLane = -1;
   }
 
   init() {
@@ -32,6 +41,7 @@ export default class SorterBelt extends BaseGame {
           <div class="sorter-prompt-board" id="sorter-prompt">準備分類！</div>
           <div class="sorter-belt">
             <div class="sorter-belt-line"></div>
+            <div class="sorter-box-stream" id="sorter-box-stream" aria-hidden="true"></div>
             <div class="sorter-card" id="sorter-card">
               <span class="sorter-card-icon">📦</span>
               <span class="sorter-card-text" id="sorter-card-text"></span>
@@ -50,6 +60,7 @@ export default class SorterBelt extends BaseGame {
     this.promptEl = this.container.querySelector('#sorter-prompt');
     this.cardEl = this.container.querySelector('#sorter-card');
     this.cardTextEl = this.container.querySelector('#sorter-card-text');
+    this.conveyorStreamEl = this.container.querySelector('#sorter-box-stream');
     this.binsEl = this.container.querySelector('#sorter-bins');
     this.feedbackEl = this.container.querySelector('#sorter-feedback');
 
@@ -133,13 +144,14 @@ export default class SorterBelt extends BaseGame {
       if (!isCorrect && String(bin.dataset.answer) === String(answer)) bin.classList.add('wrong');
     });
 
-    this.cardEl.classList.add(isCorrect ? 'correct' : 'wrong', 'moving');
-
     if (isCorrect) {
+      this._sendBoxDownBelt(q);
+      this.cardEl.classList.add('correct', 'moving');
       this.correctCount++;
       this.scoreEl.textContent = this.correctCount;
       this._showFeedback('分類成功！');
     } else {
+      this.cardEl.classList.add('wrong', 'moving');
       this.lives = Math.max(0, this.lives - 1);
       this._recordWrong(q, answer);
       this._renderLives();
@@ -160,6 +172,24 @@ export default class SorterBelt extends BaseGame {
       }
       this._loadQuestion();
     }, delay);
+  }
+
+  _sendBoxDownBelt(q) {
+    if (!this.conveyorStreamEl) return;
+
+    const lane = getNextConveyorLane(this.lastConveyorLane, CONVEYOR_LANE_COUNT);
+    this.lastConveyorLane = lane;
+
+    const box = document.createElement('div');
+    box.className = 'sorter-conveyor-box';
+    box.style.setProperty('--box-offset', `${lane * 34}px`);
+    box.innerHTML = `
+      <span class="sorter-conveyor-icon">📦</span>
+      <span class="sorter-conveyor-text"></span>
+    `;
+    box.querySelector('.sorter-conveyor-text').textContent = q?.stem || q?.prompt || q?.hint || '已分類';
+    box.addEventListener('animationend', () => box.remove(), { once: true });
+    this.conveyorStreamEl.appendChild(box);
   }
 
   _buildOptions(q) {
